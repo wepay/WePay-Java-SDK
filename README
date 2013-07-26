@@ -15,10 +15,11 @@ API calls take two arguments, a data argument and an access_token argument. For 
 	data.name = "Test Person";
 	data.description = "This is an example account";
 	data.type = "personal";
-	/* 
-		You can include as many parameters as you'd like to the data object before executing the API call. However required parameters must be included or the call will fail.
+	/** 
+	 *	You can include as many parameters as you'd like to the data 
+	 *	object before executing the API call. However required parameters 
+	 *	must be included or the call will fail.
 	 */
-	
 	Account newAccount = Account.create(data, myAccessToken);
 	
 All API calls take this sort of format. There are many types of data objects that are necessary for different API calls. These data objects facilitate the passing of valid parameters to API call classes. The data classes can be found in the com/wepay/model/data folder. You can explore all argument types in the code in the src folder and parameter requirements and descriptions can be found in the full WePay API documentation. 
