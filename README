@@ -1,4 +1,5 @@
 WePay-Java-SDK
+================================
 
 The lib folder contains the jars necessary to use the SDK to make API calls to WePay. The src folder contains all source code used to build the the WePayAPI.jar. 
 
