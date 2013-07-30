@@ -13,6 +13,7 @@ import com.wepay.model.data.*;
 public class Account extends WePayResource {
 		
 	protected Long account_id;
+	protected String state;
 	protected String account_uri;
 	protected BigDecimal payment_limit;
 	protected String verification_state;
@@ -26,10 +27,8 @@ public class Account extends WePayResource {
 	public static Account fetch(Long account_id, String access_token) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", account_id);
-		
 		String response = request("/account", params, access_token);
 		Account a = gson.fromJson(response, Account.class);
-		
 		AccountData ad = gson.fromJson(response, AccountData.class);
 		a.accountData = ad;
 		return a;
@@ -145,6 +144,10 @@ public class Account extends WePayResource {
 	
 	public String getName() {
 		return accountData.name;
+	}
+	
+	public String getState() {
+		return state;
 	}
 	
 	public String getDescription() {

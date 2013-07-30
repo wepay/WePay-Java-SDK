@@ -95,13 +95,19 @@ public class Checkout extends WePayResource {
 	}
 	
 	public void modify(String new_callback_uri, String access_token) throws JSONException, IOException, WePayException {
+		//overload function for single parameter modification: callback_uri
+		CheckoutData data = new CheckoutData();
+		data.callback_uri = new_callback_uri;
+		this.modify(data, access_token);
+	}
+	public void modify(CheckoutData data, String access_token) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("checkout_id", this.checkout_id);
-		params.put("callback_uri", new_callback_uri);
+		params.put("callback_uri", data.callback_uri);
 		String response = request("/checkout/modify", params, access_token);
 		Checkout c = gson.fromJson(response, Checkout.class);
 		CheckoutData cd = gson.fromJson(response, CheckoutData.class);
-		cd.callback_uri = new_callback_uri;
+		cd.callback_uri = data.callback_uri;
 		this.checkout_id = c.checkout_id;
 		this.checkout_uri = c.checkout_uri;
 		this.state = c.state;

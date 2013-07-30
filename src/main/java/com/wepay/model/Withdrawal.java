@@ -65,13 +65,19 @@ public class Withdrawal extends WePayResource {
 	}
 	
 	public void modify(String new_callback_uri, String access_token) throws JSONException, IOException, WePayException {
+		//overload function for single parameter modification: callback_uri
+		WithdrawalData data = new WithdrawalData();
+		data.callback_uri = new_callback_uri;
+		this.modify(data, access_token);
+	}
+	public void modify(WithdrawalData data, String access_token) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("withdrawal_id", this.withdrawal_id);
-		params.put("callback_uri", new_callback_uri);
+		params.put("callback_uri", data.callback_uri);
 		String response = request("/withdrawal/modify", params, access_token);
 		Withdrawal w = gson.fromJson(response, Withdrawal.class);
 		WithdrawalData wd = gson.fromJson(response, WithdrawalData.class);
-		wd.callback_uri = new_callback_uri;
+		wd.callback_uri = data.callback_uri;
 		this.withdrawal_id = w.withdrawal_id;
 		this.withdrawal_uri = w.withdrawal_uri;
 		this.state = w.state;

@@ -94,13 +94,19 @@ public class Preapproval extends WePayResource {
 	}
 	
 	public void modify(String new_callback_uri, String access_token) throws JSONException, IOException, WePayException {
+		//overload function for single parameter modification: callback_uri
+		PreapprovalData data = new PreapprovalData();
+		data.callback_uri = new_callback_uri;
+		this.modify(data, access_token);
+	}
+	public void modify(PreapprovalData data, String access_token) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("preapproval_id", this.preapproval_id);
-		params.put("callback_uri", new_callback_uri);
+		params.put("callback_uri", data.callback_uri);
 		String response = request("/preapproval/modify", params, access_token);
 		Preapproval p = gson.fromJson(response, Preapproval.class);
 		PreapprovalData pd = gson.fromJson(response, PreapprovalData.class);
-		pd.callback_uri = new_callback_uri;
+		pd.callback_uri = data.callback_uri;
 		this.preapproval_id = p.preapproval_id;
 		this.preapproval_uri = p.preapproval_uri;
 		this.state = p.state;

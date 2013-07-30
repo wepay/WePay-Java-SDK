@@ -29,12 +29,18 @@ public class User extends WePayResource {
 	}
 	
 	public void modify(String new_callback_uri, String access_token) throws JSONException, IOException, WePayException {
+		//overload function for single parameter modification: callback_uri
+		UserData data = new UserData();
+		data.callback_uri = new_callback_uri;
+		this.modify(data, access_token);
+	}
+	public void modify(UserData data, String access_token) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("callback_uri", new_callback_uri);
+		params.put("callback_uri", data.callback_uri);
 		String response = request("/user/modify", params, access_token);
 		User u = gson.fromJson(response, User.class);
 		UserData ud = gson.fromJson(response, UserData.class);
-		ud.callback_uri = new_callback_uri;
+		ud.callback_uri = data.callback_uri;
 		this.user_id = u.user_id;
 		this.user_name = u.user_name;
 		this.state = u.state;
