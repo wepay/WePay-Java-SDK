@@ -30,9 +30,9 @@ The following examples show how to make a few simple API calls and how you can u
 ```java
 // create a new account
 AccountData aData = new AccountData();
-aData.name = "Test Person";                        // required parameter
-aData.description = "This is an example account";  // required parameter
-aData.type = "personal";                           // optional parameter
+aData.name = "Test Person";                          // required parameter
+aData.description = "This is an example account";    // required parameter
+aData.type = "personal";                             // optional parameter
 Account newAccount = Account.create(aData, myAccessToken);
 
 // set tax for an account
@@ -43,7 +43,7 @@ newAccount.set_tax(taxData, "newAccountAccessToken");
 
 // create a new checkout
 CheckoutData cData = new CheckoutData();
-cData.account_id = newAccount.getAccount_id();     // use a returned object to access information
+cData.account_id = newAccount.getAccount_id();       // use a returned object to access information
 cData.short_description = "Soccer Ball Purchase";
 cData.type = "GOODS";
 cData.amount = 29.95;
