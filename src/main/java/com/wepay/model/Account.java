@@ -126,6 +126,15 @@ public class Account extends WePayResource {
 		params.put("taxes", taxes);
 		request("/account/set_tax", params, access_token);
 	}
+	public void set_tax(AccountTaxData taxData, String access_token) throws JSONException, IOException, WePayException {
+		//overload function for single AccountTaxData object
+		JSONObject params = new JSONObject();
+		params.put("account_id", this.account_id);
+		JSONArray taxes = new JSONArray();
+		if (taxData != null) taxes.put(AccountTaxData.build_tax(taxData));
+		params.put("taxes", taxes);
+		request("/account/set_tax", params, access_token);
+	}
 
 	public AccountTaxData[] get_tax(String access_token) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
