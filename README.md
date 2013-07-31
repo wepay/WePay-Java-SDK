@@ -30,9 +30,9 @@ The following examples show how to make a few simple API calls and how you can u
 ```java
 // create a new account
 AccountData aData = new AccountData();
-aData.name = "Test Person";                          // required parameter
-aData.description = "This is an example account";    // required parameter
-aData.type = "personal";                             // optional parameter
+aData.name = "Test Person";                          // required parameter for this API call
+aData.description = "This is an example account";    // required parameter for this API call
+aData.type = "personal";                             // optional parameter for this API call
 Account newAccount = Account.create(aData, myAccessToken);
 
 // set tax for an account
