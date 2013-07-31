@@ -10,8 +10,8 @@ import com.wepay.model.*;                   // contains call classes and all API
 import com.wepay.model.data.*;              // contains all data objects needed for making calls
 import com.wepay.net.WePayResource;         // network resource used to execute calls
 import com.wepay.exception.WePayException;  // handles WePay exceptions
-import org.json.*;                          // SDK uses JSONObjects and JSONArrays when passing API call parameters
-import com.google.gson.*;                   // SDK uses GSON for building objects from API call responses
+import org.json.*;                          // SDK uses JSON when handling API call parameters
+import com.google.gson.*;                   // SDK uses GSON for building objects from call responses
 ```
 Before making actual API calls, you'll need to initialize a new WePay object with your WePay application's client ID, client secret, and whether you want to use the stage environment (true) or the production environment (false).
 ```java	
@@ -26,16 +26,17 @@ The data objects facilitate the passing of valid parameters to API call classes.
 
 The following sample code shows how you can make an "/account/create" API call and how you can use the returned object to obtain information about the account. 
 ```java
-AccountData data = new AccountData();
-data.name = "Test Person";
-data.description = "This is an example account";
-data.type = "personal";
+// create a new account
+AccountData aData = new AccountData();
+aData.name = "Test Person";
+aData.description = "This is an example account";
+aData.type = "personal";
 /** 
  *   You can include as many parameters as you'd like to the data 
  *   object before executing the API call. However required parameters 
  *   must be included or the call will fail.
  */
-Account newAccount = Account.create(data, myAccessToken);
+Account newAccount = Account.create(aData, myAccessToken);
 /**
  *   You can now call instance methods on your newAccount object to 
  *   obtain information about the account. 
@@ -43,8 +44,24 @@ Account newAccount = Account.create(data, myAccessToken);
 Long accountId = newAccount.getAccount_id(); 
 String verificationState = newAccount.getVerification_state();
 ```	
-All API calls use this sort of format. There are many types of data objects that are necessary for different API calls, so take a few minutes to browse the source code and see how API call classes use different data objects. 
+All API calls use this sort of format. There are many types of data objects that are necessary for different API calls, so take a few minutes to browse the source code and see how API call classes use different data objects. Below are a few more examples of how API calls use data objects. 
+```java
+// create a new checkout
+CheckoutData cData = new CheckoutData();
+cData.account_id = newAccount.getAccount_id();
+cData.short_description = "Soccer Ball Purchase";
+cData.type = "GOODS";
+cData.amount = 29.95;
+cData.app_fee = 0.50;
+cData.fee_payer = "payee";
+Checkout newCheckout = Checkout.create(cData, "newAccountAccessToken");
 
+// set tax for an account
+AccountTaxData taxData = new AccountTaxData();
+taxData.percent = 7;
+taxData.country = "US";
+newAccount.set_tax(taxData, "newAccountAccessToken");
+```
 A demo of the WePay API Java SDK can be found at WeFarm, an online demo marketplace built on the WePay API using this SDK. WeFarm is live online at http://wefarm.herokuapp.com/. You can also find the Java source code for WeFarm at https://github.com/wepay/WeFarm-Java to see how WeFarm uses this SDK to make WePay API calls. 
 
 For further information, visit https://www.wepay.com/developer. 
