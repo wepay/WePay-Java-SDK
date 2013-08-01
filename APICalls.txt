@@ -1,4 +1,5 @@
-/account			Account		fetch(Long account_id, String access_token);
+WePay API Call		Return Type	Call Parameters
+/account		Account		fetch(Long account_id, String access_token);
 /account/find		Account[]	find(AccountFindData findData, String access_token);
 /account/create		Account		create(AccountData data, String access_token);
 /account/modify		void		modify(AccountData newData, String access_token);
