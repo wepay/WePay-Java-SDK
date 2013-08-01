@@ -3,7 +3,7 @@ WePay-Java-SDK
 
 The lib folder contains the jars necessary to use the SDK to make API calls to WePay. The src folder contains all source code used to build the WePay jar (com.wepay.jar). 
 
-To use this SDK, first add the com.wepay.jar to your project. You'll need to add GSON and JSON jars as well (gson-2.2.4.jar and java-json.jar are also included in the lib folder). You'll also need to import the necessary classes and packages into your own code. 
+To use this SDK, first add the WePay jar (com.wepay.jar) to your project. You'll need to add GSON and JSON jars as well (gson-2.2.4.jar and java-json.jar are also included in the lib folder). You'll also need to import the necessary classes and packages into your own code. 
 ```java
 import com.wepay.WePay;                     // WePay object needed for API initialization
 import com.wepay.model.*;                   // contains call classes and all API call functions
