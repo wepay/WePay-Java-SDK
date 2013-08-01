@@ -3,13 +3,32 @@ WePay API Call		Return Type	Call Parameters
 /account		Account		fetch(Long account_id, String access_token);
 /account/find		Account[]	find(AccountFindData findData, String access_token);
 /account/create		Account		create(AccountData data, String access_token);
-/account/modify		void		modify(AccountData newData, String access_token);
+/account/modify		void		modify(AccountData data, String access_token);
 /account/delete		void		delete(String reason, String access_token);
 /account/balance	AccountBalanceData balance(String access_token);
 /account/add_bank	String		add_bank(AccountAddBankData addBankData, String access_token);
 /account/set_tax	void		set_tax(AccountTaxData[] taxesData, String access_token);
-  ***			void		set_tax(AccountTaxData taxData, String access_token);
+ ***			void		set_tax(AccountTaxData taxData, String access_token);
 /account/get_tax	AccountTaxData[] get_tax(String access_token);
+
+/app			App		fetch(String access_token);
+/app/modify		void	modify(AppData data, String access_token);
+
+/batch/create	Batch[]	create(BatchData[] calls, String access_token);
+
+/checkout		Checkout	fetch(Long checkout_id, String access_token);
+/checkout/find		Checkout[]	find(CheckoutFindData findData, String access_token);
+/checkout/create	Checkout	create(CheckoutData data, String access_token);
+/checkout/modify	void		modify(CheckoutData data, String access_token);
+ ***			void		modify(String new_callback_uri, String access_token);
+/checkout/cancel	void	cancel(String cancel_reason, String access_token);
+/checkout/refund	void	refund(CheckoutRefundData refundData, String access_token);
+/checkout/capture	void	capture(String access_token);
+
+
+
+
+
 
 
 
