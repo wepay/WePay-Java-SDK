@@ -1,4 +1,5 @@
 WePay API Call              Return Type          Call Parameters
+***************************************************************************************************************
 
 /account                    Account              fetch(Long account_id, String access_token);
 /account/find               Account[]            find(AccountFindData findData, String access_token);
@@ -8,7 +9,7 @@ WePay API Call              Return Type          Call Parameters
 /account/balance            AccountBalanceData   balance(String access_token);
 /account/add_bank           String               add_bank(AccountAddBankData addBankData, String access_token);
 /account/set_tax            void                 set_tax(AccountTaxData[] taxesData, String access_token);
- ***                        void                 set_tax(AccountTaxData taxData, String access_token);
+/account/set_tax *          void                 set_tax(AccountTaxData taxData, String access_token);
 /account/get_tax            AccountTaxData[]     get_tax(String access_token);
 
 /app                        App                  fetch(String access_token);
@@ -20,7 +21,7 @@ WePay API Call              Return Type          Call Parameters
 /checkout/find              Checkout[]           find(CheckoutFindData findData, String access_token);
 /checkout/create            Checkout             create(CheckoutData data, String access_token);
 /checkout/modify            void                 modify(CheckoutData data, String access_token);
- ***                        void                 modify(String new_callback_uri, String access_token);
+/checkout/modify *          void                 modify(String new_callback_uri, String access_token);
 /checkout/cancel            void                 cancel(String cancel_reason, String access_token);
 /checkout/refund            void                 refund(CheckoutRefundData refundData, String access_token);
 /checkout/capture           void                 capture(String access_token);
@@ -37,11 +38,11 @@ WePay API Call              Return Type          Call Parameters
 /preapproval/find           Preapproval[]        find(PreapprovalFindData findData, String access_token);
 /preapproval/create         Preapproval          create(PreapprovalData data, String access_token);
 /preapproval/modify         void                 modify(PreapprovalData data, String access_token);
- ***                        void                 modify(String new_callback_uri, String access_token);
+/preapproval/modify *       void                 modify(String new_callback_uri, String access_token);
 
 /user                       User                 fetch(String access_token);
 /user/modify                void                 modify(UserData data, String access_token); 
- ***                        void                 modify(String new_callback_uri, String access_token); 
+/user/modify *              void                 modify(String new_callback_uri, String access_token); 
 /user/register              User                 register(UserData data, String access_token);
 /user/resend_confirmation   void                 resend_confirmation(String access_token);
 
@@ -49,8 +50,8 @@ WePay API Call              Return Type          Call Parameters
 /withdrawal/find            Withdrawal[]         find(WithdrawalFindData findData, String access_token);
 /withdrawal/create          Withdrawal           create(WithdrawalData data, String access_token);
 /withdrawal/modify          void                 modify(WithdrawalData data, String access_token);
- ***                        void                 modify(String new_callback_uri, String access_token);
+/withdrawal/modify *        void                 modify(String new_callback_uri, String access_token);
 
 
-*** Some API calls include overload functions to simplify calls where only a single 
-    parameter is required if you do not want to include other optional parameters   ***
+* Some API calls include overload functions to simplify calls where only a single 
+  parameter is required if you do not want to include other optional parameters   
