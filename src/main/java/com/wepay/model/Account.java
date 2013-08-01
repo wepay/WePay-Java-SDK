@@ -67,20 +67,20 @@ public class Account extends WePayResource {
 		return a;
 	}
 	
-	public void modify(AccountData newData, String access_token) throws JSONException, IOException, WePayException {
+	public void modify(AccountData data, String access_token) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", this.account_id);
-		if (newData.name != null) params.put("name", newData.name);
-		if (newData.description != null) params.put("description", newData.description);
-		if (newData.reference_id != null) params.put("reference_id", newData.reference_id);
-		if (newData.image_uri != null) params.put("image_uri", newData.image_uri);
-		if (newData.gaq_domains != null) params.put("gaq_domains", newData.gaq_domains);		
-		if (newData.theme_object != null) params.put("theme_object", ThemeObjectData.build_theme_object(newData.theme_object));
-		if (newData.callback_uri != null) params.put("callback_uri", newData.callback_uri);	
+		if (data.name != null) params.put("name", data.name);
+		if (data.description != null) params.put("description", data.description);
+		if (data.reference_id != null) params.put("reference_id", data.reference_id);
+		if (data.image_uri != null) params.put("image_uri", data.image_uri);
+		if (data.gaq_domains != null) params.put("gaq_domains", data.gaq_domains);		
+		if (data.theme_object != null) params.put("theme_object", ThemeObjectData.build_theme_object(data.theme_object));
+		if (data.callback_uri != null) params.put("callback_uri", data.callback_uri);	
 		String response = request("/account/modify", params, access_token);
 		Account a = gson.fromJson(response, Account.class);
 		AccountData ad = gson.fromJson(response, AccountData.class);
-		ad.callback_uri = newData.callback_uri;
+		ad.callback_uri = data.callback_uri;
 		this.account_id = a.account_id;
 		this.account_uri = a.account_uri;
 		this.payment_limit = a.payment_limit;
