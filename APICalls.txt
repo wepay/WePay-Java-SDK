@@ -1,3 +1,7 @@
+This file contains a listing of all WePay API calls available through this SDK. Use this file as a reference 
+for information about return type and data object parameters for each API call function.
+
+
 WePay API Call              Return Type          Call Parameters
 ***************************************************************************************************************
 
