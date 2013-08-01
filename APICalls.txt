@@ -1,4 +1,5 @@
 WePay API Call		Return Type	Call Parameters
+
 /account		Account		fetch(Long account_id, String access_token);
 /account/find		Account[]	find(AccountFindData findData, String access_token);
 /account/create		Account		create(AccountData data, String access_token);
@@ -7,5 +8,11 @@ WePay API Call		Return Type	Call Parameters
 /account/balance	AccountBalanceData balance(String access_token);
 /account/add_bank	String		add_bank(AccountAddBankData addBankData, String access_token);
 /account/set_tax	void		set_tax(AccountTaxData[] taxesData, String access_token);
-/account/set_tax	void		set_tax(AccountTaxData taxData, String access_token);
+	***				void		set_tax(AccountTaxData taxData, String access_token);
 /account/get_tax	AccountTaxData[] get_tax(String access_token);
+
+
+
+
+*** Some API calls include overload functions to simplify calls where only a single 
+    parameter is required if you do not want to include other optional parameters   ***
