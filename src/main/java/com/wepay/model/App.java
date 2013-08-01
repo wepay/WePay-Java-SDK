@@ -62,3 +62,4 @@ public class App extends WePayResource {
 	}
 	
 }
+src/main/java/com/wepay/model/Account.javco
