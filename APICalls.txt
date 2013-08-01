@@ -8,7 +8,7 @@ WePay API Call		Return Type	Call Parameters
 /account/balance	AccountBalanceData balance(String access_token);
 /account/add_bank	String		add_bank(AccountAddBankData addBankData, String access_token);
 /account/set_tax	void		set_tax(AccountTaxData[] taxesData, String access_token);
-	***				void		set_tax(AccountTaxData taxData, String access_token);
+  ***			void		set_tax(AccountTaxData taxData, String access_token);
 /account/get_tax	AccountTaxData[] get_tax(String access_token);
 
 
