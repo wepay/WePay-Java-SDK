@@ -29,19 +29,19 @@ public class App extends WePayResource {
 		return a;
 	}
 	
-	public void modify(AppData newData, String access_token) throws JSONException, IOException, WePayException {
+	public void modify(AppData data, String access_token) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("client_id", WePay.client_id);
 		params.put("client_secret", WePay.client_secret);
-		if (newData.gaq_domains != null) params.put("gaq_domains", newData.gaq_domains);
-		if (newData.theme_object != null) params.put("theme_object", ThemeObjectData.build_theme_object(newData.theme_object));
+		if (data.gaq_domains != null) params.put("gaq_domains", data.gaq_domains);
+		if (data.theme_object != null) params.put("theme_object", ThemeObjectData.build_theme_object(data.theme_object));
 		JSONObject object = new JSONObject(request("/app/modify", params, access_token));
 		this.client_id = WePay.client_id;
 		this.status = object.getString("status");
-		if (this.appData == null) this.appData = newData;
+		if (this.appData == null) this.appData = data;
 		else {
-			if (newData.gaq_domains != null) this.appData.gaq_domains = newData.gaq_domains; 
-			if (newData.theme_object != null) this.appData.theme_object = newData.theme_object;
+			if (data.gaq_domains != null) this.appData.gaq_domains = data.gaq_domains; 
+			if (data.theme_object != null) this.appData.theme_object = data.theme_object;
 		}
 	}
 
