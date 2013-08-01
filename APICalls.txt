@@ -1,4 +1,4 @@
-WePay API Call		Return Type	Call Parameters
+WePay API Call              Return Type          Call Parameters
 
 /account                    Account              fetch(Long account_id, String access_token);
 /account/find               Account[]            find(AccountFindData findData, String access_token);
@@ -50,7 +50,6 @@ WePay API Call		Return Type	Call Parameters
 /withdrawal/create          Withdrawal           create(WithdrawalData data, String access_token);
 /withdrawal/modify          void                 modify(WithdrawalData data, String access_token);
  ***                        void                 modify(String new_callback_uri, String access_token);
-
 
 
 *** Some API calls include overload functions to simplify calls where only a single 
