@@ -3,9 +3,12 @@ package com.wepay.net;
 import java.io.*;
 import java.net.*;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import org.json.*;
 
 import com.google.gson.*;
+import com.wepay.WePay;
 import com.wepay.exception.WePayException;
 
 public class WePayResource {
@@ -32,26 +35,34 @@ public class WePayResource {
 		}
 	}
 	
-	protected static String request(String call, JSONObject params, String access_token) throws WePayException, IOException {
+	protected static javax.net.ssl.HttpsURLConnection httpsConnect(String call, String access_token) throws IOException {
 		URL url = new URL(api_endpoint + call);
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();    
+		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+		connection.setConnectTimeout(30000); // 30 seconds
+		connection.setReadTimeout(100000); // 100 seconds
 		connection.setDoOutput(true);
 		connection.setDoInput(true);
-		connection.setRequestMethod("POST"); 
+		connection.setRequestMethod("POST");
 		connection.setRequestProperty("Content-Type", "application/json");
 		connection.setRequestProperty("charset", "utf-8");
 		connection.setRequestProperty("User-Agent", "WePay Java SDK");
 		if (access_token != null) {connection.setRequestProperty("Authorization: Bearer", access_token);}		
-		DataOutputStream wr = new DataOutputStream(connection.getOutputStream ());
-		String parameters = params.toString();
-		wr.writeBytes(parameters);
+		return connection;
+	}
+	
+	protected static String request(String call, JSONObject params, String access_token) throws WePayException, IOException {
+		HttpsURLConnection connection = httpsConnect(call, access_token);
+		DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+		wr.writeBytes(params.toString());
 		wr.flush();
 		wr.close();
 		boolean error = false;
+		int responseCode = connection.getResponseCode();
 		InputStream is;
-		try {
+		if (responseCode >= 200 && responseCode < 300) {
 			is = connection.getInputStream();
-		} catch (IOException e) {
+		}
+		else {
 			is = connection.getErrorStream();
 			error = true;
 		}
