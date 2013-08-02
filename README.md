@@ -25,11 +25,11 @@ API calls through the Java SDK generally take two arguments, a data object argum
 
 Data objects facilitate the passing of valid parameters to API call classes. Most data objects are designed specifically as parameters to certain types of API calls. Other data objects are utilized by multiple API calls. You can learn what types of data objects are taken as arguments by API call functions in the <a href="https://github.com/wepay/WePay-Java-SDK/blob/master/APICalls.txt">APICalls.txt</a> file. This file contains a listing of all available API calls available through this SDK, their return types, and which data object parameters each call takes. 
 
-You can find examples from all API call classes in the <a href="https://github.com/wepay/WePay-Java-SDK/tree/master/sample_calls">sample_calls</a> folder. Each file in that folder contains an example of each of its available API calls. You should structure the API calls in your code after these examples. It may also be beneficial to explore the source code in the <a href="https://github.com/wepay/WePay-Java-SDK/tree/master/src/main/java/com/wepay/model">model</a> and <a href="https://github.com/wepay/WePay-Java-SDK/tree/master/src/main/java/com/wepay/model/data">data</a> folders to learn a bit more about the way data objects are used.
+You can find examples from all API call classes in the <a href="https://github.com/wepay/WePay-Java-SDK/tree/master/sample_calls">sample_calls</a> folder. Each file in that folder contains an example of each of its available API calls and the effect of that call. You should structure the API calls in your code after these examples. It may also be beneficial to explore the source code in the <a href="https://github.com/wepay/WePay-Java-SDK/tree/master/src/main/java/com/wepay/model">model</a> and <a href="https://github.com/wepay/WePay-Java-SDK/tree/master/src/main/java/com/wepay/model/data">data</a> folders to learn a bit more about the way data objects are used.
 
 You *must* include all *required* parameters to successfully execute API calls. You can also include as many optional parameters as you'd like to the data object before executing the API call. For a full listing of required parameters for each call, visit the API documentation. 
 
-The following examples show how to make a few simple API calls and how you can use the returned objects to obtain information. 
+The following examples show how to make a few simple API calls and how you can use the returned objects to obtain information. You can find more examples in the <a href="https://github.com/wepay/WePay-Java-SDK/tree/master/sample_calls">sample_calls</a> folder.
 ```java
 // create a new account
 AccountData aData = new AccountData();
