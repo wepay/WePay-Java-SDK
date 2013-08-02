@@ -17,7 +17,7 @@ public class AccountCalls {
 		AccountData aData = new AccountData();
 		aData.name = "John Smith";
 		aData.description = "This is an example account";
-		Account myAccount = Account.create(aData, "myAccessToken");
+		Account myAccount = Account.create(aData, myAccessToken);
 		/**
 			myAccount: 
 			{
