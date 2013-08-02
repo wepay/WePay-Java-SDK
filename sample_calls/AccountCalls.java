@@ -1,5 +1,3 @@
-import com.wepay.model.Account;
-import com.wepay.model.data.AccountData;
 
 public class AccountCalls {
 	
@@ -12,6 +10,7 @@ public class AccountCalls {
 	
 	public static void main() {
 		
+		/****************************************************************************/
 		/**
 		 * CREATE call
 		 */
