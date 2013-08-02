@@ -82,6 +82,7 @@ public class Account extends WePayResource {
 		AccountData ad = gson.fromJson(response, AccountData.class);
 		ad.callback_uri = data.callback_uri;
 		this.account_id = a.account_id;
+		this.state = a.state;
 		this.account_uri = a.account_uri;
 		this.payment_limit = a.payment_limit;
 		this.verification_state = a.verification_state; 
