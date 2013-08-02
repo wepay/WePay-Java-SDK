@@ -43,14 +43,16 @@ public class Preapproval extends WePayResource {
 	
 	public static Preapproval[] find(PreapprovalFindData findData, String access_token) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		if (findData.account_id != null) params.put("account_id", findData.account_id);
-		if (findData.state != null) params.put("state", findData.state);
-		if (findData.reference_id != null) params.put("reference_id", findData.reference_id);
-		if (findData.start != null) params.put("start", findData.start);
-		if (findData.limit != null) params.put("limit", findData.limit);
-		if (findData.sort_order != null) params.put("sort_order", findData.sort_order);
-		if (findData.last_checkout_id != null) params.put("last_checkout_id", findData.last_checkout_id);
-		if (findData.shipping_fee != null) params.put("shipping_fee", findData.shipping_fee);
+		if (findData != null) {
+			if (findData.account_id != null) params.put("account_id", findData.account_id);
+			if (findData.state != null) params.put("state", findData.state);
+			if (findData.reference_id != null) params.put("reference_id", findData.reference_id);
+			if (findData.start != null) params.put("start", findData.start);
+			if (findData.limit != null) params.put("limit", findData.limit);
+			if (findData.sort_order != null) params.put("sort_order", findData.sort_order);
+			if (findData.last_checkout_id != null) params.put("last_checkout_id", findData.last_checkout_id);
+			if (findData.shipping_fee != null) params.put("shipping_fee", findData.shipping_fee);
+		}
 		JSONArray results = new JSONArray(request("/preapproval/find", params, access_token));
 		Preapproval[] found = new Preapproval[results.length()];
 		for (int i = 0; i < found.length; i++) {
