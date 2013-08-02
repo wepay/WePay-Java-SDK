@@ -1,9 +1,10 @@
 WePay-Java-SDK
 ================================
 
-The lib folder contains the jars necessary to use the SDK to make API calls to WePay. The src folder contains all source code used to build the WePay jar (com.wepay.jar). 
+To use this SDK, first add the WePay jar (com.wepay.jar) to your project. You'll need to add GSON and JSON jars as well (gson-2.2.4.jar and java-json.jar are also included in the lib folder). 
 
-To use this SDK, first add the WePay jar (com.wepay.jar) to your project. You'll need to add GSON and JSON jars as well (gson-2.2.4.jar and java-json.jar are also included in the lib folder). You'll also need to import the necessary classes and packages into your own code. 
+The lib folder contains the jars necessary to use the SDK to make API calls to WePay. The src folder contains all source code used to build the WePay jar (com.wepay.jar). You'll also need to import the necessary classes and packages into your own code. 
+
 ```java
 import com.wepay.WePay;                     // WePay object needed for API initialization
 import com.wepay.model.*;                   // contains call classes and all API call functions
@@ -35,11 +36,19 @@ aData.description = "This is an example account";    // required parameter for t
 aData.type = "personal";                             // optional parameter for this API call
 Account newAccount = Account.create(aData, myAccessToken);
 
-// set tax for an account
-AccountTaxData taxData = new AccountTaxData();
-taxData.percent = 7;
-taxData.country = "US";
-newAccount.set_tax(taxData, "newAccountAccessToken");
+// get an access_token for the new account
+OAuth2Data data = new OAuth2Data();
+data.redirect_uri = "http://www.mywebsite.com/oauth2/";
+data.scope = "manage_accounts,view_balance,collect_payments,view_user,preapprove_payments,send_money";
+String sendUserToThisURL = OAuth2.authorize(data, null);
+//send user to the returned URL to complete OAuth2 authorization form
+
+//on completion of authorization, user is redirected to redirect_uri with a code parameter
+//once you have the code you can exchange it for an access token
+OAuth2Data data = new OAuth2Data();
+data.redirect_uri = "http://www.mywebsite.com/oauth2/";
+data.code = code;
+String userNewAccessToken = OAuth2.token(data, null);
 
 // create a new checkout
 CheckoutData cData = new CheckoutData();
@@ -49,7 +58,7 @@ cData.type = "GOODS";
 cData.amount = 29.95;
 cData.app_fee = 0.50;
 cData.fee_payer = "payee";
-Checkout newCheckout = Checkout.create(cData, "newAccountAccessToken");
+Checkout newCheckout = Checkout.create(cData, userNewAccessToken);
 ```
 A demo of the WePay API Java SDK can be found at WeFarm, an online demo marketplace built on the WePay API using this SDK. WeFarm is live online at http://wefarm.herokuapp.com/. You can also find the Java source code for WeFarm at https://github.com/wepay/WeFarm-Java to see how WeFarm uses this SDK to execute WePay API calls. 
 
