@@ -33,7 +33,6 @@ public class Batch extends WePayResource {
 			callsArray.put(call);
 		}
 		batch.put("calls", callsArray);
-		System.out.println("batch: " + batch);
 		JSONObject object = new JSONObject(request("/batch/create", batch, access_token));
 		JSONArray responses = object.getJSONArray("calls");
 		Batch[] response = new Batch[responses.length()];
@@ -41,6 +40,18 @@ public class Batch extends WePayResource {
 			Batch b = gson.fromJson(responses.get(i).toString(), Batch.class);
 			response[i] = b;
 		}
+		return response;
+	}
+	
+	public String getCall() {
+		return call;
+	}
+	
+	public String getReferenceId() {
+		return reference_id;
+	}
+	
+	public Map getResponse() {
 		return response;
 	}
 	

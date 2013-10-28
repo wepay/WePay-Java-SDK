@@ -18,15 +18,29 @@ public class BatchCalls {
 		call1.callClass = "Account";
 		call1.callFunction = "create";
 		call1.authorization = myAccessToken;
-		call1.parameters = {"name":"Adam", "description":"first account created from batch"}
-		
+		JSONObject params1 = new JSONObject();
+		params1.put("name", "Adam");
+		params1.put("description", "first account created from batch");
+		call1.parameters = params1;
+
 		BatchData call2 = new BatchData();
 		call2.callClass = "Account";
 		call2.callFunction = "create";
 		call2.authorization = myAccessToken;
-		call2.parameters = {"name":"Bob", "description":"second account created from batch"}
-		
-		Batch[] responses = Batch.create({call1, call2}, myAccessToken);
+		JSONObject params2 = new JSONObject();
+		params2.put("name", "Bob");
+		params2.put("description", "second account created from batch");
+		call2.parameters = params2;
+
+		BatchData[] calls = {call1, call2};
+
+		Batch[] responses = Batch.create(calls, myAccessToken);
+
+		// Print responses
+		for (int i=0; i < responses.length; i++) {
+			System.out.println(responses[i].getCall());
+			System.out.println(responses[i].getResponse());
+		}
 		/**
 		   responses:
 			{
