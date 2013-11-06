@@ -11,12 +11,13 @@ import com.wepay.model.data.*;
 
 public class CreditCard extends WePayResource {
 	
-	public Long credit_card_id;
-	public String state;
-	public String credit_card_name;
-	public Long create_time;			//? create_time is returned by API but is not in our documentation
-	public String reference_id;		//? reference_id is in the documentation as returned but it's not set anywhere - try a call and see where its set
-	public CreditCardData creditCardData;
+	protected Long credit_card_id;
+	protected String state;
+	protected String credit_card_name;
+	protected String user_name;
+	protected String email;
+	protected Long create_time;
+	protected String reference_id;
 	
 	public CreditCard(Long credit_card_id) {
 		this.credit_card_id = credit_card_id;
@@ -28,9 +29,7 @@ public class CreditCard extends WePayResource {
 		params.put("client_id", WePay.client_id);
 		params.put("client_secret", WePay.client_secret);
 		String response = request("/credit_card", params, access_token);
-		CreditCardData ccd = gson.fromJson(response, CreditCardData.class);
 		CreditCard cc = gson.fromJson(response, CreditCard.class);
-		cc.creditCardData = ccd;
 		return cc;
 	}
 	
@@ -56,8 +55,6 @@ public class CreditCard extends WePayResource {
 		CreditCard[] found = new CreditCard[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			CreditCard cc = gson.fromJson(results.get(i).toString(), CreditCard.class);
-			CreditCardData ccd = gson.fromJson(results.get(i).toString(), CreditCardData.class);
-			cc.creditCardData = ccd;
 			found[i] = cc;
 		}
 		return found;		
@@ -84,11 +81,15 @@ public class CreditCard extends WePayResource {
 	}
 
 	public String getUser_name() {
-		return creditCardData.user_name;
+		return user_name;
 	}
 
 	public String getEmail() {
-		return creditCardData.email;
+		return email;
+	}
+	
+	public long getCreate_time() {
+		return create_time;
 	}
 
 	public String getReference_id() {

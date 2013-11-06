@@ -12,20 +12,20 @@ import com.wepay.model.data.*;
 
 public class Preapproval extends WePayResource {
 
-	public Long preapproval_id;
-	public String preapproval_uri;
-	public String state;
-	public String manage_uri;
-	public String currency;
-	public AddressData shipping_address;
-	public BigDecimal tax;
-	public String payer_name;
-	public String payer_email;
-	public Long create_time;
-	public Long next_due_time;
-	public Long last_checkout_id;
-	public Long last_checkout_time;
-	public PreapprovalData preapprovalData;
+	protected Long preapproval_id;
+	protected String preapproval_uri;
+	protected String state;
+	protected String manage_uri;
+	protected String currency;
+	protected AddressData shipping_address;
+	protected BigDecimal tax;
+	protected String payer_name;
+	protected String payer_email;
+	protected Long create_time;
+	protected Long next_due_time;
+	protected Long last_checkout_id;
+	protected Long last_checkout_time;
+	protected PreapprovalData preapprovalData;
 
 	public Preapproval(Long preapproval_id) {
 		this.preapproval_id = preapproval_id;

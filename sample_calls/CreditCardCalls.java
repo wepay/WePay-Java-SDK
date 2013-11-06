@@ -14,7 +14,7 @@ public class CreditCardCalls {
 		/**
 		 * AUTHORIZE call
 		 */
-		CreditCard myCreditCard = new CreditCard();
+		CreditCard myCreditCard = new CreditCard(2476834062);
 		myCreditCard.authorize(myAccessToken);
 		/**
 			myCreditCard: 
@@ -71,7 +71,7 @@ public class CreditCardCalls {
 		*/
 		/****************************************************************************/
 		/**
-		 * MODIFY call
+		 * Delete call
 		 */
 		CreditCard myCreditCard = new CreditCard();
 		myCreditCard.delete(myAccessToken);

@@ -11,13 +11,13 @@ import com.wepay.model.data.*;
 
 public class User extends WePayResource {
 	
-	public Long user_id;
-	public String user_name;
-	public String state;
-	public String access_token;
-	public String token_type;
-	public Long expires_in;
-	public UserData userData;
+	protected Long user_id;
+	protected String user_name;
+	protected String state;
+	protected String access_token;
+	protected String token_type;
+	protected Long expires_in;
+	protected UserData userData;
 
 	public static User fetch(String access_token) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();

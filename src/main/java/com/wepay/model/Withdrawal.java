@@ -12,14 +12,15 @@ import com.wepay.model.data.*;
 
 public class Withdrawal extends WePayResource {
 
-	public Long withdrawal_id;
-	public String withdrawal_uri;
-	public String state;
-	public BigDecimal amount;
-	public Boolean recipient_confirmed;
-	public String type;
-	public Long create_time;
-	public WithdrawalData withdrawalData;
+	protected Long withdrawal_id;
+	protected String withdrawal_uri;
+	protected String state;
+	protected BigDecimal amount;
+	protected Boolean recipient_confirmed;
+	protected String type;
+	protected Long create_time;
+	protected Long capture_time;
+	protected WithdrawalData withdrawalData;
 	
 	public Withdrawal(Long withdrawal_id) {
 		this.withdrawal_id = withdrawal_id;
@@ -85,6 +86,7 @@ public class Withdrawal extends WePayResource {
 		this.recipient_confirmed = w.recipient_confirmed;
 		this.type = w.type;
 		this.create_time = w.create_time;
+		this.capture_time = w.capture_time;
 		this.withdrawalData = wd;
 	}
 
@@ -130,6 +132,10 @@ public class Withdrawal extends WePayResource {
 
 	public long getCreate_time() {
 		return create_time;
+	}
+	
+	public long getCapture_time() {
+		return capture_time;
 	}
 	
 }
