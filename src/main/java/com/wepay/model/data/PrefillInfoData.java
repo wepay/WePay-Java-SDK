@@ -15,7 +15,7 @@ public class PrefillInfoData {
 	public String region;
 	public String postcode;
 
-	public static JSONObject build_prefill_info(PrefillInfoData info) throws JSONException {
+	public static JSONObject buildPrefillInfo(PrefillInfoData info) throws JSONException {
 		JSONObject o = new JSONObject();
 		o.put("name", info.name);
 		o.put("email", info.email);

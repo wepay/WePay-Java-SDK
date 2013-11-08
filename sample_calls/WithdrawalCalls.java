@@ -15,7 +15,7 @@ public class WithdrawalCalls {
 		 * CREATE call
 		 */
 		WithdrawalData wData = new WithdrawalData();
-		wData.account_id = 2111137965;
+		wData.accountId = 2111137965;
 		Withdrawal myWithdrawal = Withdrawal.create(wData, myAccessToken);
 		/**
 			myWithdrawal: 
@@ -54,7 +54,7 @@ public class WithdrawalCalls {
 		 * FIND call
 		 */
 		WithdrawalFindData wfData = new WithdrawalFindData();
-		wfData.account_id = 2111137965;
+		wfData.accountId = 2111137965;
 		Withdrawal[] foundList = Withdrawal.find(wfData, myAccessToken);
 		/**
 		    foundList: 
@@ -94,7 +94,7 @@ public class WithdrawalCalls {
 		 * MODIFY call
 		 */
 		WithdrawalData newData = new WithdrawalData(); 
-		newData.callback_uri = "http://www.yourcallbackuri.com";
+		newData.callbackUri = "http://www.yourcallbackuri.com";
 		Withdrawal myWithdrawal = new Withdrawal(264463950);
 		myWithdrawal.modify(newData, myAccessToken);
 		//modifications are made, nothing is returned

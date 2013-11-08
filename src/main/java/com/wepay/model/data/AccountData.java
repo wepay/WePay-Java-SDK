@@ -4,12 +4,12 @@ public class AccountData {
 	
 	public String name;
 	public String description;
-	public String reference_id;
+	public String referenceId;
 	public String type; 
-	public String image_uri;
-	public String[] gaq_domains;
-	public ThemeObjectData theme_object;
+	public String imageUri;
+	public String[] gaqDomains;
+	public ThemeObjectData themeObject;
 	public Integer mcc;	
-	public String callback_uri;
+	public String callbackUri;
 	
 }

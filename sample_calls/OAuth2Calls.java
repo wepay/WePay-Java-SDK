@@ -15,18 +15,18 @@ public class OAuth2Calls {
 		 * AUTHORIZE call
 		 */
 		OAuth2Data oData = new OAuth2Data();
-		oData.redirect_uri = "http://www.mywebsite.com/oauth2/";
+		oData.redirectUri = "http://www.mywebsite.com/oauth2/";
 		oData.scope = "manage_accounts,view_balance,collect_payments,view_user,preapprove_payments,send_money";
 		String sendUserToThisURL = OAuth2.authorize(oData, null);
 		/**
-			sendUserToThisURL: "https://stage.wepay.com/v2/oauth2/authorize?client_id=190082&redirect_uri=http://www.mywebsite.com/oauth2/&scope=manage_accounts,view_balance,collect_payments,view_user,preapprove_payments,send_money"
+			sendUserToThisURL: "https://stage.wepay.com/v2/oauth2/authorize?client_id=190082&redirectUri=http://www.mywebsite.com/oauth2/&scope=manage_accounts,view_balance,collect_payments,view_user,preapprove_payments,send_money"
 		 */
 		/****************************************************************************/
 		/**
 		 * TOKEN call
 		 */
 		OAuth2Data oData = new OAuth2Data();
-		oData.redirect_uri = "http://www.mywebsite.com/oauth2/";
+		oData.redirectUri = "http://www.mywebsite.com/oauth2/";
 		oData.code = "f2afa64e923f7ee1bd6d02bdd12e5e87605dec9f2830f68978";
 		String userNewAccessToken = OAuth2.token(oData, null);
 		/**

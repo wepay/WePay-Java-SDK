@@ -12,37 +12,37 @@ import com.wepay.model.data.*;
 
 public class Withdrawal extends WePayResource {
 
-	protected Long withdrawal_id;
-	protected String withdrawal_uri;
+	protected Long withdrawalId;
+	protected String withdrawalUri;
 	protected String state;
 	protected BigDecimal amount;
-	protected Boolean recipient_confirmed;
+	protected Boolean recipientConfirmed;
 	protected String type;
-	protected Long create_time;
-	protected Long capture_time;
+	protected Long createTime;
+	protected Long captureTime;
 	protected WithdrawalData withdrawalData;
 	
-	public Withdrawal(Long withdrawal_id) {
-		this.withdrawal_id = withdrawal_id;
+	public Withdrawal(Long withdrawalId) {
+		this.withdrawalId = withdrawalId;
 	}
 	
-	public static Withdrawal fetch(Long withdrawal_id, String access_token) throws JSONException, IOException, WePayException {
+	public static Withdrawal fetch(Long withdrawalId, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("withdrawal_id", withdrawal_id);
-		String response = request("/withdrawal", params, access_token);
+		params.put("withdrawal_id", withdrawalId);
+		String response = request("/withdrawal", params, accessToken);
 		WithdrawalData wd = gson.fromJson(response, WithdrawalData.class);
 		Withdrawal w = gson.fromJson(response, Withdrawal.class);
 		w.withdrawalData = wd;
 		return w;
 	}
 	
-	public static Withdrawal[] find(WithdrawalFindData findData, String access_token) throws JSONException, IOException, WePayException {
+	public static Withdrawal[] find(WithdrawalFindData findData, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		if (findData.account_id != null) params.put("account_id", findData.account_id);
+		if (findData.accountId != null) params.put("account_id", findData.accountId);
 		if (findData.limit != null) params.put("limit", findData.limit);
 		if (findData.start != null) params.put("start", findData.start);
-		if (findData.sort_order != null) params.put("sort_order", findData.sort_order);
-		JSONArray results = new JSONArray(request("/withdrawal/find", params, access_token));
+		if (findData.sortOrder != null) params.put("sort_order", findData.sortOrder);
+		JSONArray results = new JSONArray(request("/withdrawal/find", params, accessToken));
 		Withdrawal[] found = new Withdrawal[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			Withdrawal w = gson.fromJson(results.get(i).toString(), Withdrawal.class);
@@ -53,65 +53,65 @@ public class Withdrawal extends WePayResource {
 		return found;	
 	}
 	
-	public static Withdrawal create(WithdrawalData data, String access_token) throws JSONException, IOException, WePayException {
+	public static Withdrawal create(WithdrawalData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("account_id", data.account_id);
-		if (data.redirect_uri != null) params.put("redirect_uri", data.redirect_uri);
-		if (data.callback_uri != null) params.put("callback_uri", data.callback_uri);
+		params.put("account_id", data.accountId);
+		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
+		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
 		if (data.note != null) params.put("note", data.note);
 		if (data.mode != null) params.put("mode", data.mode);
-		Withdrawal w = gson.fromJson(request("/withdrawal/create", params, access_token), Withdrawal.class);
+		Withdrawal w = gson.fromJson(request("/withdrawal/create", params, accessToken), Withdrawal.class);
 		w.withdrawalData = data;
 		return w;
 	}
 	
-	public void modify(String new_callback_uri, String access_token) throws JSONException, IOException, WePayException {
-		//overload function for single parameter modification: callback_uri
+	public void modify(String newCallbackUri, String accessToken) throws JSONException, IOException, WePayException {
+		//overload function for single parameter modification: callbackUri
 		WithdrawalData data = new WithdrawalData();
-		data.callback_uri = new_callback_uri;
-		this.modify(data, access_token);
+		data.callbackUri = newCallbackUri;
+		this.modify(data, accessToken);
 	}
-	public void modify(WithdrawalData data, String access_token) throws JSONException, IOException, WePayException {
+	public void modify(WithdrawalData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("withdrawal_id", this.withdrawal_id);
-		params.put("callback_uri", data.callback_uri);
-		String response = request("/withdrawal/modify", params, access_token);
+		params.put("withdrawal_id", this.withdrawalId);
+		params.put("callback_uri", data.callbackUri);
+		String response = request("/withdrawal/modify", params, accessToken);
 		Withdrawal w = gson.fromJson(response, Withdrawal.class);
 		WithdrawalData wd = gson.fromJson(response, WithdrawalData.class);
-		wd.callback_uri = data.callback_uri;
-		this.withdrawal_id = w.withdrawal_id;
-		this.withdrawal_uri = w.withdrawal_uri;
+		wd.callbackUri = data.callbackUri;
+		this.withdrawalId = w.withdrawalId;
+		this.withdrawalUri = w.withdrawalUri;
 		this.state = w.state;
 		this.amount = w.amount;
-		this.recipient_confirmed = w.recipient_confirmed;
+		this.recipientConfirmed = w.recipientConfirmed;
 		this.type = w.type;
-		this.create_time = w.create_time;
-		this.capture_time = w.capture_time;
+		this.createTime = w.createTime;
+		this.captureTime = w.captureTime;
 		this.withdrawalData = wd;
 	}
 
-	public Long getWithdrawal_id() {
-		return withdrawal_id;
+	public Long getWithdrawalId() {
+		return withdrawalId;
 	}
 	
-	public Long getAccount_id() {
-		return withdrawalData.account_id;
+	public Long getAccountId() {
+		return withdrawalData.accountId;
 	}
 	
 	public String getState() {
 		return state;
 	}
 	
-	public String getRedirect_uri() {
-		return withdrawalData.redirect_uri;
+	public String getRedirectUri() {
+		return withdrawalData.redirectUri;
 	}
 
-	public String getWithdrawal_uri() {
-		return withdrawal_uri;
+	public String getWithdrawalUri() {
+		return withdrawalUri;
 	}
 
-	public String getCallback_uri() {
-		return withdrawalData.callback_uri;
+	public String getCallbackUri() {
+		return withdrawalData.callbackUri;
 	}
 
 	public BigDecimal getAmount() {
@@ -122,20 +122,20 @@ public class Withdrawal extends WePayResource {
 		return withdrawalData.note;
 	}
 	
-	public Boolean isRecipient_confirmed() {
-		return recipient_confirmed;
+	public Boolean isRecipientConfirmed() {
+		return recipientConfirmed;
 	}
 
 	public String getType() {
 		return type;
 	}
 
-	public long getCreate_time() {
-		return create_time;
+	public long getCreateTime() {
+		return createTime;
 	}
 	
-	public long getCapture_time() {
-		return capture_time;
+	public long getCaptureTime() {
+		return captureTime;
 	}
 	
 }

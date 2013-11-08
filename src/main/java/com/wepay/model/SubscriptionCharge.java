@@ -12,42 +12,42 @@ import com.wepay.model.data.*;
 
 public class SubscriptionCharge extends WePayResource {
 	
-	protected Long subscription_plan_id;
-	protected Long subscription_id;
-	protected Long subscription_charge_id;
+	protected Long subscriptionPlanId;
+	protected Long subscriptionId;
+	protected Long subscriptionChargeId;
 	protected String type;
 	protected BigDecimal amount;
 	protected BigDecimal fee;
-	protected BigDecimal app_fee;
+	protected BigDecimal appFee;
 	protected BigDecimal gross;
 	protected Integer quantity;
-	protected BigDecimal amount_refunded;
-	protected BigDecimal amount_charged_back;
+	protected BigDecimal amountRefunded;
+	protected BigDecimal amountChargedBack;
 	protected String state;
-	protected Long create_time;
-	protected Long end_time;
-	protected Long prorate_time;
-	protected String refund_reason;
+	protected Long createTime;
+	protected Long endTime;
+	protected Long prorateTime;
+	protected String refundReason;
 	
-	public static SubscriptionCharge fetch(Long subscription_charge_id, String access_token) throws JSONException, IOException, WePayException {
+	public static SubscriptionCharge fetch(Long subscriptionChargeId, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("subscription_charge_id", subscription_charge_id);
-		String response = request("/subscription_charge", params, access_token);
+		params.put("subscription_charge_id", subscriptionChargeId);
+		String response = request("/subscription_charge", params, accessToken);
 		SubscriptionCharge sc = gson.fromJson(response, SubscriptionCharge.class);
 		return sc;
 	}
 	
-	public static SubscriptionCharge[] find(SubscriptionChargeFindData findData, String access_token) throws JSONException, IOException, WePayException {
+	public static SubscriptionCharge[] find(SubscriptionChargeFindData findData, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("subscription_id", findData.subscription_id);
+		params.put("subscription_id", findData.subscriptionId);
 		if (findData.start != null) params.put("start", findData.start);
 		if (findData.limit != null) params.put("limit", findData.limit);
-		if (findData.start_time != null) params.put("start_time", findData.start_time);
-		if (findData.end_time != null) params.put("end_time", findData.end_time);
+		if (findData.startTime != null) params.put("start_time", findData.startTime);
+		if (findData.endTime != null) params.put("end_time", findData.endTime);
 		if (findData.type != null) params.put("type", findData.type);	
 		if (findData.amount != null) params.put("amount", findData.amount);
 		if (findData.state != null) params.put("state", findData.state);
-		JSONArray results = new JSONArray(request("/subscription_charge/find", params, access_token));
+		JSONArray results = new JSONArray(request("/subscription_charge/find", params, accessToken));
 		SubscriptionCharge[] found = new SubscriptionCharge[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			SubscriptionCharge sc = gson.fromJson(results.get(i).toString(), SubscriptionCharge.class);
@@ -56,28 +56,28 @@ public class SubscriptionCharge extends WePayResource {
 		return found;
 	}
 	
-	public void refund(String refund_reason, String access_token) throws JSONException, IOException, WePayException {
+	public void refund(String refundReason, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("subscription_charge_id", this.subscription_charge_id);
-		params.put("refund_reason", refund_reason);
-		String response = request("/subscription_charge/refund", params, access_token);
+		params.put("subscription_charge_id", this.subscriptionChargeId);
+		params.put("refund_reason", refundReason);
+		String response = request("/subscription_charge/refund", params, accessToken);
 		SubscriptionCharge sc = gson.fromJson(response, SubscriptionCharge.class);
 		this.state = sc.state;
-		this.subscription_id = sc.subscription_id;
-		this.subscription_plan_id = sc.subscription_plan_id;
-		this.refund_reason = refund_reason;
+		this.subscriptionId = sc.subscriptionId;
+		this.subscriptionPlanId = sc.subscriptionPlanId;
+		this.refundReason = refundReason;
 	}
 
 	public Long getSubscriptionPlanId() {
-		return subscription_plan_id;
+		return subscriptionPlanId;
 	}
 
 	public Long getSubscriptionId() {
-		return subscription_id;
+		return subscriptionId;
 	}
 
 	public Long getSubscriptionChargeId() {
-		return subscription_charge_id;
+		return subscriptionChargeId;
 	}
 
 	public String getType() {
@@ -93,7 +93,7 @@ public class SubscriptionCharge extends WePayResource {
 	}
 
 	public BigDecimal getAppFee() {
-		return app_fee;
+		return appFee;
 	}
 
 	public BigDecimal getGross() {
@@ -105,11 +105,11 @@ public class SubscriptionCharge extends WePayResource {
 	}
 	
 	public BigDecimal getAmountRefunded() {
-		return amount_refunded;
+		return amountRefunded;
 	}
 
 	public BigDecimal getAmountChargedBack() {
-		return amount_charged_back;
+		return amountChargedBack;
 	}
 	
 	public String getState() {
@@ -117,19 +117,19 @@ public class SubscriptionCharge extends WePayResource {
 	}
 
 	public Long getCreateTime() {
-		return create_time;
+		return createTime;
 	}
 
 	public Long getEndTime() {
-		return end_time;
+		return endTime;
 	}
 
 	public Long getProrateTime() {
-		return prorate_time;
+		return prorateTime;
 	}
 		
 	public String getRefundReason() {
-		return refund_reason;
+		return refundReason;
 	}
 
 }

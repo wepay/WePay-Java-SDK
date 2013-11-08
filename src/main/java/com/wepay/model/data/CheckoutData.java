@@ -4,30 +4,30 @@ import java.math.BigDecimal;
 
 public class CheckoutData {
 
-	public Long account_id;
-	public String short_description;
+	public Long accountId;
+	public String shortDescription;
 	public String type;
 	public BigDecimal amount;
-	public String long_description;
-	public String payer_email_message;
-	public String payee_email_message;
-	public String reference_id;
-	public BigDecimal app_fee;
-	public String fee_payer;
-	public String redirect_uri;
-	public String callback_uri;
-	public String fallback_uri;
-	public String cancel_reason;
-	public String refund_reason;
-	public Boolean auto_capture;
-	public Boolean require_shipping;
-	public BigDecimal shipping_fee;
-	public Boolean charge_tax;
+	public String longDescription;
+	public String payerEmailMessage;
+	public String payeeEmailMessage;
+	public String referenceId;
+	public BigDecimal appFee;
+	public String feePayer;
+	public String redirectUri;
+	public String callbackUri;
+	public String fallbackUri;
+	public String cancelReason;
+	public String refundReason;
+	public Boolean autoCapture;
+	public Boolean requireShipping;
+	public BigDecimal shippingFee;
+	public Boolean chargeTax;
 	public String mode;
-	public Long preapproval_id;
-	public PrefillInfoData prefill_info;
-	public String funding_sources;
-	public String payment_method_type;
-	public Long payment_method_id;
+	public Long preapprovalId;
+	public PrefillInfoData prefillInfo;
+	public String fundingSources;
+	public String paymentMethodType;
+	public Long paymentMethodId;
 	
 }

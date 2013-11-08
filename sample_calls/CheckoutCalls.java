@@ -15,8 +15,8 @@ public class CheckoutCalls {
 		 * CREATE call
 		 */
 		CheckoutData cData = new CheckoutData();
-		cData.account_id = 2111137965;
-		cData.short_description = "sample checkout";
+		cData.accountId = 2111137965;
+		cData.shortDescription = "sample checkout";
 		cData.type = "GOODS";
 		cData.amount = 19.99;
 		Checkout myCheckout = Checkout.create(cData, myAccessToken);
@@ -64,7 +64,7 @@ public class CheckoutCalls {
 		 * FIND call
 		 */
 		CheckoutFindData cfData = new CheckoutFindData();
-		cfData.account_id = 2111137965;
+		cfData.accountId = 2111137965;
 		Checkout[] foundList = Checkout.find(cfData, myAccessToken);
 		/**
 		    foundList: 
@@ -112,7 +112,7 @@ public class CheckoutCalls {
 		 * MODIFY call
 		 */
 		CheckoutData newData = new CheckoutData(); 
-		newData.callback_uri = "http://www.yourcallbackuri.com";
+		newData.callbackUri = "http://www.yourcallbackuri.com";
 		Checkout myCheckout = new Checkout(1590803949);
 		myCheckout.modify(newData, myAccessToken);
 		//modifications are made, nothing is returned
@@ -150,7 +150,7 @@ public class CheckoutCalls {
 		 * REFUND call
 		 */
 		CheckoutRefundData refund = new CheckoutRefundData();
-		refund.refund_reason = "shirt did not fit properly";
+		refund.refundReason = "shirt did not fit properly";
 		refund.amount = 19.99;
 		Checkout myCheckout = new Checkout(1590803949);
 		myCheckout.refund();

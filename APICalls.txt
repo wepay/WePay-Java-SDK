@@ -5,56 +5,56 @@ for information about return type and data object parameters for each API call f
 WePay API Call              Return Type          Call Parameters
 ***************************************************************************************************************
 
-/account                    Account              fetch(Long account_id, String access_token);
-/account/find               Account[]            find(AccountFindData findData, String access_token);
-/account/create             Account              create(AccountData data, String access_token);
-/account/modify	            void                 modify(AccountData data, String access_token);
-/account/delete             void                 delete(String reason, String access_token);
-/account/balance            AccountBalanceData   balance(String access_token);
-/account/add_bank           String               add_bank(AccountAddBankData addBankData, String access_token);
-/account/set_tax            void                 set_tax(AccountTaxData[] taxesData, String access_token);
-/account/set_tax *          void                 set_tax(AccountTaxData taxData, String access_token);
-/account/get_tax            AccountTaxData[]     get_tax(String access_token);
+/account                    Account              fetch(Long accountId, String accessToken);
+/account/find               Account[]            find(AccountFindData findData, String accessToken);
+/account/create             Account              create(AccountData data, String accessToken);
+/account/modify	            void                 modify(AccountData data, String accessToken);
+/account/delete             void                 delete(String reason, String accessToken);
+/account/balance            AccountBalanceData   balance(String accessToken);
+/account/add_bank           String               add_bank(AccountAddBankData addBankData, String accessToken);
+/account/set_tax            void                 set_tax(AccountTaxData[] taxesData, String accessToken);
+/account/set_tax *          void                 set_tax(AccountTaxData taxData, String accessToken);
+/account/get_tax            AccountTaxData[]     get_tax(String accessToken);
 
-/app                        App                  fetch(String access_token);
-/app/modify                 void                 modify(AppData data, String access_token);
+/app                        App                  fetch(String accessToken);
+/app/modify                 void                 modify(AppData data, String accessToken);
 
-/batch/create               Batch[]              create(BatchData[] calls, String access_token);
+/batch/create               Batch[]              create(BatchData[] calls, String accessToken);
 
-/checkout                   Checkout             fetch(Long checkout_id, String access_token);
-/checkout/find              Checkout[]           find(CheckoutFindData findData, String access_token);
-/checkout/create            Checkout             create(CheckoutData data, String access_token);
-/checkout/modify            void                 modify(CheckoutData data, String access_token);
-/checkout/modify *          void                 modify(String new_callback_uri, String access_token);
-/checkout/cancel            void                 cancel(String cancel_reason, String access_token);
-/checkout/refund            void                 refund(CheckoutRefundData refundData, String access_token);
-/checkout/capture           void                 capture(String access_token);
+/checkout                   Checkout             fetch(Long checkoutId, String accessToken);
+/checkout/find              Checkout[]           find(CheckoutFindData findData, String accessToken);
+/checkout/create            Checkout             create(CheckoutData data, String accessToken);
+/checkout/modify            void                 modify(CheckoutData data, String accessToken);
+/checkout/modify *          void                 modify(String newCallbackUri, String accessToken);
+/checkout/cancel            void                 cancel(String cancelReason, String accessToken);
+/checkout/refund            void                 refund(CheckoutRefundData refundData, String accessToken);
+/checkout/capture           void                 capture(String accessToken);
 
-/credit_card                CreditCard           fetch(Long credit_card_id, String access_token);
-/credit_card/authorize      void                 authorize(String access_token);
-/credit_card/find           CreditCard[]         find(CreditCardFindData findData, String access_token);
-/credit_card/delete         void                 delete(String access_token);
+/credit_card                CreditCard           fetch(Long creditCardId, String accessToken);
+/credit_card/authorize      void                 authorize(String accessToken);
+/credit_card/find           CreditCard[]         find(CreditCardFindData findData, String accessToken);
+/credit_card/delete         void                 delete(String accessToken);
 
-/oauth2/authorize           String               authorize(OAuth2Data data, String access_token);
-/oauth2/token               String               token(OAuth2Data data, String access_token);
+/oauth2/authorize           String               authorize(OAuth2Data data, String accessToken);
+/oauth2/token               String               token(OAuth2Data data, String accessToken);
 
-/preapproval                Preapproval          fetch(Long preapproval_id, String access_token);
-/preapproval/find           Preapproval[]        find(PreapprovalFindData findData, String access_token);
-/preapproval/create         Preapproval          create(PreapprovalData data, String access_token);
-/preapproval/modify         void                 modify(PreapprovalData data, String access_token);
-/preapproval/modify *       void                 modify(String new_callback_uri, String access_token);
+/preapproval                Preapproval          fetch(Long preapprovalId, String accessToken);
+/preapproval/find           Preapproval[]        find(PreapprovalFindData findData, String accessToken);
+/preapproval/create         Preapproval          create(PreapprovalData data, String accessToken);
+/preapproval/modify         void                 modify(PreapprovalData data, String accessToken);
+/preapproval/modify *       void                 modify(String newCallbackUri, String accessToken);
 
-/user                       User                 fetch(String access_token);
-/user/modify                void                 modify(UserData data, String access_token); 
-/user/modify *              void                 modify(String new_callback_uri, String access_token); 
-/user/register              User                 register(UserData data, String access_token);
-/user/resend_confirmation   void                 resend_confirmation(String access_token);
+/user                       User                 fetch(String accessToken);
+/user/modify                void                 modify(UserData data, String accessToken); 
+/user/modify *              void                 modify(String newCallbackUri, String accessToken); 
+/user/register              User                 register(UserData data, String accessToken);
+/user/resend_confirmation   void                 resendConfirmation(String accessToken);
 
-/withdrawal                 Withdrawal           fetch(Long withdrawal_id, String access_token);
-/withdrawal/find            Withdrawal[]         find(WithdrawalFindData findData, String access_token);
-/withdrawal/create          Withdrawal           create(WithdrawalData data, String access_token);
-/withdrawal/modify          void                 modify(WithdrawalData data, String access_token);
-/withdrawal/modify *        void                 modify(String new_callback_uri, String access_token);
+/withdrawal                 Withdrawal           fetch(Long withdrawalId, String accessToken);
+/withdrawal/find            Withdrawal[]         find(WithdrawalFindData findData, String accessToken);
+/withdrawal/create          Withdrawal           create(WithdrawalData data, String accessToken);
+/withdrawal/modify          void                 modify(WithdrawalData data, String accessToken);
+/withdrawal/modify *        void                 modify(String newCallbackUri, String accessToken);
 
 
 * Some API calls include overload functions to simplify calls where only a single 

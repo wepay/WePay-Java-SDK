@@ -16,7 +16,7 @@ public class PreapprovalCalls {
 		 */
 		PreapprovalData pData = new PreapprovalData();
 		pData.period = "monthly";
-		pData.short_description = "sample preapproval";
+		pData.shortDescription = "sample preapproval";
 		Preapproval myPreapproval = Preapproval.create(pData, myAccessToken);
 		/**
 			myPreapproval: 
@@ -118,7 +118,7 @@ public class PreapprovalCalls {
 		 * MODIFY call
 		 */
 		PreapprovalData newData = new PreapprovalData(); 
-		newData.callback_uri = "http://www.yourcallbackuri.com";
+		newData.callbackUri = "http://www.yourcallbackuri.com";
 		Preapproval myPreapproval = new Preapproval(70569984);
 		myPreapproval.modify(newData, myAccessToken);
 		//modifications are made, nothing is returned

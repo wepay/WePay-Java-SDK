@@ -21,7 +21,7 @@ wepay.initialize(myClientId, myClientSecret, useStageEnv);
 ```	
 Once the WePay object is initialized, you can make all of the API calls described by the documentation on WePay's website. For a full listing of available API calls, visit https://www.wepay.com/developer and explore the API Calls section. 
 
-API calls through the Java SDK generally take two arguments, a data object argument and an access_token argument. For API calls where authorization is needed, you'll need to include the access_token argument appropriately; for calls that don't require authorization, you can set access_token to null. 
+API calls through the Java SDK generally take two arguments, a data object argument and an accessToken argument. For API calls where authorization is needed, you'll need to include the accessToken argument appropriately; for calls that don't require authorization, you can set accessToken to null. 
 
 Data objects facilitate the passing of valid parameters to API call classes. Most data objects are designed specifically as parameters to certain types of API calls. Other data objects are utilized by multiple API calls. You can learn what types of data objects are taken as arguments by API call functions in the <a href="https://github.com/wepay/WePay-Java-SDK/blob/master/APICalls.txt">APICalls.txt</a> file. This file contains a listing of all available API calls available through this SDK, their return types, and which data object parameters each call takes. 
 
@@ -38,28 +38,28 @@ aData.description = "This is an example account";    // required parameter for t
 aData.type = "personal";                             // optional parameter for this API call
 Account newAccount = Account.create(aData, myAccessToken);
 
-// get an access_token for the new account
+// get an accessToken for the new account
 OAuth2Data data = new OAuth2Data();
-data.redirect_uri = "http://www.mywebsite.com/oauth2/";
+data.redirectUri = "http://www.mywebsite.com/oauth2/";
 data.scope = "manage_accounts,view_balance,collect_payments,view_user,preapprove_payments,send_money";
 String sendUserToThisURL = OAuth2.authorize(data, null);
 //send user to the returned URL to complete OAuth2 authorization form
 
-//on completion of authorization, user is redirected to redirect_uri with a code parameter
+//on completion of authorization, user is redirected to redirectUri with a code parameter
 //once you have the code you can exchange it for an access token
 OAuth2Data data = new OAuth2Data();
-data.redirect_uri = "http://www.mywebsite.com/oauth2/";
+data.redirectUri = "http://www.mywebsite.com/oauth2/";
 data.code = code;
 String userNewAccessToken = OAuth2.token(data, null);
 
 // create a new checkout
 CheckoutData cData = new CheckoutData();
-cData.account_id = newAccount.getAccount_id();       // use a returned object to access information
-cData.short_description = "Soccer Ball Purchase";
+cData.accountId = newAccount.getAccountId();       // use a returned object to access information
+cData.shortDescription = "Soccer Ball Purchase";
 cData.type = "GOODS";
 cData.amount = 29.95;
-cData.app_fee = 0.50;
-cData.fee_payer = "payee";
+cData.appFee = 0.50;
+cData.feePayer = "payee";
 Checkout newCheckout = Checkout.create(cData, userNewAccessToken);
 ```
 A demo of the WePay API Java SDK can be found at WeFarm, an online demo marketplace built on the WePay API using this SDK. WeFarm is live online at http://wefarm.herokuapp.com/. You can also find the Java source code for WeFarm at https://github.com/wepay/WeFarm-Java to see how WeFarm uses this SDK to execute WePay API calls. 

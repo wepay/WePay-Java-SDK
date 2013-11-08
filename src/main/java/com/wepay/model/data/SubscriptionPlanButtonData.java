@@ -4,10 +4,10 @@ import org.json.JSONObject;
 
 public class SubscriptionPlanButtonData {
 
-	public Long subscription_plan_id;
-	public Long account_id;
-	public String button_type;
-	public String button_text;
-	public ButtonOptionsData button_options;
+	public Long subscriptionPlanId;
+	public Long accountId;
+	public String buttonType;
+	public String buttonText;
+	public ButtonOptionsData buttonOptions;
 	
 }

@@ -4,17 +4,17 @@ import org.json.*;
 
 public class ButtonOptionsData {
 
-	public Long group_id;
-	public Boolean show_plan_price;
-	public String show_plans;
-	public String reference_id;
+	public Long groupId;
+	public Boolean showPlanPrice;
+	public String showPlans;
+	public String referenceId;
 	
-	public static JSONObject build_button_options(ButtonOptionsData info) throws JSONException {
+	public static JSONObject buildButtonOptions(ButtonOptionsData info) throws JSONException {
 		JSONObject o = new JSONObject();
-		o.put("group_id", info.group_id);
-		o.put("show_plan_price", info.show_plan_price);
-		o.put("show_plans", info.show_plans);
-		o.put("reference_id", info.reference_id);
+		o.put("group_id", info.groupId);
+		o.put("show_plan_price", info.showPlanPrice);
+		o.put("show_plans", info.showPlans);
+		o.put("reference_id", info.referenceId);
 		return o;
 	}
 	

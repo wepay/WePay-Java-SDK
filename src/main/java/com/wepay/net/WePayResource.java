@@ -13,8 +13,8 @@ import com.wepay.exception.WePayException;
 
 public class WePayResource {
 
-	public static String api_endpoint;
-	public static String ui_endpoint;
+	public static String apiEndpoint;
+	public static String uiEndpoint;
 	protected final static String STAGE_API_ENDPOINT = "https://stage.wepayapi.com/v2";
 	protected final static String STAGE_UI_ENDPOINT = "https://stage.wepay.com/v2";
 	protected final static String PRODUCTION_API_ENDPOINT = "https://wepayapi.com/v2";
@@ -25,18 +25,18 @@ public class WePayResource {
 			.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
 			.create();
 
-	public static void initializeWePayResource(Boolean use_stage_env) {
-		if (use_stage_env) {
-			api_endpoint = STAGE_API_ENDPOINT;
-			ui_endpoint = STAGE_UI_ENDPOINT;
+	public static void initializeWePayResource(Boolean useStageEnv) {
+		if (useStageEnv) {
+			apiEndpoint = STAGE_API_ENDPOINT;
+			uiEndpoint = STAGE_UI_ENDPOINT;
 		} else {
-			api_endpoint = PRODUCTION_API_ENDPOINT;
-			ui_endpoint = PRODUCTION_UI_ENDPOINT;
+			apiEndpoint = PRODUCTION_API_ENDPOINT;
+			uiEndpoint = PRODUCTION_UI_ENDPOINT;
 		}
 	}
 	
-	protected static javax.net.ssl.HttpsURLConnection httpsConnect(String call, String access_token) throws IOException {
-		URL url = new URL(api_endpoint + call);
+	protected static javax.net.ssl.HttpsURLConnection httpsConnect(String call, String accessToken) throws IOException {
+		URL url = new URL(apiEndpoint + call);
 		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 		connection.setConnectTimeout(30000); // 30 seconds
 		connection.setReadTimeout(100000); // 100 seconds
@@ -46,12 +46,12 @@ public class WePayResource {
 		connection.setRequestProperty("Content-Type", "application/json");
 		connection.setRequestProperty("charset", "utf-8");
 		connection.setRequestProperty("User-Agent", "WePay Java SDK");
-		if (access_token != null) {connection.setRequestProperty("Authorization: Bearer", access_token);}		
+		if (accessToken != null) {connection.setRequestProperty("Authorization: Bearer", accessToken);}		
 		return connection;
 	}
 	
-	protected static String request(String call, JSONObject params, String access_token) throws WePayException, IOException {
-		HttpsURLConnection connection = httpsConnect(call, access_token);
+	protected static String request(String call, JSONObject params, String accessToken) throws WePayException, IOException {
+		HttpsURLConnection connection = httpsConnect(call, accessToken);
 		DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
 		wr.writeBytes(params.toString());
 		wr.flush();

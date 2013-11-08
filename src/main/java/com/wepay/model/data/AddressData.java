@@ -13,7 +13,7 @@ public class AddressData {
 	public String region;
 	public String postcode;
 	
-	public static JSONObject build_address(AddressData info) throws JSONException {
+	public static JSONObject buildAddress(AddressData info) throws JSONException {
 		JSONObject o = new JSONObject();
 		o.put("address1", info.address1);
 		o.put("address2", info.address2);

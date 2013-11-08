@@ -11,7 +11,7 @@ public class AccountTaxData {
 	public String state;
 	public Integer zip;
 	
-	public static JSONObject build_tax(AccountTaxData info) throws JSONException {
+	public static JSONObject buildTax(AccountTaxData info) throws JSONException {
 		JSONObject o = new JSONObject();
 		o.put("percent", info.percent);
 		o.put("country", info.country);

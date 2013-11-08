@@ -31,12 +31,12 @@ public class AppCalls {
 		 */
 		ThemeObjectData theme = new ThemeObjectData();
 		theme.name = "My Sample Theme";
-		theme.primary_color = "FFFFFF";
-		theme.secondary_color = "000000";
-		theme.background_color = "004C64";
-		theme.button_color = "0084A0";
+		theme.primaryColor = "FFFFFF";
+		theme.secondaryColor = "000000";
+		theme.backgroundColor = "004C64";
+		theme.buttonColor = "0084A0";
 		AppData data = new AppData();
-		data.theme_object = theme;
+		data.themeObject = theme;
 		App myApp = new App();
 		myApp.modify(data, myAccessToken);
 		/**

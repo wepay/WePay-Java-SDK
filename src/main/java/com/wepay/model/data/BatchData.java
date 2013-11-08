@@ -7,7 +7,7 @@ public class BatchData {
 	public String callClass;
 	public String callFunction;
 	public String authorization;
-	public String reference_id;
+	public String referenceId;
 	public JSONObject parameters;
 
 }

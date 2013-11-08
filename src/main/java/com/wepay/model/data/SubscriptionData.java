@@ -2,22 +2,22 @@ package com.wepay.model.data;
 
 public class SubscriptionData {
 
-	public Long subscription_plan_id;
-	public String redirect_uri;
-	public String callback_uri;
-	public Long payment_method_id;
-	public String payment_method_type;
+	public Long subscriptionPlanId;
+	public String redirectUri;
+	public String callbackUri;
+	public Long paymentMethodId;
+	public String paymentMethodType;
 	public String mode;
 	public Integer quantity;
-	public String reference_id;
-	public PrefillInfoData prefill_info;
+	public String referenceId;
+	public PrefillInfoData prefillInfo;
 	
 	//Only used by Subscription.cancel()
-	public String cancel_reason;
+	public String cancelReason;
 	
 	//Only used by Subscription.modify()
 	public Boolean prorate;
-	public Long transition_expire_days;
-	public Long extend_trial_days;
+	public Long transitionExpireDays;
+	public Long extendTrialDays;
 	
 }

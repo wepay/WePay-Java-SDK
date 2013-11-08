@@ -93,7 +93,7 @@ public class AccountCalls {
 		 * MODIFY call
 		 */
 		AccountData newData = new AccountData(); 
-		newData.callback_uri = "http://www.yourcallbackuri.com";
+		newData.callbackUri = "http://www.yourcallbackuri.com";
 		Account myAccount = new Account(2111137965);
 		myAccount.modify(newData, myAccessToken);
 		//modifications are made, nothing is returned
@@ -136,7 +136,7 @@ public class AccountCalls {
 		 * ADD_BANK call
 		 */
 		AccountAddBankData bank = new AccountAddBankData();
-		bank.redirect_uri = "http://www.yourredirecturi.com";		
+		bank.redirectUri = "http://www.yourredirecturi.com";		
 		Account myAccount = new Account(2111137965);
 		String addBankUri = myAccount.add_bank(bank, myAccessToken);
 		/**

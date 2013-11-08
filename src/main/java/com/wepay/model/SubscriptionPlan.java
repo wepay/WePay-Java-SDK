@@ -12,36 +12,36 @@ import com.wepay.model.data.*;
 
 public class SubscriptionPlan extends WePayResource {
 		
-	protected Long subscription_plan_id;
+	protected Long subscriptionPlanId;
 	protected String currency;
-	protected Long create_time;
-	protected Integer number_of_subscriptions;
+	protected Long createTime;
+	protected Integer numberOfSubscriptions;
 	protected String state;
-	protected String fee_payer;
+	protected String feePayer;
 	protected SubscriptionPlanData subscriptionPlanData;
 
-	public SubscriptionPlan(Long subscription_plan_id) {
-		this.subscription_plan_id = subscription_plan_id;
+	public SubscriptionPlan(Long subscriptionPlanId) {
+		this.subscriptionPlanId = subscriptionPlanId;
 	}
 	
-	public static SubscriptionPlan fetch(Long subscription_plan_id, String access_token) throws JSONException, IOException, WePayException {
+	public static SubscriptionPlan fetch(Long subscriptionPlanId, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("subscription_plan_id", subscription_plan_id);
-		String response = request("/subscription_plan", params, access_token);
+		params.put("subscription_plan_id", subscriptionPlanId);
+		String response = request("/subscription_plan", params, accessToken);
 		SubscriptionPlan sp = gson.fromJson(response, SubscriptionPlan.class);
 		SubscriptionPlanData spd = gson.fromJson(response, SubscriptionPlanData.class);
 		sp.subscriptionPlanData = spd;
 		return sp;
 	}
 	
-	public static SubscriptionPlan[] find(SubscriptionPlanFindData findData, String access_token) throws JSONException, IOException, WePayException {
+	public static SubscriptionPlan[] find(SubscriptionPlanFindData findData, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		if (findData.account_id != null) params.put("account_id", findData.account_id);
+		if (findData.accountId != null) params.put("account_id", findData.accountId);
 		if (findData.start != null) params.put("start", findData.start);
 		if (findData.limit != null) params.put("limit", findData.limit);
 		if (findData.state != null) params.put("state", findData.state);
-		if (findData.reference_id != null) params.put("reference_id", findData.reference_id);
-		JSONArray results = new JSONArray(request("/subscription_plan/find", params, access_token));
+		if (findData.referenceId != null) params.put("reference_id", findData.referenceId);
+		JSONArray results = new JSONArray(request("/subscription_plan/find", params, accessToken));
 		SubscriptionPlan[] found = new SubscriptionPlan[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			SubscriptionPlan sp = gson.fromJson(results.get(i).toString(), SubscriptionPlan.class);
@@ -52,72 +52,72 @@ public class SubscriptionPlan extends WePayResource {
 		return found;
 	}
 	
-	public static SubscriptionPlan create(SubscriptionPlanData data, String access_token) throws JSONException, IOException, WePayException {
+	public static SubscriptionPlan create(SubscriptionPlanData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("account_id", data.account_id);
+		params.put("account_id", data.accountId);
 		params.put("name", data.name);
-		params.put("short_description", data.short_description);
+		params.put("short_description", data.shortDescription);
 		params.put("amount", data.amount);
 		params.put("period", data.period);
-		if (data.app_fee != null) params.put("app_fee", data.app_fee);
-		if (data.callback_uri != null) params.put("callback_uri", data.callback_uri);
-		if (data.trial_length != null) params.put("trial_length", data.trial_length);
-		if (data.setup_fee != null) params.put("setup_fee", data.setup_fee);
-		if (data.reference_id != null) params.put("reference_id", data.reference_id);
-		String response = request("/subscription_plan/create", params, access_token);
+		if (data.appFee != null) params.put("app_fee", data.appFee);
+		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
+		if (data.trialLength != null) params.put("trial_length", data.trialLength);
+		if (data.setupFee != null) params.put("setup_fee", data.setupFee);
+		if (data.referenceId != null) params.put("reference_id", data.referenceId);
+		String response = request("/subscription_plan/create", params, accessToken);
 		SubscriptionPlan sp = gson.fromJson(response, SubscriptionPlan.class);
 		sp.subscriptionPlanData = data;
 		return sp;
 	}
 	
-	public void modify(SubscriptionPlanData data, String access_token) throws JSONException, IOException, WePayException {
+	public void modify(SubscriptionPlanData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("subscription_plan_id", this.subscription_plan_id);
+		params.put("subscription_plan_id", this.subscriptionPlanId);
 		if (data.name != null) params.put("name", data.name);
-		if (data.short_description != null) params.put("short_description", data.short_description);
+		if (data.shortDescription != null) params.put("short_description", data.shortDescription);
 		if (data.amount != null) params.put("amount", data.amount);
-		if (data.app_fee != null) params.put("app_fee", data.app_fee);
-		if (data.callback_uri != null) params.put("callback_uri", data.callback_uri);
-		if (data.trial_length != null) params.put("trial_length", data.trial_length);
-		if (data.setup_fee != null) params.put("setup_fee", data.setup_fee);
-		if (data.update_subscriptions != null) params.put("update_subscriptions", data.update_subscriptions);
-		if (data.transition_expire_days != null) params.put("transition_expire_days", data.transition_expire_days);
-		if (data.reference_id != null) params.put("reference_id", data.reference_id);
-		String response = request("/subscription_plan/modify", params, access_token);
+		if (data.appFee != null) params.put("app_fee", data.appFee);
+		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
+		if (data.trialLength != null) params.put("trial_length", data.trialLength);
+		if (data.setupFee != null) params.put("setup_fee", data.setupFee);
+		if (data.updateSubscriptions != null) params.put("update_subscriptions", data.updateSubscriptions);
+		if (data.transitionExpireDays != null) params.put("transition_expire_days", data.transitionExpireDays);
+		if (data.referenceId != null) params.put("reference_id", data.referenceId);
+		String response = request("/subscription_plan/modify", params, accessToken);
 		SubscriptionPlan sp = gson.fromJson(response, SubscriptionPlan.class);
 		SubscriptionPlanData spd = gson.fromJson(response, SubscriptionPlanData.class);
-		this.create_time = sp.create_time;
+		this.createTime = sp.createTime;
 		this.currency = sp.currency;
-		this.number_of_subscriptions = sp.number_of_subscriptions;
+		this.numberOfSubscriptions = sp.numberOfSubscriptions;
 		this.state = sp.state; 
-		this.fee_payer = sp.fee_payer; 
+		this.feePayer = sp.feePayer; 
 		this.subscriptionPlanData = spd;
 	}
 	
-	public void delete(String reason, String access_token) throws JSONException, IOException, WePayException {
+	public void delete(String reason, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("subscription_plan_id", this.subscription_plan_id);
+		params.put("subscription_plan_id", this.subscriptionPlanId);
 		if (reason != null) params.put("reason", reason);
-		request("/subscription_plan/delete", params, access_token);
+		request("/subscription_plan/delete", params, accessToken);
 	}
 		
-	public static String get_button(SubscriptionPlanButtonData buttonData, String access_token) throws JSONException, IOException, WePayException {
+	public static String getButton(SubscriptionPlanButtonData buttonData, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("account_id", buttonData.account_id);
-		params.put("button_type", buttonData.button_type);
-		if (buttonData.subscription_plan_id != null) params.put("subscription_plan_id", buttonData.subscription_plan_id);
-		if (buttonData.button_text != null) params.put("button_text", buttonData.button_text);
-		if (buttonData.button_options != null) params.put("button_options", ButtonOptionsData.build_button_options(buttonData.button_options));
-		JSONObject object = new JSONObject(request("/subscription_plan/get_button", params, access_token));
+		params.put("account_id", buttonData.accountId);
+		params.put("button_type", buttonData.buttonType);
+		if (buttonData.subscriptionPlanId != null) params.put("subscription_plan_id", buttonData.subscriptionPlanId);
+		if (buttonData.buttonText != null) params.put("button_text", buttonData.buttonText);
+		if (buttonData.buttonOptions != null) params.put("button_options", ButtonOptionsData.buildButtonOptions(buttonData.buttonOptions));
+		JSONObject object = new JSONObject(request("/subscription_plan/get_button", params, accessToken));
 		return object.getString("subscription_plan_button_code");
 	}
 	
 	public Long getSubscriptionPlanId() {
-		return subscription_plan_id;
+		return subscriptionPlanId;
 	}
 	
 	public Long getAccountId() {
-		return subscriptionPlanData.account_id;
+		return subscriptionPlanData.accountId;
 	}
 	
 	public String getName() {
@@ -125,7 +125,7 @@ public class SubscriptionPlan extends WePayResource {
 	}
 	
 	public String getShortDescription() {
-		return subscriptionPlanData.short_description;
+		return subscriptionPlanData.shortDescription;
 	}
 	
 	public String getCurrency() {
@@ -141,11 +141,11 @@ public class SubscriptionPlan extends WePayResource {
 	}
 	
 	public BigDecimal getAppFee() {
-		return subscriptionPlanData.app_fee;
+		return subscriptionPlanData.appFee;
 	}
 	
 	public String getFeePayer() {
-		return fee_payer;
+		return feePayer;
 	}
 	
 	public String getState() {
@@ -153,27 +153,27 @@ public class SubscriptionPlan extends WePayResource {
 	}
 	
 	public Long getCreateTime() {
-		return create_time;
+		return createTime;
 	}
 	
 	public Integer getNumberOfSubscriptions() {
-		return number_of_subscriptions;
+		return numberOfSubscriptions;
 	}
 	
 	public String getCallbackUri() {
-		return subscriptionPlanData.callback_uri;
+		return subscriptionPlanData.callbackUri;
 	}
 	
 	public Integer getTrialLength() {
-		return subscriptionPlanData.trial_length;
+		return subscriptionPlanData.trialLength;
 	}
 	
 	public BigDecimal getSetupFee() {
-		return subscriptionPlanData.setup_fee;
+		return subscriptionPlanData.setupFee;
 	}
 	
 	public String getReferenceId() {
-		return subscriptionPlanData.reference_id;
+		return subscriptionPlanData.referenceId;
 	}
 		
 }

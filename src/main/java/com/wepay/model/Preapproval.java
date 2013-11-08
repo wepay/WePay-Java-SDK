@@ -12,48 +12,48 @@ import com.wepay.model.data.*;
 
 public class Preapproval extends WePayResource {
 
-	protected Long preapproval_id;
-	protected String preapproval_uri;
+	protected Long preapprovalId;
+	protected String preapprovalUri;
 	protected String state;
-	protected String manage_uri;
+	protected String manageUri;
 	protected String currency;
-	protected AddressData shipping_address;
+	protected AddressData shippingAddress;
 	protected BigDecimal tax;
-	protected String payer_name;
-	protected String payer_email;
-	protected Long create_time;
-	protected Long next_due_time;
-	protected Long last_checkout_id;
-	protected Long last_checkout_time;
+	protected String payerName;
+	protected String payerEmail;
+	protected Long createTime;
+	protected Long nextDueTime;
+	protected Long lastCheckoutId;
+	protected Long lastCheckoutTime;
 	protected PreapprovalData preapprovalData;
 
-	public Preapproval(Long preapproval_id) {
-		this.preapproval_id = preapproval_id;
+	public Preapproval(Long preapprovalId) {
+		this.preapprovalId = preapprovalId;
 	}
 	
-	public static Preapproval fetch(Long preapproval_id, String access_token) throws JSONException, IOException, WePayException {
+	public static Preapproval fetch(Long preapprovalId, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("preapproval_id", preapproval_id);
-		String response = request("/preapproval", params, access_token);
+		params.put("preapproval_id", preapprovalId);
+		String response = request("/preapproval", params, accessToken);
 		Preapproval p = gson.fromJson(response, Preapproval.class);
 		PreapprovalData pd = gson.fromJson(response, PreapprovalData.class);
 		p.preapprovalData = pd;
 		return p;
 	}
 	
-	public static Preapproval[] find(PreapprovalFindData findData, String access_token) throws JSONException, IOException, WePayException {
+	public static Preapproval[] find(PreapprovalFindData findData, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		if (findData != null) {
-			if (findData.account_id != null) params.put("account_id", findData.account_id);
+			if (findData.accountId != null) params.put("account_id", findData.accountId);
 			if (findData.state != null) params.put("state", findData.state);
-			if (findData.reference_id != null) params.put("reference_id", findData.reference_id);
+			if (findData.referenceId != null) params.put("reference_id", findData.referenceId);
 			if (findData.start != null) params.put("start", findData.start);
 			if (findData.limit != null) params.put("limit", findData.limit);
-			if (findData.sort_order != null) params.put("sort_order", findData.sort_order);
-			if (findData.last_checkout_id != null) params.put("last_checkout_id", findData.last_checkout_id);
-			if (findData.shipping_fee != null) params.put("shipping_fee", findData.shipping_fee);
+			if (findData.sortOrder != null) params.put("sort_order", findData.sortOrder);
+			if (findData.lastCheckoutId != null) params.put("last_checkout_id", findData.lastCheckoutId);
+			if (findData.shippingFee != null) params.put("shipping_fee", findData.shippingFee);
 		}
-		JSONArray results = new JSONArray(request("/preapproval/find", params, access_token));
+		JSONArray results = new JSONArray(request("/preapproval/find", params, accessToken));
 		Preapproval[] found = new Preapproval[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			Preapproval p = gson.fromJson(results.get(i).toString(), Preapproval.class);
@@ -64,95 +64,95 @@ public class Preapproval extends WePayResource {
 		return found;
 	}
 	
-	public static Preapproval create(PreapprovalData data, String access_token) throws JSONException, IOException, WePayException {
+	public static Preapproval create(PreapprovalData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		if (data.account_id != null) params.put("account_id", data.account_id);
+		if (data.accountId != null) params.put("account_id", data.accountId);
 		if (data.amount != null) params.put("amount", data.amount);
-		params.put("short_description", data.short_description);
+		params.put("short_description", data.shortDescription);
 		params.put("period", data.period);
-		if (data.reference_id != null) params.put("reference_id", data.reference_id);
-		if (data.app_fee != null) params.put("app_fee", data.app_fee);
-		if (data.fee_payer != null) params.put("fee_payer", data.fee_payer);
-		if (data.redirect_uri != null) params.put("redirect_uri", data.redirect_uri);
-		if (data.callback_uri != null) params.put("callback_uri", data.callback_uri);
-		if (data.fallback_uri != null) params.put("fallback_uri", data.fallback_uri);
-		if (data.require_shipping != null) params.put("require_shipping", data.require_shipping);
-		if (data.shipping_fee != null) params.put("shipping_fee", data.shipping_fee);
-		if (data.charge_tax != null) params.put("charge_tax", data.charge_tax);
-		if (data.payer_email_message != null) params.put("payer_email_message", data.payer_email_message);
-		if (data.long_description != null) params.put("long_description", data.long_description);
+		if (data.referenceId != null) params.put("reference_id", data.referenceId);
+		if (data.appFee != null) params.put("app_fee", data.appFee);
+		if (data.feePayer != null) params.put("fee_payer", data.feePayer);
+		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
+		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
+		if (data.fallbackUri != null) params.put("fallback_uri", data.fallbackUri);
+		if (data.requireShipping != null) params.put("require_shipping", data.requireShipping);
+		if (data.shippingFee != null) params.put("shipping_fee", data.shippingFee);
+		if (data.chargeTax != null) params.put("charge_tax", data.chargeTax);
+		if (data.payerEmailMessage != null) params.put("payer_email_message", data.payerEmailMessage);
+		if (data.longDescription != null) params.put("long_description", data.longDescription);
 		if (data.frequency != null) params.put("frequency", data.frequency);
-		if (data.start_time != null) params.put("start_time", data.start_time);
-		if (data.end_time != null) params.put("end_time", data.end_time);
-		if (data.auto_recur != null) params.put("auto_recur", data.auto_recur);
+		if (data.startTime != null) params.put("start_time", data.startTime);
+		if (data.endTime != null) params.put("end_time", data.endTime);
+		if (data.autoRecur != null) params.put("auto_recur", data.autoRecur);
 		if (data.mode != null) params.put("mode", data.mode);
-		if (data.prefill_info != null) params.put("prefill_info", PrefillInfoData.build_prefill_info(data.prefill_info));
-		if (data.funding_sources != null) params.put("funding_sources", data.funding_sources);
-		if (data.payment_method_id != null) params.put("payment_method_id", data.payment_method_id);
-		if (data.payment_method_type != null) params.put("payment_method_type", data.payment_method_type);		
-		Preapproval p = gson.fromJson(request("/preapproval/create", params, access_token), Preapproval.class);
+		if (data.prefillInfo != null) params.put("prefill_info", PrefillInfoData.buildPrefillInfo(data.prefillInfo));
+		if (data.fundingSources != null) params.put("funding_sources", data.fundingSources);
+		if (data.paymentMethodId != null) params.put("payment_method_id", data.paymentMethodId);
+		if (data.paymentMethodType != null) params.put("payment_method_type", data.paymentMethodType);		
+		Preapproval p = gson.fromJson(request("/preapproval/create", params, accessToken), Preapproval.class);
 		p.preapprovalData = data;
 		return p;		
 	}
 	
-	public void modify(String new_callback_uri, String access_token) throws JSONException, IOException, WePayException {
-		//overload function for single parameter modification: callback_uri
+	public void modify(String newCallbackUri, String accessToken) throws JSONException, IOException, WePayException {
+		//overload function for single parameter modification: callbackUri
 		PreapprovalData data = new PreapprovalData();
-		data.callback_uri = new_callback_uri;
-		this.modify(data, access_token);
+		data.callbackUri = newCallbackUri;
+		this.modify(data, accessToken);
 	}
-	public void modify(PreapprovalData data, String access_token) throws JSONException, IOException, WePayException {
+	public void modify(PreapprovalData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("preapproval_id", this.preapproval_id);
-		params.put("callback_uri", data.callback_uri);
-		String response = request("/preapproval/modify", params, access_token);
+		params.put("preapproval_id", this.preapprovalId);
+		params.put("callback_uri", data.callbackUri);
+		String response = request("/preapproval/modify", params, accessToken);
 		Preapproval p = gson.fromJson(response, Preapproval.class);
 		PreapprovalData pd = gson.fromJson(response, PreapprovalData.class);
-		pd.callback_uri = data.callback_uri;
-		this.preapproval_id = p.preapproval_id;
-		this.preapproval_uri = p.preapproval_uri;
+		pd.callbackUri = data.callbackUri;
+		this.preapprovalId = p.preapprovalId;
+		this.preapprovalUri = p.preapprovalUri;
 		this.state = p.state;
-		this.manage_uri = p.manage_uri;
+		this.manageUri = p.manageUri;
 		this.currency = p.currency;
-		this.shipping_address = p.shipping_address;
+		this.shippingAddress = p.shippingAddress;
 		this.tax = p.tax;
-		this.payer_name = p.payer_name;
-		this.payer_email = p.payer_email;
-		this.create_time = p.create_time;
-		this.next_due_time = p.next_due_time;
-		this.last_checkout_id = p.last_checkout_id;
-		this.last_checkout_time = p.last_checkout_time;
+		this.payerName = p.payerName;
+		this.payerEmail = p.payerEmail;
+		this.createTime = p.createTime;
+		this.nextDueTime = p.nextDueTime;
+		this.lastCheckoutId = p.lastCheckoutId;
+		this.lastCheckoutTime = p.lastCheckoutTime;
 		this.preapprovalData = pd;
 	}
 	
-	public void cancel(String access_token) throws JSONException, IOException, WePayException {
+	public void cancel(String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		params.put("preapproval_id", this.preapproval_id);
-		request("/preapproval/cancel", params, access_token);
+		params.put("preapproval_id", this.preapprovalId);
+		request("/preapproval/cancel", params, accessToken);
 	}
 
-	public Long getPreapproval_id() {
-		return preapproval_id;
+	public Long getPreapprovalId() {
+		return preapprovalId;
 	}
 
-	public String getPreapproval_uri() {
-		return preapproval_uri;
+	public String getPreapprovalUri() {
+		return preapprovalUri;
 	}
 
-	public String getManage_uri() {
-		return manage_uri;
+	public String getManageUri() {
+		return manageUri;
 	}
 	
-	public Long getAccount_id() {
-		return preapprovalData.account_id;
+	public Long getAccountId() {
+		return preapprovalData.accountId;
 	}
 	
-	public String getShort_description() {
-		return preapprovalData.short_description;
+	public String getShortDescription() {
+		return preapprovalData.shortDescription;
 	}
 	
-	public String getLong_description() {
-		return preapprovalData.long_description;
+	public String getLongDescription() {
+		return preapprovalData.longDescription;
 	}
 
 	public String getCurrency() {
@@ -163,20 +163,20 @@ public class Preapproval extends WePayResource {
 		return preapprovalData.amount;
 	}
 	
-	public String getFee_payer() {
-		return preapprovalData.fee_payer;
+	public String getFeePayer() {
+		return preapprovalData.feePayer;
 	}
 	
 	public String getState() {
 		return state;
 	}
 	
-	public String getRedirect_uri() {
-		return preapprovalData.redirect_uri;
+	public String getRedirectUri() {
+		return preapprovalData.redirectUri;
 	}
 	
-	public BigDecimal getApp_fee() {
-		return preapprovalData.app_fee;
+	public BigDecimal getAppFee() {
+		return preapprovalData.appFee;
 	}
 	
 	public String getPeriod() {
@@ -187,80 +187,80 @@ public class Preapproval extends WePayResource {
 		return preapprovalData.frequency;
 	}
 	
-	public Long getStart_time() {
-		return preapprovalData.start_time;
+	public Long getStartTime() {
+		return preapprovalData.startTime;
 	}
 	
-	public Long getEnd_time() {
-		return preapprovalData.end_time;
+	public Long getEndTime() {
+		return preapprovalData.endTime;
 	}
 	
-	public String getReference_id() {
-		return preapprovalData.reference_id;
+	public String getReferenceId() {
+		return preapprovalData.referenceId;
 	}
 
-	public String getCallback_uri() {
-		return preapprovalData.callback_uri;
+	public String getCallbackUri() {
+		return preapprovalData.callbackUri;
 	}
 
-	public AddressData getShipping_address() {
-		return shipping_address;
+	public AddressData getShippingAddress() {
+		return shippingAddress;
 	}
 	
-	public BigDecimal getShipping_fee() {
-		return preapprovalData.shipping_fee;
+	public BigDecimal getShippingFee() {
+		return preapprovalData.shippingFee;
 	}
 
 	public BigDecimal getTax() {
 		return tax;
 	}
 
-	public Boolean isAuto_recur() {
-		return preapprovalData.auto_recur;
+	public Boolean isAutoRecur() {
+		return preapprovalData.autoRecur;
 	}
 
-	public String getPayer_name() {
-		return payer_name;
+	public String getPayerName() {
+		return payerName;
 	}
 
-	public String getPayer_email() {
-		return payer_email;
+	public String getPayerEmail() {
+		return payerEmail;
 	}
 
-	public Long getCreate_time() {
-		return create_time;
+	public Long getCreateTime() {
+		return createTime;
 	}
 
-	public Long getNext_due_time() {
-		return next_due_time;
+	public Long getNextDueTime() {
+		return nextDueTime;
 	}
 
-	public Long getLast_checkout_id() {
-		return last_checkout_id;
+	public Long getLastCheckoutId() {
+		return lastCheckoutId;
 	}
 	
-	public Long getLast_checkout_time() {
-		return last_checkout_time;
+	public Long getLastCheckoutTime() {
+		return lastCheckoutTime;
 	}
 
-	public String getFallback_uri() {
-		return preapprovalData.fallback_uri;
+	public String getFallbackUri() {
+		return preapprovalData.fallbackUri;
 	}
 
-	public String getPayer_email_message() {
-		return preapprovalData.payer_email_message;
+	public String getPayerEmailMessage() {
+		return preapprovalData.payerEmailMessage;
 	}
 	
-	public String getFunding_sources() {
-		return preapprovalData.funding_sources;
+	public String getFundingSources() {
+		return preapprovalData.fundingSources;
 	}
 	
-	public Long getPayment_method_id() {
-		return preapprovalData.payment_method_id;
+	public Long getPaymentMethodId() {
+		return preapprovalData.paymentMethodId;
 	}
 	
-	public String getPayment_method_type() {
-		return preapprovalData.payment_method_type;
+	public String getPaymentMethodType() {
+		return preapprovalData.paymentMethodType;
 	}
 
 }

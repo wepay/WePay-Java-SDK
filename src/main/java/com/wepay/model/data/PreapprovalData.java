@@ -4,29 +4,29 @@ import java.math.BigDecimal;
 
 public class PreapprovalData {
 	
-	public Long account_id;
+	public Long accountId;
 	public BigDecimal amount;
-	public String short_description;
+	public String shortDescription;
 	public String period;
-	public String reference_id;
-	public BigDecimal app_fee;
-	public String fee_payer;
-	public String redirect_uri;
-	public String callback_uri;
-	public String fallback_uri;
-	public Boolean require_shipping;
-	public BigDecimal shipping_fee;
-	public Boolean charge_tax;
-	public String payer_email_message;
-	public String long_description;
+	public String referenceId;
+	public BigDecimal appFee;
+	public String feePayer;
+	public String redirectUri;
+	public String callbackUri;
+	public String fallbackUri;
+	public Boolean requireShipping;
+	public BigDecimal shippingFee;
+	public Boolean chargeTax;
+	public String payerEmailMessage;
+	public String longDescription;
 	public Integer frequency;
-	public Long start_time;
-	public Long end_time;
-	public Boolean auto_recur;
+	public Long startTime;
+	public Long endTime;
+	public Boolean autoRecur;
 	public String mode;
-	public PrefillInfoData prefill_info;
-	public String funding_sources;
-	public Long payment_method_id;
-	public String payment_method_type;
+	public PrefillInfoData prefillInfo;
+	public String fundingSources;
+	public Long paymentMethodId;
+	public String paymentMethodType;
 
 }

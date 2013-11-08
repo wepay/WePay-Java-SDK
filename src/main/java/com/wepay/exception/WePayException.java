@@ -5,8 +5,8 @@ import com.wepay.net.WePayResource;
 public class WePayException extends Exception {
 		
 	private String error;
-	private String error_description;
-	private Integer error_code;
+	private String errorDescription;
+	private Integer errorCode;
 	
 	public WePayException(String message) {
 		super(message);
@@ -21,11 +21,11 @@ public class WePayException extends Exception {
 	}
 	
 	public String getErrorDescription() {
-		return error_description;
+		return errorDescription;
 	}
 	
 	public Integer getErrorCode() {
-		return error_code;
+		return errorCode;
 	}
 	
 	public String getMessage() {

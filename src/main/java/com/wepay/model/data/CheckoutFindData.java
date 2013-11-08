@@ -4,15 +4,15 @@ import java.math.BigDecimal;
 
 public class CheckoutFindData {
 
-	public Long account_id;
+	public Long accountId;
 	public Integer start;
 	public Integer limit;
-	public String reference_id;
+	public String referenceId;
 	public String state;
-	public Long preapproval_id;
-	public Long start_time;
-	public Long end_time;
-	public String sort_order;
-	public BigDecimal shipping_fee;
+	public Long preapprovalId;
+	public Long startTime;
+	public Long endTime;
+	public String sortOrder;
+	public BigDecimal shippingFee;
 	
 }
