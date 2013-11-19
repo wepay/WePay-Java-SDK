@@ -58,6 +58,7 @@ public class Withdrawal extends WePayResource {
 		params.put("account_id", data.accountId);
 		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
+		if (data.fallbackUri != null) params.put("fallback_uri", data.fallbackUri);
 		if (data.note != null) params.put("note", data.note);
 		if (data.mode != null) params.put("mode", data.mode);
 		Withdrawal w = gson.fromJson(request("/withdrawal/create", params, accessToken), Withdrawal.class);
@@ -112,6 +113,10 @@ public class Withdrawal extends WePayResource {
 
 	public String getCallbackUri() {
 		return withdrawalData.callbackUri;
+	}
+	
+	public String getFallbackUri() {
+		return withdrawalData.fallbackUri;
 	}
 
 	public BigDecimal getAmount() {
