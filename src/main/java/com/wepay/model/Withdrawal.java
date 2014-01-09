@@ -61,6 +61,7 @@ public class Withdrawal extends WePayResource {
 		if (data.fallbackUri != null) params.put("fallback_uri", data.fallbackUri);
 		if (data.note != null) params.put("note", data.note);
 		if (data.mode != null) params.put("mode", data.mode);
+		if (data.currency != null) params.put("currency", data.currency);
 		Withdrawal w = gson.fromJson(request("/withdrawal/create", params, accessToken), Withdrawal.class);
 		w.withdrawalData = data;
 		return w;
@@ -101,6 +102,10 @@ public class Withdrawal extends WePayResource {
 	
 	public String getState() {
 		return state;
+	}
+    
+	public String getCurrency() {
+		return withdrawalData.currency;
 	}
 	
 	public String getRedirectUri() {

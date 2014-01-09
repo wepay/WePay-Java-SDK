@@ -29,5 +29,5 @@ public class CheckoutData {
 	public String fundingSources;
 	public String paymentMethodType;
 	public Long paymentMethodId;
-	
+	public String currency;
 }

@@ -61,6 +61,8 @@ public class Account extends WePayResource {
 		if (data.themeObject != null) params.put("theme_object", ThemeObjectData.buildThemeObject(data.themeObject));
 		if (data.mcc != null) params.put("mcc", data.mcc);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
+		if (data.country != null) params.put("country", data.country);
+		if (data.currencies != null) params.put("currencies", data.currencies);
 		String response = request("/account/create", params, accessToken);
 		Account a = gson.fromJson(response, Account.class);
 		a.accountData = data;
@@ -159,7 +161,15 @@ public class Account extends WePayResource {
 	public String getState() {
 		return state;
 	}
-	
+    
+	public String getCountry() {
+		return accountData.country;
+	}
+
+    public String[] getCurrencies() {
+		return accountData.currencies;
+	}
+    
 	public String getDescription() {
 		return accountData.description;
 	}

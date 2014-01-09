@@ -24,6 +24,7 @@ public class SubscriptionCharge extends WePayResource {
 	protected BigDecimal amountRefunded;
 	protected BigDecimal amountChargedBack;
 	protected String state;
+	protected String currency;
 	protected Long createTime;
 	protected Long endTime;
 	protected Long prorateTime;
@@ -114,6 +115,10 @@ public class SubscriptionCharge extends WePayResource {
 	
 	public String getState() {
 		return state;
+	}
+    
+	public String getCurrency() {
+		return currency;
 	}
 
 	public Long getCreateTime() {

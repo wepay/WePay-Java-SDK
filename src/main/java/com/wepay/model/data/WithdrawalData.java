@@ -8,5 +8,5 @@ public class WithdrawalData {
 	public String fallbackUri;
 	public String note;
 	public String mode;
-
+	public String currency;
 }

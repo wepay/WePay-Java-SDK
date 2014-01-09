@@ -28,5 +28,5 @@ public class PreapprovalData {
 	public String fundingSources;
 	public Long paymentMethodId;
 	public String paymentMethodType;
-
+	public String currency;
 }

@@ -11,5 +11,6 @@ public class AccountData {
 	public ThemeObjectData themeObject;
 	public Integer mcc;	
 	public String callbackUri;
-	
+    public String country;
+    public String[] currencies;
 }

@@ -14,6 +14,7 @@ public class SubscriptionPlanData {
 	public Integer trialLength;
 	public BigDecimal setupFee;
 	public String referenceId;
+	public String currency;
 	
 	//Only used by SubscriptionPlan.modify()
 	public String updateSubscriptions; 

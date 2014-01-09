@@ -13,7 +13,6 @@ import com.wepay.model.data.*;
 public class SubscriptionPlan extends WePayResource {
 		
 	protected Long subscriptionPlanId;
-	protected String currency;
 	protected Long createTime;
 	protected Integer numberOfSubscriptions;
 	protected String state;
@@ -64,6 +63,7 @@ public class SubscriptionPlan extends WePayResource {
 		if (data.trialLength != null) params.put("trial_length", data.trialLength);
 		if (data.setupFee != null) params.put("setup_fee", data.setupFee);
 		if (data.referenceId != null) params.put("reference_id", data.referenceId);
+		if (data.currency != null) params.put("currency", data.currency);
 		String response = request("/subscription_plan/create", params, accessToken);
 		SubscriptionPlan sp = gson.fromJson(response, SubscriptionPlan.class);
 		sp.subscriptionPlanData = data;
@@ -87,7 +87,6 @@ public class SubscriptionPlan extends WePayResource {
 		SubscriptionPlan sp = gson.fromJson(response, SubscriptionPlan.class);
 		SubscriptionPlanData spd = gson.fromJson(response, SubscriptionPlanData.class);
 		this.createTime = sp.createTime;
-		this.currency = sp.currency;
 		this.numberOfSubscriptions = sp.numberOfSubscriptions;
 		this.state = sp.state; 
 		this.feePayer = sp.feePayer; 
@@ -129,7 +128,7 @@ public class SubscriptionPlan extends WePayResource {
 	}
 	
 	public String getCurrency() {
-		return currency;
+		return subscriptionPlanData.currency;
 	}
 	
 	public BigDecimal getAmount() {

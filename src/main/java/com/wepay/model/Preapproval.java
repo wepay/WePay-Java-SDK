@@ -16,7 +16,6 @@ public class Preapproval extends WePayResource {
 	protected String preapprovalUri;
 	protected String state;
 	protected String manageUri;
-	protected String currency;
 	protected AddressData shippingAddress;
 	protected BigDecimal tax;
 	protected String payerName;
@@ -75,6 +74,7 @@ public class Preapproval extends WePayResource {
 		if (data.feePayer != null) params.put("fee_payer", data.feePayer);
 		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
+		if (data.currency != null) params.put("currency", data.currency);
 		if (data.fallbackUri != null) params.put("fallback_uri", data.fallbackUri);
 		if (data.requireShipping != null) params.put("require_shipping", data.requireShipping);
 		if (data.shippingFee != null) params.put("shipping_fee", data.shippingFee);
@@ -113,7 +113,6 @@ public class Preapproval extends WePayResource {
 		this.preapprovalUri = p.preapprovalUri;
 		this.state = p.state;
 		this.manageUri = p.manageUri;
-		this.currency = p.currency;
 		this.shippingAddress = p.shippingAddress;
 		this.tax = p.tax;
 		this.payerName = p.payerName;
@@ -156,7 +155,7 @@ public class Preapproval extends WePayResource {
 	}
 
 	public String getCurrency() {
-		return currency;
+		return preapprovalData.currency;
 	}
 	
 	public BigDecimal getAmount() {

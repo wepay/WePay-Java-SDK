@@ -15,7 +15,6 @@ public class Checkout extends WePayResource {
 	protected Long checkoutId;
 	protected String checkoutUri;
 	protected String state;
-	protected String currency;
 	protected BigDecimal fee;
 	protected BigDecimal gross;
 	protected String disputeUri;
@@ -78,6 +77,7 @@ public class Checkout extends WePayResource {
 		if (data.feePayer != null) params.put("fee_payer", data.feePayer);
 		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
+		if (data.currency != null) params.put("currency", data.currency);
 		if (data.fallbackUri != null) params.put("fallback_uri", data.fallbackUri);
 		if (data.autoCapture != null) params.put("auto_capture", data.autoCapture);
 		if (data.requireShipping != null) params.put("require_shipping", data.requireShipping);
@@ -91,7 +91,7 @@ public class Checkout extends WePayResource {
 		if (data.paymentMethodType != null) params.put("payment_method_type", data.paymentMethodType);
 		Checkout c = gson.fromJson(request("/checkout/create", params, accessToken), Checkout.class);
 		c.checkoutData = data;
-		return c;		
+		return c;
 	}
 	
 	public void modify(String newCallbackUri, String accessToken) throws JSONException, IOException, WePayException {
@@ -111,7 +111,6 @@ public class Checkout extends WePayResource {
 		this.checkoutId = c.checkoutId;
 		this.checkoutUri = c.checkoutUri;
 		this.state = c.state;
-		this.currency = c.currency;
 		this.fee = c.fee;
 		this.gross = c.gross;
 		this.disputeUri = c.disputeUri;
@@ -176,7 +175,7 @@ public class Checkout extends WePayResource {
 	}
 	
 	public String getCurrency() {
-		return currency;
+		return checkoutData.currency;
 	}
 	
 	public BigDecimal getAmount() {
