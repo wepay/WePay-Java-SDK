@@ -9,6 +9,5 @@ public class UserData {
 	public String originalIp; 				
 	public String originalDevice; 	
 	public String redirectUri; 
-	public String callbackUri;	
-	
+	public String callbackUri;
 }

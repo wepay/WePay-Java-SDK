@@ -10,11 +10,9 @@ WePay API Call              Return Type          Call Parameters
 /account/create             Account              create(AccountData data, String accessToken);
 /account/modify	            void                 modify(AccountData data, String accessToken);
 /account/delete             void                 delete(String reason, String accessToken);
-/account/balance            AccountBalanceData   balance(String accessToken);
-/account/add_bank           String               add_bank(AccountAddBankData addBankData, String accessToken);
-/account/set_tax            void                 set_tax(AccountTaxData[] taxesData, String accessToken);
-/account/set_tax *          void                 set_tax(AccountTaxData taxData, String accessToken);
-/account/get_tax            AccountTaxData[]     get_tax(String accessToken);
+/account/getUpdateUri       String               getUpdateUri(AccountUpdateUriData data, String accessToken) 
+/account/getReserveDetails  AccountReserveData   getReserveDetails(String currency, String accessToken)
+
 
 /app                        App                  fetch(String accessToken);
 /app/modify                 void                 modify(AppData data, String accessToken);

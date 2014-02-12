@@ -1,6 +1,13 @@
-WePay-Java-SDK
+WePay-Java-SDK Api Version 2014-01-08
 ================================
 
+Note
+================================
+This WePay-Java-SDK is for <a href = "https://www.wepay.com/developer/version/2014-01-08">WePay Api Version 2014-01-08</a>. To download the SDK for the previous WePay Api Version (2011-01-15), please follow the link: <a href="https://github.com/wepay/WePay-Java-SDK/">WePay Java SDK Api Version 2011-01-15</a>.
+
+
+Overview
+================================
 To use this SDK, first add the WePay jar (com.wepay.jar) to your project. You'll need to add GSON and JSON jars as well (gson-2.2.4.jar and java-json.jar are also included in the lib folder). 
 
 The lib folder contains the jars necessary to use the SDK to make API calls to WePay. The src folder contains all source code used to build the WePay jar (com.wepay.jar). You'll also need to import the necessary classes and packages into your own code. 

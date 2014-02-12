@@ -61,6 +61,7 @@ public class User extends WePayResource {
 		params.put("original_ip", data.originalIp);
 		params.put("original_device", data.originalDevice);
 		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
+		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
 		User u = gson.fromJson(request("/user/register", params, accessToken), User.class);
 		u.userData = data;
 		return u;

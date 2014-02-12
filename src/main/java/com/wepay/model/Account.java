@@ -14,12 +14,12 @@ public class Account extends WePayResource {
 		
 	protected Long accountId;
 	protected String state;
-	protected String accountUri;
-	protected BigDecimal paymentLimit;
-	protected String verificationState;
-	protected String verificationUri;
+	protected Long createTime;
+	protected AccountBalancesObjectData[] balances;
+	protected AccountStatusesObjectData[] statuses;
+	protected String[] actionReasons;
 	protected AccountData accountData;
-	
+	 
 	public Account(Long accountId) {
 		this.accountId = accountId;
 	}
@@ -85,10 +85,10 @@ public class Account extends WePayResource {
 		ad.callbackUri = data.callbackUri;
 		this.accountId = a.accountId;
 		this.state = a.state;
-		this.accountUri = a.accountUri;
-		this.paymentLimit = a.paymentLimit;
-		this.verificationState = a.verificationState; 
-		this.verificationUri = a.verificationUri;
+		this.createTime = a.createTime;
+		this.balances = a.balances;
+		this.statuses = a.statuses;
+		this.actionReasons = a.actionReasons;
 		this.accountData = ad;
 	}
 	
@@ -99,55 +99,22 @@ public class Account extends WePayResource {
 		request("/account/delete", params, accessToken);
 	}
 	
-	public AccountBalanceData balance(String accessToken) throws JSONException, IOException, WePayException {
+	public String getUpdateUri(AccountUpdateUriData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", this.accountId);
-		AccountBalanceData ab = gson.fromJson(request("/account/balance", params, accessToken), AccountBalanceData.class);
-		return ab;
-	}
-	
-	public String addBank(AccountAddBankData addBankData, String accessToken) throws JSONException, IOException, WePayException {
-		JSONObject params = new JSONObject();
-		params.put("account_id", this.accountId);
-		if (addBankData != null) {
-			if (addBankData.mode != null) params.put("mode", addBankData.mode);
-			if (addBankData.redirectUri != null) params.put("redirect_uri", addBankData.redirectUri);
-		}
-		JSONObject object = new JSONObject(request("/account/add_bank", params, accessToken));
-		return object.getString("add_bank_uri");
-	}
-	
-	public void setTax(AccountTaxData[] taxesData, String accessToken) throws JSONException, IOException, WePayException {
-		JSONObject params = new JSONObject();
-		params.put("account_id", this.accountId);
-		JSONArray taxes = new JSONArray();
-		if (taxesData != null) {
-			for (int i = 0; i < taxesData.length; i++) {
-				taxes.put(AccountTaxData.buildTax(taxesData[i]));
-			}
-		}
-		params.put("taxes", taxes);
-		request("/account/set_tax", params, accessToken);
-	}
-	public void setTax(AccountTaxData taxData, String accessToken) throws JSONException, IOException, WePayException {
-		//overload function for single AccountTaxData object
-		JSONObject params = new JSONObject();
-		params.put("account_id", this.accountId);
-		JSONArray taxes = new JSONArray();
-		if (taxData != null) taxes.put(AccountTaxData.buildTax(taxData));
-		params.put("taxes", taxes);
-		request("/account/set_tax", params, accessToken);
+		if (data.mode != null) params.put("mode", data.mode);
+		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
+		JSONObject object = new JSONObject(request("/account/get_update_uri", params, accessToken));
+		return object.getString("uri");
 	}
 
-	public AccountTaxData[] getTax(String accessToken) throws JSONException, IOException, WePayException {
+	public AccountReserveData getReserveDetails(String currency, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", this.accountId);
-		JSONArray array = new JSONArray(request("/account/get_tax", params, accessToken));
-		AccountTaxData[] taxData = new AccountTaxData[array.length()];
-		for (int i = 0; i < array.length(); i++) {
-			taxData[i] = gson.fromJson(array.get(i).toString(), AccountTaxData.class);
-		}
-		return taxData;
+		if (currency != null) params.put("currency", currency);
+		String response = request("/account/get_reserve_details", params, accessToken);
+		AccountReserveData ar = gson.fromJson(response, AccountReserveData.class);
+		return ar;
 	}
 	
 	public Long getAccountId() {
@@ -177,14 +144,6 @@ public class Account extends WePayResource {
 	public String getReferenceId() {
 		return accountData.referenceId;
 	}
-
-	public String getAccountUri() {
-		return accountUri;
-	}
-
-	public BigDecimal getPaymentLimit() {
-		return paymentLimit;
-	}
 	
 	public String[] getGaqDomains() {
 		return accountData.gaqDomains;
@@ -192,14 +151,6 @@ public class Account extends WePayResource {
 	
 	public ThemeObjectData getThemeObject() {
 		return accountData.themeObject;
-	}
-
-	public String getVerificationState() {
-		return verificationState;
-	}
-
-	public String getVerificationUri() {
-		return verificationUri;
 	}
 
 	public String getType() {
@@ -210,6 +161,22 @@ public class Account extends WePayResource {
 		return accountData.imageUri;
 	}
 
+	public Long getCreateTime() {
+		return createTime;
+	}
+	
+	public AccountBalancesObjectData[] getBalances() {
+		return balances;
+	}
+	
+	public AccountStatusesObjectData[] getStatuses() {
+		return statuses;
+	}
+	
+	public String[] getActionReasons() {
+		return actionReasons;
+	}
+	
 	public Integer getMcc() {
 		return accountData.mcc;
 	}

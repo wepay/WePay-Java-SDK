@@ -1,8 +1,7 @@
 package com.wepay.model.data;
 
-public class AccountAddBankData {
-	
+public class AccountUpdateUriData {
+
 	public String mode;
 	public String redirectUri;
-
 }
