@@ -1,4 +1,4 @@
-WePay-Java-SDK Api Version 2014-01-08
+WePay-Java-SDK
 ================================
 
 Note
