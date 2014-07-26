@@ -47,7 +47,7 @@ Account newAccount = Account.create(aData, myAccessToken);
 // get an accessToken for the new account
 OAuth2Data data = new OAuth2Data();
 data.redirectUri = "http://www.mywebsite.com/oauth2/";
-data.scope = "manage_accounts,view_balance,collect_payments,view_user,preapprove_payments,send_money";
+data.scope = "manage_accounts,collect_payments,view_user,preapprove_payments,send_money";
 String sendUserToThisURL = OAuth2.authorize(data, null);
 //send user to the returned URL to complete OAuth2 authorization form
 

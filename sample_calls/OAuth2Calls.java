@@ -16,7 +16,7 @@ public class OAuth2Calls {
 		 */
 		OAuth2Data oData = new OAuth2Data();
 		oData.redirectUri = "http://www.mywebsite.com/oauth2/";
-		oData.scope = "manage_accounts,view_balance,collect_payments,view_user,preapprove_payments,send_money";
+		oData.scope = "manage_accounts,collect_payments,view_user,preapprove_payments,send_money";
 		String sendUserToThisURL = OAuth2.authorize(oData, null);
 		/**
 			sendUserToThisURL: "https://stage.wepay.com/v2/oauth2/authorize?client_id=190082&redirectUri=http://www.mywebsite.com/oauth2/&scope=manage_accounts,view_balance,collect_payments,view_user,preapprove_payments,send_money"
