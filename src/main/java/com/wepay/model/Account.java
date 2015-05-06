@@ -18,6 +18,7 @@ public class Account extends WePayResource {
 	protected AccountBalancesObjectData[] balances;
 	protected AccountStatusesObjectData[] statuses;
 	protected String[] actionReasons;
+	protected String[] disabledReasons;
 	protected AccountData accountData;
 	 
 	public Account(Long accountId) {
@@ -175,6 +176,10 @@ public class Account extends WePayResource {
 	
 	public String[] getActionReasons() {
 		return actionReasons;
+	}
+
+	public String[] getDisabledReasons() {
+		return disabledReasons;
 	}
 	
 	public Integer getMcc() {
