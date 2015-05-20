@@ -42,6 +42,11 @@ WePay API Call              Return Type          Call Parameters
 /preapproval/modify         void                 modify(PreapprovalData data, String accessToken);
 /preapproval/modify *       void                 modify(String newCallbackUri, String accessToken);
 
+/rbit                       Rbit                 fetch(Long rbitId, String accessToken);
+/rbit/find                  Rbit[]               find(RbitFindData findData, String accessToken);
+/rbit/create                Rbit                 create(RbitData data, String accessToken);
+/rbit/delete                void                 delete(String accessToken);
+
 /user                       User                 fetch(String accessToken);
 /user/modify                void                 modify(UserData data, String accessToken); 
 /user/modify *              void                 modify(String newCallbackUri, String accessToken); 
