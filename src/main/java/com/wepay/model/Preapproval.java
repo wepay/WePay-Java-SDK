@@ -24,6 +24,8 @@ public class Preapproval extends WePayResource {
 	protected Long nextDueTime;
 	protected Long lastCheckoutId;
 	protected Long lastCheckoutTime;
+	protected String[] payerRbits;
+	protected String[] transactionRbits;
 	protected PreapprovalData preapprovalData;
 
 	public Preapproval(Long preapprovalId) {
@@ -90,6 +92,14 @@ public class Preapproval extends WePayResource {
 		if (data.fundingSources != null) params.put("funding_sources", data.fundingSources);
 		if (data.paymentMethodId != null) params.put("payment_method_id", data.paymentMethodId);
 		if (data.paymentMethodType != null) params.put("payment_method_type", data.paymentMethodType);		
+		
+		if (data.payerRbits != null) {
+			params.put("payer_rbits", new JSONArray(data.payerRbits));
+		}
+		if (data.transactionRbits != null) {
+			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+		}
+
 		Preapproval p = gson.fromJson(request("/preapproval/create", params, accessToken), Preapproval.class);
 		p.preapprovalData = data;
 		return p;		
@@ -105,6 +115,14 @@ public class Preapproval extends WePayResource {
 		JSONObject params = new JSONObject();
 		params.put("preapproval_id", this.preapprovalId);
 		params.put("callback_uri", data.callbackUri);
+		
+		if (data.payerRbits != null) {
+			params.put("payer_rbits", new JSONArray(data.payerRbits));
+		}
+		if (data.transactionRbits != null) {
+			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+		}
+
 		String response = request("/preapproval/modify", params, accessToken);
 		Preapproval p = gson.fromJson(response, Preapproval.class);
 		PreapprovalData pd = gson.fromJson(response, PreapprovalData.class);
@@ -121,6 +139,8 @@ public class Preapproval extends WePayResource {
 		this.nextDueTime = p.nextDueTime;
 		this.lastCheckoutId = p.lastCheckoutId;
 		this.lastCheckoutTime = p.lastCheckoutTime;
+		this.payerRbits = p.payerRbits;
+		this.transactionRbits = p.transactionRbits;
 		this.preapprovalData = pd;
 	}
 	
@@ -260,6 +280,14 @@ public class Preapproval extends WePayResource {
 	
 	public String getPaymentMethodType() {
 		return preapprovalData.paymentMethodType;
+	}
+
+	public String[] getPayerRbits() {
+		return payerRbits;
+	}
+
+	public String[] getTransactionRbits() {
+		return transactionRbits;
 	}
 
 }
