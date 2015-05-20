@@ -28,8 +28,8 @@ public class Subscription extends WePayResource {
 	protected Boolean transitionProrate;
 	protected Integer transitionQuantity;
 	protected Long transitionSubscriptionPlanId;
-	protected String[] payerRbits;
-	protected String[] transactionRbits;
+	protected Long[] payerRbits;
+	protected Long[] transactionRbits;
 	protected SubscriptionData subscriptionData;
 	
 	public Subscription(Long subscriptionId) {
@@ -241,11 +241,11 @@ public class Subscription extends WePayResource {
 		return subscriptionData.referenceId;
 	}
 
-	public String[] getPayerRbits() {
+	public Long[] getPayerRbits() {
 		return payerRbits;
 	}
 
-	public String[] getTransactionRbits() {
+	public Long[] getTransactionRbits() {
 		return transactionRbits;
 	}
 	

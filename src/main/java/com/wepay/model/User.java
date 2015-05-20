@@ -17,7 +17,7 @@ public class User extends WePayResource {
 	protected String accessToken;
 	protected String tokenType;
 	protected Long expiresIn;
-	protected String[] rbits;
+	protected Long[] rbits;
 	protected UserData userData;
 	
 	public static User fetch(String accessToken) throws JSONException, IOException, WePayException {
@@ -128,7 +128,7 @@ public class User extends WePayResource {
 		return expiresIn;
 	}
 
-	public String[] getRbits() {
+	public Long[] getRbits() {
 		return rbits;
 	}
 

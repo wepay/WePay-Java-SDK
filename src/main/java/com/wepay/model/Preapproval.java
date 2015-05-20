@@ -24,8 +24,8 @@ public class Preapproval extends WePayResource {
 	protected Long nextDueTime;
 	protected Long lastCheckoutId;
 	protected Long lastCheckoutTime;
-	protected String[] payerRbits;
-	protected String[] transactionRbits;
+	protected Long[] payerRbits;
+	protected Long[] transactionRbits;
 	protected PreapprovalData preapprovalData;
 
 	public Preapproval(Long preapprovalId) {
@@ -282,11 +282,11 @@ public class Preapproval extends WePayResource {
 		return preapprovalData.paymentMethodType;
 	}
 
-	public String[] getPayerRbits() {
+	public Long[] getPayerRbits() {
 		return payerRbits;
 	}
 
-	public String[] getTransactionRbits() {
+	public Long[] getTransactionRbits() {
 		return transactionRbits;
 	}
 

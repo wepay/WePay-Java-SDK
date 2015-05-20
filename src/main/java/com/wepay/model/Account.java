@@ -19,7 +19,7 @@ public class Account extends WePayResource {
 	protected AccountStatusesObjectData[] statuses;
 	protected String[] actionReasons;
 	protected String[] disabledReasons;
-	protected String[] rbits;
+	protected Long[] rbits;
 	protected AccountData accountData;
 	 
 	public Account(Long accountId) {
@@ -89,7 +89,7 @@ public class Account extends WePayResource {
 		if (data.rbits != null) {
 			params.put("rbits", new JSONArray(data.rbits));
 		}
-		
+
 		String response = request("/account/modify", params, accessToken);
 		Account a = gson.fromJson(response, Account.class);
 		AccountData ad = gson.fromJson(response, AccountData.class);
@@ -200,7 +200,7 @@ public class Account extends WePayResource {
 		return accountData.callbackUri;
 	}
 
-	public String[] getRbits() {
+	public Long[] getRbits() {
 		return rbits;
 	}
 	

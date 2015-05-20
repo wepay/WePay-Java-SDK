@@ -24,8 +24,8 @@ public class Checkout extends WePayResource {
 	protected BigDecimal tax;
 	protected BigDecimal amountRefunded;
 	protected Long createTime;
-	protected String[] payerRbits;
-	protected String[] transactionRbits;
+	protected Long[] payerRbits;
+	protected Long[] transactionRbits;
 	protected CheckoutData checkoutData;
 	
 	public Checkout(Long checkoutId) {
@@ -310,11 +310,11 @@ public class Checkout extends WePayResource {
 		return checkoutData.paymentMethodId;
 	}
 
-	public String[] getPayerRbits() {
+	public Long[] getPayerRbits() {
 		return payerRbits;
 	}
 
-	public String[] getTransactionRbits() {
+	public Long[] getTransactionRbits() {
 		return transactionRbits;
 	}
 
