@@ -1,5 +1,7 @@
 package com.wepay.model.data;
 
+import com.wepay.model.data.RbitData;
+
 public class AccountData {
 
 	public String name;
@@ -13,4 +15,5 @@ public class AccountData {
 	public String callbackUri;
     public String country;
     public String[] currencies;
+    public RbitData[] rbits;
 }

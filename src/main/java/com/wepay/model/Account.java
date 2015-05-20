@@ -19,6 +19,7 @@ public class Account extends WePayResource {
 	protected AccountStatusesObjectData[] statuses;
 	protected String[] actionReasons;
 	protected String[] disabledReasons;
+	protected String[] rbits;
 	protected AccountData accountData;
 	 
 	public Account(Long accountId) {
@@ -64,6 +65,10 @@ public class Account extends WePayResource {
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
 		if (data.country != null) params.put("country", data.country);
 		if (data.currencies != null) params.put("currencies", data.currencies);
+
+		if (data.rbits != null) {
+			params.put("rbits", new JSONArray(data.rbits));
+		}
 		String response = request("/account/create", params, accessToken);
 		Account a = gson.fromJson(response, Account.class);
 		a.accountData = data;
@@ -79,7 +84,12 @@ public class Account extends WePayResource {
 		if (data.imageUri != null) params.put("image_uri", data.imageUri);
 		if (data.gaqDomains != null) params.put("gaq_domains", data.gaqDomains);		
 		if (data.themeObject != null) params.put("theme_object", ThemeObjectData.buildThemeObject(data.themeObject));
-		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);	
+		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
+
+		if (data.rbits != null) {
+			params.put("rbits", new JSONArray(data.rbits));
+		}
+		
 		String response = request("/account/modify", params, accessToken);
 		Account a = gson.fromJson(response, Account.class);
 		AccountData ad = gson.fromJson(response, AccountData.class);
@@ -188,6 +198,10 @@ public class Account extends WePayResource {
 	
 	public String getCallbackUri() {
 		return accountData.callbackUri;
+	}
+
+	public String[] getRbits() {
+		return rbits;
 	}
 	
 }
