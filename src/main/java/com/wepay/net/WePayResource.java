@@ -50,7 +50,7 @@ public class WePayResource {
 		return connection;
 	}
 	
-	protected static String request(String call, JSONObject params, String accessToken) throws WePayException, IOException {
+	public static String request(String call, JSONObject params, String accessToken) throws WePayException, IOException {
 		HttpsURLConnection connection = httpsConnect(call, accessToken);
 		DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
 		wr.writeBytes(params.toString());
