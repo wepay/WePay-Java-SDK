@@ -138,6 +138,8 @@ public class Checkout extends WePayResource {
 		this.tax = c.tax;
 		this.amountRefunded = c.amountRefunded;
 		this.createTime = c.createTime;
+		this.payerRbits = c.payerRbits;
+		this.transactionRbits = c.transactionRbits;
 		this.checkoutData = cd;
 	}
 	
