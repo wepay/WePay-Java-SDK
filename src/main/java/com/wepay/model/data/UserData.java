@@ -1,5 +1,7 @@
 package com.wepay.model.data;
 
+import com.wepay.model.data.RbitData;
+
 public class UserData {
 	
 	public String email; 		
@@ -10,4 +12,5 @@ public class UserData {
 	public String originalDevice; 	
 	public String redirectUri; 
 	public String callbackUri;
+    public RbitData[] rbits;
 }

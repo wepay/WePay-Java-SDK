@@ -1,5 +1,7 @@
 package com.wepay.model.data;
 
+import com.wepay.model.data.RbitData;
+
 import java.math.BigDecimal;
 
 public class PreapprovalData {
@@ -29,4 +31,6 @@ public class PreapprovalData {
 	public Long paymentMethodId;
 	public String paymentMethodType;
 	public String currency;
+	public RbitData[] payerRbits;
+	public RbitData[] transactionRbits;
 }

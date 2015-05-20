@@ -18,7 +18,8 @@ public class CreditCard extends WePayResource {
 	protected String email;
 	protected Long createTime;
 	protected String referenceId;
-	
+	protected Long[] rbits;
+
 	public CreditCard(Long creditCardId) {
 		this.creditCardId = creditCardId;
 	}
@@ -94,6 +95,10 @@ public class CreditCard extends WePayResource {
 
 	public String getReferenceId() {
 		return referenceId;
+	}
+
+	public Long[] getRbits() {
+		return rbits;
 	}
 	
 }

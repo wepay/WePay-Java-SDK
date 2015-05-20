@@ -17,8 +17,9 @@ public class User extends WePayResource {
 	protected String accessToken;
 	protected String tokenType;
 	protected Long expiresIn;
+	protected Long[] rbits;
 	protected UserData userData;
-
+	
 	public static User fetch(String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		String response = request("/user", params, accessToken);
@@ -37,6 +38,11 @@ public class User extends WePayResource {
 	public void modify(UserData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("callback_uri", data.callbackUri);
+
+		if (data.rbits != null) {
+			params.put("rbits", new JSONArray(data.rbits));
+		}
+
 		String response = request("/user/modify", params, accessToken);
 		User u = gson.fromJson(response, User.class);
 		UserData ud = gson.fromJson(response, UserData.class);
@@ -47,6 +53,7 @@ public class User extends WePayResource {
 		this.accessToken = u.accessToken;
 		this.tokenType = u.tokenType;
 		this.expiresIn = u.expiresIn;
+		this.rbits = u.rbits;
 		this.userData = ud;
 	}
 	
@@ -62,6 +69,11 @@ public class User extends WePayResource {
 		params.put("original_device", data.originalDevice);
 		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
+		
+		if (data.rbits != null) {
+			params.put("rbits", new JSONArray(data.rbits));
+		}
+
 		User u = gson.fromJson(request("/user/register", params, accessToken), User.class);
 		u.userData = data;
 		return u;
@@ -114,6 +126,10 @@ public class User extends WePayResource {
 
 	public Long getExpiresIn() {
 		return expiresIn;
+	}
+
+	public Long[] getRbits() {
+		return rbits;
 	}
 
 }

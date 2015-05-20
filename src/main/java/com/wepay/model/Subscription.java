@@ -28,6 +28,8 @@ public class Subscription extends WePayResource {
 	protected Boolean transitionProrate;
 	protected Integer transitionQuantity;
 	protected Long transitionSubscriptionPlanId;
+	protected Long[] payerRbits;
+	protected Long[] transactionRbits;
 	protected SubscriptionData subscriptionData;
 	
 	public Subscription(Long subscriptionId) {
@@ -75,6 +77,14 @@ public class Subscription extends WePayResource {
 		if (data.quantity != null) params.put("quantity", data.quantity);
 		if (data.referenceId != null) params.put("reference_id", data.referenceId);
 		if (data.prefillInfo != null) params.put("prefill_info", PrefillInfoData.buildPrefillInfo(data.prefillInfo));
+		
+		if (data.payerRbits != null) {
+			params.put("payer_rbits", new JSONArray(data.payerRbits));
+		}
+		if (data.transactionRbits != null) {
+			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+		}
+
 		String response = request("/subscription/create", params, accessToken);
 		Subscription s = gson.fromJson(response, Subscription.class);
 		SubscriptionData sd = gson.fromJson(response, SubscriptionData.class);
@@ -95,6 +105,14 @@ public class Subscription extends WePayResource {
 		if (data.transitionExpireDays != null) params.put("transition_expire_days", data.transitionExpireDays);
 		if (data.referenceId != null) params.put("reference_id", data.referenceId);
 		if (data.extendTrialDays != null) params.put("extend_trial_days", data.extendTrialDays);
+		
+		if (data.payerRbits != null) {
+			params.put("payer_rbits", new JSONArray(data.payerRbits));
+		}
+		if (data.transactionRbits != null) {
+			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+		}
+
 		String response = request("/subscription/modify", params, accessToken);
 		Subscription s = gson.fromJson(response, Subscription.class);
 		SubscriptionData sd = gson.fromJson(response, SubscriptionData.class);
@@ -112,7 +130,10 @@ public class Subscription extends WePayResource {
 		this.transitionExpireTime = s.transitionExpireTime;
 		this.transitionProrate = s.transitionProrate;
 		this.transitionQuantity = s.transitionQuantity;
-		this.transitionSubscriptionPlanId = s.transitionSubscriptionPlanId;		
+		this.transitionSubscriptionPlanId = s.transitionSubscriptionPlanId;
+		this.payerRbits = s.payerRbits;
+		this.transactionRbits = s.transactionRbits;
+		
 		this.subscriptionData = sd;
 	}
 		
@@ -218,6 +239,14 @@ public class Subscription extends WePayResource {
 	
 	public String getReferenceId() {
 		return subscriptionData.referenceId;
+	}
+
+	public Long[] getPayerRbits() {
+		return payerRbits;
+	}
+
+	public Long[] getTransactionRbits() {
+		return transactionRbits;
 	}
 	
 }

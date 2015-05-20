@@ -1,5 +1,7 @@
 package com.wepay.model.data;
 
+import com.wepay.model.data.RbitData;
+
 import java.math.BigDecimal;
 
 public class CheckoutData {
@@ -30,4 +32,6 @@ public class CheckoutData {
 	public String paymentMethodType;
 	public Long paymentMethodId;
 	public String currency;
+	public RbitData[] payerRbits;
+	public RbitData[] transactionRbits;
 }
