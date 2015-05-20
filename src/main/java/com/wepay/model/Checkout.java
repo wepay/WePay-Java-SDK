@@ -24,6 +24,8 @@ public class Checkout extends WePayResource {
 	protected BigDecimal tax;
 	protected BigDecimal amountRefunded;
 	protected Long createTime;
+	protected String[] payerRbits;
+	protected String[] transactionRbits;
 	protected CheckoutData checkoutData;
 	
 	public Checkout(Long checkoutId) {
@@ -89,6 +91,14 @@ public class Checkout extends WePayResource {
 		if (data.fundingSources != null) params.put("funding_sources", data.fundingSources);
 		if (data.paymentMethodId != null) params.put("payment_method_id", data.paymentMethodId);
 		if (data.paymentMethodType != null) params.put("payment_method_type", data.paymentMethodType);
+		
+		if (data.payerRbits != null) {
+			params.put("payer_rbits", new JSONArray(data.payerRbits));
+		}
+		if (data.transactionRbits != null) {
+			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+		}
+
 		Checkout c = gson.fromJson(request("/checkout/create", params, accessToken), Checkout.class);
 		c.checkoutData = data;
 		return c;
@@ -104,6 +114,14 @@ public class Checkout extends WePayResource {
 		JSONObject params = new JSONObject();
 		params.put("checkout_id", this.checkoutId);
 		params.put("callback_uri", data.callbackUri);
+		
+		if (data.payerRbits != null) {
+			params.put("payer_rbits", new JSONArray(data.payerRbits));
+		}
+		if (data.transactionRbits != null) {
+			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+		}
+
 		String response = request("/checkout/modify", params, accessToken);
 		Checkout c = gson.fromJson(response, Checkout.class);
 		CheckoutData cd = gson.fromJson(response, CheckoutData.class);
@@ -288,6 +306,14 @@ public class Checkout extends WePayResource {
 	
 	public Long getPaymentMethodId() {
 		return checkoutData.paymentMethodId;
+	}
+
+	public String[] getPayerRbits() {
+		return payerRbits;
+	}
+
+	public String[] getTransactionRbits() {
+		return transactionRbits;
 	}
 
 }
