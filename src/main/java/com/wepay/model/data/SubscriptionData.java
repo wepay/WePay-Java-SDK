@@ -1,5 +1,7 @@
 package com.wepay.model.data;
 
+import com.wepay.model.data.RbitData;
+
 public class SubscriptionData {
 
 	public Long subscriptionPlanId;
@@ -11,6 +13,8 @@ public class SubscriptionData {
 	public Integer quantity;
 	public String referenceId;
 	public PrefillInfoData prefillInfo;
+	public RbitData[] payerRbits;
+	public RbitData[] transactionRbits;
 	
 	//Only used by Subscription.cancel()
 	public String cancelReason;
