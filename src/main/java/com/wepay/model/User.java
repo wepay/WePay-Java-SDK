@@ -79,9 +79,22 @@ public class User extends WePayResource {
 		return u;
 	}
 	
+	@Deprecated
 	public static void resendConfirmation(String accessToken) throws JSONException, IOException, WePayException {
+		sendConfirmation(accessToken);
+	}
+
+	public static void sendConfirmation(String accessToken) throws JSONException, IOException, WePayException {
+		sendConfirmation(null, accessToken);
+	}
+
+	public static void sendConfirmation(String emailMessage, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		request("/user/resend_confirmation", params, accessToken);
+		if (emailMessage != null) {
+			params.put("email_message", emailMessage);
+		}
+
+		request("/user/send_confirmation", params, accessToken);
 	}
 
 	public Long getUserId() {

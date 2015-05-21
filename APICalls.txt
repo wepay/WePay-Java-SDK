@@ -51,7 +51,9 @@ WePay API Call              Return Type          Call Parameters
 /user/modify                void                 modify(UserData data, String accessToken); 
 /user/modify *              void                 modify(String newCallbackUri, String accessToken); 
 /user/register              User                 register(UserData data, String accessToken);
-/user/resend_confirmation   void                 resendConfirmation(String accessToken);
+/user/resend_confirmation   void                 (Deprecated) resendConfirmation(String accessToken);
+/user/send_confirmation     void                 sendConfirmation(String emailMessage, String accessToken);
+/user/send_confirmation *   void                 sendConfirmation(String accessToken);
 
 /withdrawal                 Withdrawal           fetch(Long withdrawalId, String accessToken);
 /withdrawal/find            Withdrawal[]         find(WithdrawalFindData findData, String accessToken);
