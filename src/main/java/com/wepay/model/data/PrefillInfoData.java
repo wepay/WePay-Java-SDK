@@ -7,7 +7,7 @@ public class PrefillInfoData {
 	public String name;
 	public String email;
 	public String phone_number;
-	public AddressData address;
+	public String address;
 	public String city;
 	public String state;
 	public Integer zip;
