@@ -67,6 +67,8 @@ public class User extends WePayResource {
 		params.put("last_name", data.lastName);
 		params.put("original_ip", data.originalIp);
 		params.put("original_device", data.originalDevice);
+		params.put("tos_acceptance_time", data.tosAcceptanceTime);
+		
 		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
 		
