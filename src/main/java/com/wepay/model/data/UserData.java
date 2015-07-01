@@ -9,7 +9,8 @@ public class UserData {
 	public String firstName; 		
 	public String lastName; 		
 	public String originalIp; 				
-	public String originalDevice; 	
+	public String originalDevice;
+	public Long tosAcceptanceTime;
 	public String redirectUri; 
 	public String callbackUri;
     public RbitData[] rbits;
