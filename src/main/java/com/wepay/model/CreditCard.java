@@ -17,7 +17,12 @@ public class CreditCard extends WePayResource {
 	protected String userName;
 	protected String email;
 	protected Long createTime;
+	protected String inputSource;
+	protected String virtualTerminalMode;
 	protected String referenceId;
+	protected Integer expirationMonth;
+	protected Integer expirationYear;
+	protected String lastFour;
 	protected Long[] rbits;
 
 	public CreditCard(Long creditCardId) {
@@ -93,8 +98,28 @@ public class CreditCard extends WePayResource {
 		return createTime;
 	}
 
+	public String getInputSource() {
+		return inputSource;
+	}
+
+	public String getVirtualTerminalMode() {
+		return virtualTerminalMode;
+	}
+
 	public String getReferenceId() {
 		return referenceId;
+	}
+
+	public Integer getExpirationMonth() {
+		return expirationMonth;
+	}
+
+	public Integer getExpirationYear() {
+		return expirationYear;
+	}
+
+	public String getLastFour() {
+		return lastFour;
 	}
 
 	public Long[] getRbits() {
