@@ -19,6 +19,7 @@ public class Account extends WePayResource {
 	protected AccountStatusesObjectData[] statuses;
 	protected String[] actionReasons;
 	protected String[] disabledReasons;
+	protected FeeScheduleData[] feeSchedule;
 	protected Long[] rbits;
 	protected AccountData accountData;
 	 
@@ -65,6 +66,8 @@ public class Account extends WePayResource {
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
 		if (data.country != null) params.put("country", data.country);
 		if (data.currencies != null) params.put("currencies", data.currencies);
+		if (data.countryOptions != null) params.put("country_options", data.countryOptions);
+		if (data.feeScheduleSlot != null) params.put("fee_schedule_slot", data.feeScheduleSlot);
 
 		if (data.rbits != null) {
 			params.put("rbits", new JSONArray(data.rbits));
@@ -85,6 +88,8 @@ public class Account extends WePayResource {
 		if (data.gaqDomains != null) params.put("gaq_domains", data.gaqDomains);		
 		if (data.themeObject != null) params.put("theme_object", ThemeObjectData.buildThemeObject(data.themeObject));
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
+		if (data.countryOptions != null) params.put("country_options", data.countryOptions);
+		if (data.feeScheduleSlot != null) params.put("fee_schedule_slot", data.feeScheduleSlot);
 
 		if (data.rbits != null) {
 			params.put("rbits", new JSONArray(data.rbits));
@@ -146,6 +151,10 @@ public class Account extends WePayResource {
 
     public String[] getCurrencies() {
 		return accountData.currencies;
+	}
+
+	public FeeScheduleData[] getFeeSchedule() {
+		return feeSchedule;
 	}
     
 	public String getDescription() {
