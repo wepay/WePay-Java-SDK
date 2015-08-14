@@ -4,4 +4,5 @@ public class AccountUpdateUriData {
 
 	public String mode;
 	public String redirectUri;
+    public KYCPrefillInfoData prefillInfo;
 }
