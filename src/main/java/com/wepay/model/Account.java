@@ -118,9 +118,19 @@ public class Account extends WePayResource {
 	public String getUpdateUri(AccountUpdateUriData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", this.accountId);
-		if (data.mode != null) params.put("mode", data.mode);
-		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
-		JSONObject object = new JSONObject(request("/account/get_update_uri", params, accessToken));
+		if (data.mode != null) {
+			params.put("mode", data.mode);
+		}
+
+		if (data.redirectUri != null) {
+			params.put("redirect_uri", data.redirectUri);
+		}
+
+		if (data.prefillInfo != null) {
+			params.put("prefill_info", KYCPrefillInfoData.buildPrefillInfo(data.prefillInfo));
+		}
+
+   		JSONObject object = new JSONObject(request("/account/get_update_uri", params, accessToken));
 		return object.getString("uri");
 	}
 
