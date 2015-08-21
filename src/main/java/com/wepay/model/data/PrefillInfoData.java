@@ -17,16 +17,16 @@ public class PrefillInfoData {
 
 	public static JSONObject buildPrefillInfo(PrefillInfoData info) throws JSONException {
 		JSONObject o = new JSONObject();
-		o.put("name", info.name);
-		o.put("email", info.email);
-		o.put("phone_number", info.phone_number);
-		o.put("address", info.address);
-		o.put("city", info.city);
-		o.put("state", info.state);
-		o.put("zip", info.zip);
-		o.put("country", info.country);
-		o.put("region", info.region);
-		o.put("postcode", info.postcode);
+		if (info.name != null) o.put("name", info.name);
+		if (info.email != null) o.put("email", info.email);
+		if (info.phone_number != null) o.put("phone_number", info.phone_number);
+		if (info.address != null) o.put("address", info.address);
+		if (info.city != null) o.put("city", info.city);
+		if (info.state != null) o.put("state", info.state);
+		if (info.zip != null) o.put("zip", info.zip);
+		if (info.country != null) o.put("country", info.country);
+		if (info.region != null) o.put("region", info.region);
+		if (info.postcode != null) o.put("postcode", info.postcode);
 		return o;
 	}
 	
