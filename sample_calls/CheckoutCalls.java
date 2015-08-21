@@ -15,10 +15,11 @@ public class CheckoutCalls {
 		 * CREATE call
 		 */
 		CheckoutData cData = new CheckoutData();
-		cData.accountId = 2111137965;
+		cData.accountId = 2111137965L;
 		cData.shortDescription = "sample checkout";
 		cData.type = "GOODS";
 		cData.amount = 19.99;
+		cData.currency = "USD";
 		Checkout myCheckout = Checkout.create(cData, myAccessToken);
 		/**
 			myCheckout: 
@@ -30,6 +31,7 @@ public class CheckoutCalls {
 			    "short_description": "sample checkout",
 			    "type": "GOODS",
 			    "amount": 19.99
+			    "currency": "USD"
 			  }
 			}
 		 */
