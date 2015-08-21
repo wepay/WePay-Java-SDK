@@ -5,33 +5,23 @@ import com.wepay.model.data.RbitData;
 import java.math.BigDecimal;
 
 public class CheckoutData {
-
 	public Long accountId;
+    public String uniqueId;
 	public String shortDescription;
+    public String currency;
 	public String type;
 	public BigDecimal amount;
-	public String longDescription;
-	public String payerEmailMessage;
-	public String payeeEmailMessage;
-	public String referenceId;
-	public BigDecimal appFee;
-	public String feePayer;
-	public String redirectUri;
-	public String callbackUri;
-	public String fallbackUri;
-	public String cancelReason;
-	public String refundReason;
-	public Boolean autoCapture;
-	public Boolean requireShipping;
-	public BigDecimal shippingFee;
-	public Boolean chargeTax;
-	public String mode;
-	public Long preapprovalId;
-	public PrefillInfoData prefillInfo;
-	public String fundingSources;
-	public String paymentMethodType;
-	public Long paymentMethodId;
-	public String currency;
+	public FeeData fee;
+    public Boolean autoCapture;
+    public HostedCheckoutData hostedCheckout;
+    public String deliveryType;
+    public String cancelReason;
+    public String refundReason;
 	public RbitData[] payerRbits;
 	public RbitData[] transactionRbits;
+	public String longDescription;
+	public String referenceId;
+	public String callbackUri;
+    public EmailMessageData emailMessage;
+    public PaymentMethodData paymentMethod;
 }

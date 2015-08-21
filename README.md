@@ -3,7 +3,7 @@ WePay-Java-SDK
 
 Note
 ================================
-This WePay-Java-SDK is for <a href = "https://www.wepay.com/developer/version/2014-01-08">WePay Api Version 2014-01-08</a>. The jar for the previous API version (2011-01-15) can be found in the lib folder and is named wepay-2011-01-15.jar.
+This WePay-Java-SDK is for <a href = "https://www.wepay.com/developer/version/2015-08-15">WePay Api Version 2015-08-15</a>. The jar for the previous API versions can be found in the lib folder.
 
 Overview
 ================================
@@ -64,8 +64,7 @@ cData.accountId = newAccount.getAccountId();       // use a returned object to a
 cData.shortDescription = "Soccer Ball Purchase";
 cData.type = "GOODS";
 cData.amount = 29.95;
-cData.appFee = 0.50;
-cData.feePayer = "payee";
+cData.currency = "USD";
 Checkout newCheckout = Checkout.create(cData, userNewAccessToken);
 ```
 A demo of the WePay API Java SDK can be found at WeFarm, an online demo marketplace built on the WePay API using this SDK. WeFarm is live online at http://wefarm.herokuapp.com/. You can also find the Java source code for WeFarm at https://github.com/wepay/WeFarm-Java to see how WeFarm uses this SDK to execute WePay API calls. 

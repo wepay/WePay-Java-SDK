@@ -11,23 +11,19 @@ import com.wepay.exception.WePayException;
 import com.wepay.model.data.*;
 
 public class Checkout extends WePayResource {
-	
+        
 	protected Long checkoutId;
-	protected String checkoutUri;
 	protected String state;
-	protected BigDecimal fee;
+    protected String softDescriptor;
 	protected BigDecimal gross;
-	protected String disputeUri;
-	protected String payerEmail;
-	protected String payerName;
-	protected AddressData shippingAddress;
-	protected BigDecimal tax;
-	protected BigDecimal amountRefunded;
+    protected ChargebackData chargeback;
+	protected CheckoutRefundData refund;
+    protected PayerData payer;
 	protected Long createTime;
 	protected Long[] payerRbits;
 	protected Long[] transactionRbits;
 	protected CheckoutData checkoutData;
-	
+    
 	public Checkout(Long checkoutId) {
 		this.checkoutId = checkoutId;
 	}
@@ -42,7 +38,7 @@ public class Checkout extends WePayResource {
 		return c;
 	}
 	
-	public static Checkout[] find(CheckoutFindData findData, String accessToken) throws JSONException, IOException, WePayException {
+    public static Checkout[] find(CheckoutFindData findData, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		if (findData.accountId != null) params.put("account_id", findData.accountId);
 		if (findData.start != null) params.put("start", findData.start);
@@ -63,7 +59,7 @@ public class Checkout extends WePayResource {
 			found[i] = c;
 		}
 		return found;
-	}
+    }
 	
 	public static Checkout create(CheckoutData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
@@ -71,36 +67,47 @@ public class Checkout extends WePayResource {
 		params.put("short_description", data.shortDescription);
 		params.put("type", data.type);
 		params.put("amount", data.amount);
+		params.put("currency", data.currency);
+        
 		if (data.longDescription != null) params.put("long_description", data.longDescription);
-		if (data.payerEmailMessage != null) params.put("payer_email_message", data.payerEmailMessage);
-		if (data.payeeEmailMessage != null) params.put("payee_email_message", data.payeeEmailMessage);
-		if (data.referenceId != null) params.put("reference_id", data.referenceId);
-		if (data.appFee != null) params.put("app_fee", data.appFee);
-		if (data.feePayer != null) params.put("fee_payer", data.feePayer);
-		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
+        
+        if (data.emailMessage != null) params.put("email_message", EmailMessageData.build_email_message(data.emailMessage));
+        if (data.fee != null) params.put("fee", FeeData.build_fee(data.fee));
+        
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
-		if (data.currency != null) params.put("currency", data.currency);
-		if (data.fallbackUri != null) params.put("fallback_uri", data.fallbackUri);
 		if (data.autoCapture != null) params.put("auto_capture", data.autoCapture);
-		if (data.requireShipping != null) params.put("require_shipping", data.requireShipping);
-		if (data.shippingFee != null) params.put("shipping_fee", data.shippingFee);
-		if (data.chargeTax != null) params.put("charge_tax", data.chargeTax);
-		if (data.mode != null) params.put("mode", data.mode);
-		if (data.preapprovalId != null) params.put("preapproval_id", data.preapprovalId);
-		if (data.prefillInfo != null) params.put("prefill_info", PrefillInfoData.buildPrefillInfo(data.prefillInfo));
-		if (data.fundingSources != null) params.put("funding_sources", data.fundingSources);
-		if (data.paymentMethodId != null) params.put("payment_method_id", data.paymentMethodId);
-		if (data.paymentMethodType != null) params.put("payment_method_type", data.paymentMethodType);
+		if (data.referenceId != null) params.put("reference_id", data.referenceId);
+		if (data.uniqueId != null) params.put("unique_id", data.uniqueId);
+        
+        if (data.hostedCheckout != null) params.put("hosted_checkout", HostedCheckoutData.build_hosted_checkout(data.hostedCheckout));
+        
+		if (data.paymentMethod != null) params.put("payment_method", PaymentMethodData.build_payment_method(data.paymentMethod));
+		
+        if (data.deliveryType != null) params.put("delivery_type", data.deliveryType);
 		
 		if (data.payerRbits != null) {
 			params.put("payer_rbits", new JSONArray(data.payerRbits));
 		}
+        
 		if (data.transactionRbits != null) {
 			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
 		}
 
-		Checkout c = gson.fromJson(request("/checkout/create", params, accessToken), Checkout.class);
-		c.checkoutData = data;
+		String response = request("/checkout/create", params, accessToken);
+		Checkout c = gson.fromJson(response, Checkout.class);
+		CheckoutData cd = gson.fromJson(response, CheckoutData.class);
+        
+        if (data.emailMessage != null) {
+            cd.emailMessage = data.emailMessage;
+        }
+        if (data.uniqueId != null) {
+            cd.uniqueId = data.uniqueId;
+        }
+        if (data.hostedCheckout != null && data.hostedCheckout.fundingSources != null) {
+            cd.hostedCheckout.fundingSources = data.hostedCheckout.fundingSources;
+        }
+		c.checkoutData = cd;
+        
 		return c;
 	}
 	
@@ -110,34 +117,32 @@ public class Checkout extends WePayResource {
 		data.callbackUri = newCallbackUri;
 		this.modify(data, accessToken);
 	}
+    
 	public void modify(CheckoutData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("checkout_id", this.checkoutId);
 		params.put("callback_uri", data.callbackUri);
 		
-		if (data.payerRbits != null) {
-			params.put("payer_rbits", new JSONArray(data.payerRbits));
-		}
-		if (data.transactionRbits != null) {
-			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
-		}
-
-		String response = request("/checkout/modify", params, accessToken);
-		Checkout c = gson.fromJson(response, Checkout.class);
+    	if (data.payerRbits != null) {
+    		params.put("payer_rbits", new JSONArray(data.payerRbits));
+    	}
+    	if (data.transactionRbits != null) {
+    		params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+    	}
+    
+        String response = request("/checkout/modify", params, accessToken);
+		
+        Checkout c = gson.fromJson(response, Checkout.class);
 		CheckoutData cd = gson.fromJson(response, CheckoutData.class);
 		cd.callbackUri = data.callbackUri;
-		this.checkoutId = c.checkoutId;
-		this.checkoutUri = c.checkoutUri;
+		
+        this.checkoutId = c.checkoutId;
 		this.state = c.state;
-		this.fee = c.fee;
-		this.gross = c.gross;
-		this.disputeUri = c.disputeUri;
-		this.payerEmail = c.payerEmail;
-		this.payerName = c.payerName;
-		this.shippingAddress = c.shippingAddress;
-		this.tax = c.tax;
-		this.amountRefunded = c.amountRefunded;
-		this.createTime = c.createTime;
+        this.softDescriptor = c.softDescriptor;
+        this.gross = c.gross;
+        this.chargeback = c.chargeback;
+        this.refund = c.refund;
+        this.payer = c.payer;
 		this.payerRbits = c.payerRbits;
 		this.transactionRbits = c.transactionRbits;
 		this.checkoutData = cd;
@@ -178,14 +183,30 @@ public class Checkout extends WePayResource {
 		return checkoutData.accountId;
 	}
 	
-	public Long getPreapprovalId() {
-		return checkoutData.preapprovalId;
+	public String getPaymentMethodType() {
+		return checkoutData.paymentMethod.type;
 	}
 	
+	public Long getPreapprovalId() {
+		return checkoutData.paymentMethod.preapproval.id;
+	}
+	
+	public Long getCreditCardId() {
+		return checkoutData.paymentMethod.creditCard.id;
+	}
+    
 	public String getState() {
 		return state;
 	}
-	
+    
+    public Long getCreateTime() {
+        return createTime;
+    }
+    
+    public String getSoftDescriptor() {
+        return softDescriptor;
+    }
+    
 	public String getShortDescription() {
 		return checkoutData.shortDescription;
 	}
@@ -202,88 +223,80 @@ public class Checkout extends WePayResource {
 		return checkoutData.amount;
 	}
 	
-	public BigDecimal getFee() {
-		return fee;
+	public BigDecimal getProcessingFee() {
+		return checkoutData.fee.processingFee;
 	}
 	
 	public BigDecimal getGross() {
 		return gross;
 	}
-	
+    
 	public BigDecimal getAppFee() {
-		return checkoutData.appFee;
+		return checkoutData.fee.appFee;
 	}
 
 	public String getFeePayer() {
-		return checkoutData.feePayer;
+		return checkoutData.fee.feePayer;
 	}
 	
 	public String getReferenceId() {
 		return checkoutData.referenceId;
 	}
-	
+    
 	public String getRedirectUri() {
-		return checkoutData.redirectUri;
+		return checkoutData.hostedCheckout.redirectUri;
 	}
 	
 	public String getCallbackUri() {
 		return checkoutData.callbackUri;
 	}
-	
+    
 	public String getDisputeUri() {
-		return disputeUri;
+		return chargeback.disputeUri;
+	}
+	
+	public BigDecimal getAmountChargedback() {
+		return chargeback.amountChargedBack;
 	}
 	
 	public String getPayerEmail() {
-		return payerEmail;
+		return payer.email;
 	}
 	
 	public String getPayerName() {
-		return payerName;
+		return payer.name;
 	}
 	
-	public String getCancelReason() {
-		return checkoutData.cancelReason;
+	public String getPayerHomeAddress() {
+		return payer.homeAddress;
 	}
-	
-	public String getRefundReason() {
-		return checkoutData.refundReason;
-	}
+    
+    public String getDeliveryType() {
+        return checkoutData.deliveryType;
+    }
 
 	public Boolean isAutoCapture() {
 		return checkoutData.autoCapture;
 	}
-	
+    
 	public Boolean isRequireShipping() {
-		return checkoutData.requireShipping;
+		return checkoutData.hostedCheckout.requireShipping;
 	}
 	
 	public AddressData getShippingAddress() {
-		return shippingAddress;
-	}
-	
-	public BigDecimal getTax() {
-		return tax;
+		return checkoutData.hostedCheckout.shippingAddress;
 	}
 	
 	public BigDecimal getAmountRefunded() {
-		return amountRefunded;
+		return refund.amountRefunded;
 	}
 	
-	public Long getCreateTime() {
-		return createTime;
+	public String getRefundReason() {
+		return refund.refundReason;
 	}
-	
+    
 	public String getCheckoutUri() {
-		return checkoutUri;
-	}
-
-	public String getPayerEmailMessage() {
-		return checkoutData.payerEmailMessage;
-	}
-	
-	public String getPayeeEmailMessage() {
-		return checkoutData.payeeEmailMessage;
+		return checkoutData.hostedCheckout.checkoutUri;
 	}
 
 	public String getType() {
@@ -291,31 +304,14 @@ public class Checkout extends WePayResource {
 	}
 
 	public String getFallbackUri() {
-		return checkoutData.fallbackUri;
+		return checkoutData.hostedCheckout.fallbackUri;
 	}
 
 	public BigDecimal getShippingFee() {
-		return checkoutData.shippingFee;
+		return checkoutData.hostedCheckout.shippingFee;
 	}
 
-	public String getFundingSources() {
-		return checkoutData.fundingSources;
-	}
-	
-	public String getPaymentMethodType() {
-		return checkoutData.paymentMethodType;
-	}
-	
-	public Long getPaymentMethodId() {
-		return checkoutData.paymentMethodId;
-	}
-
-	public Long[] getPayerRbits() {
-		return payerRbits;
-	}
-
-	public Long[] getTransactionRbits() {
-		return transactionRbits;
-	}
-
+	public String[] getFundingSources() {
+		return checkoutData.hostedCheckout.fundingSources;
+    }
 }

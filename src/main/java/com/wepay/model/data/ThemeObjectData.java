@@ -19,5 +19,4 @@ public class ThemeObjectData {
 		o.put("button_color", info.buttonColor);
 		return o;
 	}
-	
 }
