@@ -314,4 +314,12 @@ public class Checkout extends WePayResource {
 	public String[] getFundingSources() {
 		return checkoutData.hostedCheckout.fundingSources;
     }
+    
+    public Long[] getPayerRbits() {
+    	return payerRbits;
+    }
+
+    public Long[] getTransactionRbits() {
+        return transactionRbits;
+    }
 }
