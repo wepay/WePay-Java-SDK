@@ -1,0 +1,35 @@
+apply plugin: 'jacoco'
+
+test {
+    useTestNG()
+
+    // listen to events in the test execution lifecycle
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+
+    // listen to standard out and standard error of the test JVM(s)
+    onOutput { descriptor, event ->
+        logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+    }
+}
+
+dependencies {
+    testCompile 'org.testng:testng'
+}
+
+apply plugin: 'sonar-runner'
+
+check.mustRunAfter 'sonarRunner'
+
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", project.hasProperty("sonarServerUrl") ? project.sonarServerUrl : "http://localhost"
+        property "sonar.login", project.hasProperty("sonarServerUsername") ? project.sonarServerUsername : ""
+        property "sonar.password", project.hasProperty("sonarServerPassword") ? project.sonarServerPassword : ""
+        property "sonar.jdbc.url", project.hasProperty("sonarDbUrl") ? project.sonarDbUrl : "jdbc:mysql://localhost:3306/sonar"
+        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+        property "sonar.jdbc.username", project.hasProperty("sonarDbUsername") ? project.sonarDbUsername : ''
+        property "sonar.jdbc.password", project.hasProperty("sonarDbPassword") ? project.sonarDbPassword : ''
+    }
+}

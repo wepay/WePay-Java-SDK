@@ -1,0 +1,19 @@
+buildscript {
+    apply from: "gradle/buildscript.gradle", to: buildscript
+}
+
+group = "com.wepay"
+description = "wepay-java-sdk - An Infusionsoft Library"
+
+apply from: "gradle/convention.gradle"
+apply from: "gradle/codequality.gradle"
+apply from: "gradle/release.gradle"
+
+dependencies {
+    compile "org.json:json:20141113"
+    compile "com.google.code.gson:gson:2.2.4"
+
+}
+
+// This is to prevent Spring Boot from making an executable jar.  Because this is a library.
+bootRepackage.enabled = false

@@ -1,0 +1,18 @@
+machine:
+  environment:
+  java:
+    version: oraclejdk8
+
+dependencies:
+  override:
+    - "curl -s -H \"Authorization: token ${GITHUB_AUTH_TOKEN}\" https://raw.githubusercontent.com/infusionsoft/circle-ci-docker-scripts/master/init.sh | bash"
+
+test:
+  override:
+    - ./gradlew clean
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./gradlew clean release -DisRelease=true pushTags
