@@ -70,7 +70,9 @@ public class Account extends WePayResource {
 		if (data.feeScheduleSlot != null) params.put("fee_schedule_slot", data.feeScheduleSlot);
 
 		if (data.rbits != null) {
-			params.put("rbits", new JSONArray(data.rbits));
+			Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+			String jsonStr = gson.toJson(data.rbits);
+			params.put("rbits", new JSONArray(jsonStr));
 		}
 		String response = request("/account/create", params, accessToken);
 		Account a = gson.fromJson(response, Account.class);
