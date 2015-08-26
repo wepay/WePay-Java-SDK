@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 
 import org.json.*;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.wepay.WePay;
 import com.wepay.net.WePayResource;
 import com.wepay.exception.WePayException;
@@ -67,6 +70,7 @@ public class Preapproval extends WePayResource {
 	
 	public static Preapproval create(PreapprovalData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
+		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		if (data.accountId != null) params.put("account_id", data.accountId);
 		if (data.amount != null) params.put("amount", data.amount);
 		params.put("short_description", data.shortDescription);
@@ -94,10 +98,12 @@ public class Preapproval extends WePayResource {
 		if (data.paymentMethodType != null) params.put("payment_method_type", data.paymentMethodType);		
 		
 		if (data.payerRbits != null) {
-			params.put("payer_rbits", new JSONArray(data.payerRbits));
+			String payerRbitsJson = gson.toJson(data.payerRbits);
+			params.put("payer_rbits", new JSONArray(payerRbitsJson));
 		}
 		if (data.transactionRbits != null) {
-			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+			String transactionRbitsJson = gson.toJson(data.transactionRbits);
+			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
 		}
 
 		Preapproval p = gson.fromJson(request("/preapproval/create", params, accessToken), Preapproval.class);
@@ -113,14 +119,17 @@ public class Preapproval extends WePayResource {
 	}
 	public void modify(PreapprovalData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
+		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("preapproval_id", this.preapprovalId);
 		params.put("callback_uri", data.callbackUri);
 		
 		if (data.payerRbits != null) {
-			params.put("payer_rbits", new JSONArray(data.payerRbits));
+			String payerRbitsJson = gson.toJson(data.payerRbits);
+			params.put("payer_rbits", new JSONArray(payerRbitsJson));
 		}
 		if (data.transactionRbits != null) {
-			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+			String transactionRbitsJson = gson.toJson(data.transactionRbits);
+			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
 		}
 
 		String response = request("/preapproval/modify", params, accessToken);

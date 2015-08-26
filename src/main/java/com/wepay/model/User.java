@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import org.json.*;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.wepay.WePay;
 import com.wepay.net.WePayResource;
 import com.wepay.exception.WePayException;
@@ -37,10 +40,12 @@ public class User extends WePayResource {
 	}
 	public void modify(UserData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
+		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("callback_uri", data.callbackUri);
 
 		if (data.rbits != null) {
-			params.put("rbits", new JSONArray(data.rbits));
+			String rbitsJson = gson.toJson(data.rbits);
+			params.put("rbits", new JSONArray(rbitsJson));
 		}
 
 		String response = request("/user/modify", params, accessToken);
@@ -59,6 +64,7 @@ public class User extends WePayResource {
 	
 	public static User register(UserData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
+		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
 		params.put("email", data.email);
@@ -73,7 +79,8 @@ public class User extends WePayResource {
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
 		
 		if (data.rbits != null) {
-			params.put("rbits", new JSONArray(data.rbits));
+			String rbitsJson = gson.toJson(data.rbits);
+			params.put("rbits", new JSONArray(rbitsJson));
 		}
 
 		User u = gson.fromJson(request("/user/register", params, accessToken), User.class);
