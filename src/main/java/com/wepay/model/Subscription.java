@@ -31,8 +31,6 @@ public class Subscription extends WePayResource {
 	protected Boolean transitionProrate;
 	protected Integer transitionQuantity;
 	protected Long transitionSubscriptionPlanId;
-	protected Long[] payerRbits;
-	protected Long[] transactionRbits;
 	protected SubscriptionData subscriptionData;
 	
 	public Subscription(Long subscriptionId) {
@@ -140,8 +138,6 @@ public class Subscription extends WePayResource {
 		this.transitionProrate = s.transitionProrate;
 		this.transitionQuantity = s.transitionQuantity;
 		this.transitionSubscriptionPlanId = s.transitionSubscriptionPlanId;
-		this.payerRbits = s.payerRbits;
-		this.transactionRbits = s.transactionRbits;
 		
 		this.subscriptionData = sd;
 	}
@@ -248,14 +244,6 @@ public class Subscription extends WePayResource {
 	
 	public String getReferenceId() {
 		return subscriptionData.referenceId;
-	}
-
-	public Long[] getPayerRbits() {
-		return payerRbits;
-	}
-
-	public Long[] getTransactionRbits() {
-		return transactionRbits;
 	}
 	
 }

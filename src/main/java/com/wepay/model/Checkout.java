@@ -23,8 +23,6 @@ public class Checkout extends WePayResource {
 	protected CheckoutRefundData refund;
     protected PayerData payer;
 	protected Long createTime;
-	protected Long[] payerRbits;
-	protected Long[] transactionRbits;
 	protected CheckoutData checkoutData;
     
 	public Checkout(Long checkoutId) {
@@ -152,8 +150,6 @@ public class Checkout extends WePayResource {
         this.chargeback = c.chargeback;
         this.refund = c.refund;
         this.payer = c.payer;
-		this.payerRbits = c.payerRbits;
-		this.transactionRbits = c.transactionRbits;
 		this.checkoutData = cd;
 	}
 	

@@ -20,7 +20,6 @@ public class User extends WePayResource {
 	protected String accessToken;
 	protected String tokenType;
 	protected Long expiresIn;
-	protected Long[] rbits;
 	protected UserData userData;
 	
 	public static User fetch(String accessToken) throws JSONException, IOException, WePayException {
@@ -58,7 +57,6 @@ public class User extends WePayResource {
 		this.accessToken = u.accessToken;
 		this.tokenType = u.tokenType;
 		this.expiresIn = u.expiresIn;
-		this.rbits = u.rbits;
 		this.userData = ud;
 	}
 	
@@ -148,10 +146,6 @@ public class User extends WePayResource {
 
 	public Long getExpiresIn() {
 		return expiresIn;
-	}
-
-	public Long[] getRbits() {
-		return rbits;
 	}
 
 }
