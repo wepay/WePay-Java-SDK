@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 
 import org.json.*;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.wepay.WePay;
 import com.wepay.net.WePayResource;
 import com.wepay.exception.WePayException;
@@ -20,8 +23,6 @@ public class Checkout extends WePayResource {
 	protected CheckoutRefundData refund;
     protected PayerData payer;
 	protected Long createTime;
-	protected Long[] payerRbits;
-	protected Long[] transactionRbits;
 	protected CheckoutData checkoutData;
     
 	public Checkout(Long checkoutId) {
@@ -63,6 +64,7 @@ public class Checkout extends WePayResource {
 	
 	public static Checkout create(CheckoutData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
+		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("account_id", data.accountId);
 		params.put("short_description", data.shortDescription);
 		params.put("type", data.type);
@@ -86,11 +88,13 @@ public class Checkout extends WePayResource {
         if (data.deliveryType != null) params.put("delivery_type", data.deliveryType);
 		
 		if (data.payerRbits != null) {
-			params.put("payer_rbits", new JSONArray(data.payerRbits));
+			String payerRbitsJson = gson.toJson(data.payerRbits);
+			params.put("payer_rbits", new JSONArray(payerRbitsJson));
 		}
         
 		if (data.transactionRbits != null) {
-			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+			String transactionRbitsJson = gson.toJson(data.transactionRbits);
+			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
 		}
 
 		String response = request("/checkout/create", params, accessToken);
@@ -120,14 +124,17 @@ public class Checkout extends WePayResource {
     
 	public void modify(CheckoutData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
+		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("checkout_id", this.checkoutId);
 		params.put("callback_uri", data.callbackUri);
 		
     	if (data.payerRbits != null) {
-    		params.put("payer_rbits", new JSONArray(data.payerRbits));
+    		String payerRbitsJson = gson.toJson(data.payerRbits);
+    		params.put("payer_rbits", new JSONArray(payerRbitsJson));
     	}
     	if (data.transactionRbits != null) {
-    		params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+    		String transactionRbitsJson = gson.toJson(data.transactionRbits);
+    		params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
     	}
     
         String response = request("/checkout/modify", params, accessToken);
@@ -143,8 +150,6 @@ public class Checkout extends WePayResource {
         this.chargeback = c.chargeback;
         this.refund = c.refund;
         this.payer = c.payer;
-		this.payerRbits = c.payerRbits;
-		this.transactionRbits = c.transactionRbits;
 		this.checkoutData = cd;
 	}
 	

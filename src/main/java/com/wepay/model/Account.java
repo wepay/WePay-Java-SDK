@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 
 import org.json.*;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.wepay.WePay;
 import com.wepay.net.WePayResource;
 import com.wepay.exception.WePayException;
@@ -20,7 +23,6 @@ public class Account extends WePayResource {
 	protected String[] actionReasons;
 	protected String[] disabledReasons;
 	protected FeeScheduleData[] feeSchedule;
-	protected Long[] rbits;
 	protected AccountData accountData;
 	 
 	public Account(Long accountId) {
@@ -55,6 +57,7 @@ public class Account extends WePayResource {
 	
 	public static Account create(AccountData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
+		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("name", data.name);
 		params.put("description", data.description);
 		if (data.referenceId != null) params.put("reference_id", data.referenceId);
@@ -70,7 +73,8 @@ public class Account extends WePayResource {
 		if (data.feeScheduleSlot != null) params.put("fee_schedule_slot", data.feeScheduleSlot);
 
 		if (data.rbits != null) {
-			params.put("rbits", new JSONArray(data.rbits));
+			String rbitsJson = gson.toJson(data.rbits);
+			params.put("rbits", new JSONArray(rbitsJson));
 		}
 		String response = request("/account/create", params, accessToken);
 		Account a = gson.fromJson(response, Account.class);
@@ -80,6 +84,7 @@ public class Account extends WePayResource {
 	
 	public void modify(AccountData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
+		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("account_id", this.accountId);
 		if (data.name != null) params.put("name", data.name);
 		if (data.description != null) params.put("description", data.description);
@@ -92,7 +97,8 @@ public class Account extends WePayResource {
 		if (data.feeScheduleSlot != null) params.put("fee_schedule_slot", data.feeScheduleSlot);
 
 		if (data.rbits != null) {
-			params.put("rbits", new JSONArray(data.rbits));
+			String rbitsJson = gson.toJson(data.rbits);
+			params.put("rbits", new JSONArray(rbitsJson));
 		}
 
 		String response = request("/account/modify", params, accessToken);
@@ -217,10 +223,6 @@ public class Account extends WePayResource {
 	
 	public String getCallbackUri() {
 		return accountData.callbackUri;
-	}
-
-	public Long[] getRbits() {
-		return rbits;
 	}
 	
 }

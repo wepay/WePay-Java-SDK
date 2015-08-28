@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 
 import org.json.*;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.wepay.WePay;
 import com.wepay.net.WePayResource;
 import com.wepay.exception.WePayException;
@@ -28,8 +31,6 @@ public class Subscription extends WePayResource {
 	protected Boolean transitionProrate;
 	protected Integer transitionQuantity;
 	protected Long transitionSubscriptionPlanId;
-	protected Long[] payerRbits;
-	protected Long[] transactionRbits;
 	protected SubscriptionData subscriptionData;
 	
 	public Subscription(Long subscriptionId) {
@@ -68,6 +69,7 @@ public class Subscription extends WePayResource {
 	
 	public static Subscription create(SubscriptionData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
+		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("subscription_plan_id", data.subscriptionPlanId);
 		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
@@ -79,10 +81,12 @@ public class Subscription extends WePayResource {
 		if (data.prefillInfo != null) params.put("prefill_info", PrefillInfoData.buildPrefillInfo(data.prefillInfo));
 		
 		if (data.payerRbits != null) {
-			params.put("payer_rbits", new JSONArray(data.payerRbits));
+			String payerRbitsJson = gson.toJson(data.payerRbits);
+			params.put("payer_rbits", new JSONArray(payerRbitsJson));
 		}
 		if (data.transactionRbits != null) {
-			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+			String transactionRbitsJson = gson.toJson(data.transactionRbits);
+			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
 		}
 
 		String response = request("/subscription/create", params, accessToken);
@@ -94,6 +98,7 @@ public class Subscription extends WePayResource {
 	
 	public void modify(SubscriptionData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
+		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("subscription_id", this.subscriptionId);
 		if (data.subscriptionPlanId != null) params.put("subscription_plan_id", data.subscriptionPlanId);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
@@ -107,10 +112,12 @@ public class Subscription extends WePayResource {
 		if (data.extendTrialDays != null) params.put("extend_trial_days", data.extendTrialDays);
 		
 		if (data.payerRbits != null) {
-			params.put("payer_rbits", new JSONArray(data.payerRbits));
+			String payerRbitsJson = gson.toJson(data.payerRbits);
+			params.put("payer_rbits", new JSONArray(payerRbitsJson));
 		}
 		if (data.transactionRbits != null) {
-			params.put("transaction_rbits", new JSONArray(data.transactionRbits));
+			String transactionRbitsJson = gson.toJson(data.transactionRbits);
+			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
 		}
 
 		String response = request("/subscription/modify", params, accessToken);
@@ -131,8 +138,6 @@ public class Subscription extends WePayResource {
 		this.transitionProrate = s.transitionProrate;
 		this.transitionQuantity = s.transitionQuantity;
 		this.transitionSubscriptionPlanId = s.transitionSubscriptionPlanId;
-		this.payerRbits = s.payerRbits;
-		this.transactionRbits = s.transactionRbits;
 		
 		this.subscriptionData = sd;
 	}
@@ -239,14 +244,6 @@ public class Subscription extends WePayResource {
 	
 	public String getReferenceId() {
 		return subscriptionData.referenceId;
-	}
-
-	public Long[] getPayerRbits() {
-		return payerRbits;
-	}
-
-	public Long[] getTransactionRbits() {
-		return transactionRbits;
 	}
 	
 }
