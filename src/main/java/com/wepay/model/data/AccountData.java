@@ -2,6 +2,7 @@ package com.wepay.model.data;
 
 import com.wepay.model.data.RbitData;
 import com.wepay.model.data.CountryOptionsData;
+import com.wepay.model.data.deserialization.JsonDeserializeIgnore;
 
 public class AccountData {
 	public String name;
@@ -17,5 +18,7 @@ public class AccountData {
     public String[] currencies;
     public CountryOptionsData countryOptions;
     public Integer feeScheduleSlot;
+    
+    @JsonDeserializeIgnore
     public RbitData[] rbits;
 }

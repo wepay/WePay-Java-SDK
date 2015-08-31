@@ -10,6 +10,8 @@ import org.json.*;
 import com.google.gson.*;
 import com.wepay.WePay;
 import com.wepay.exception.WePayException;
+import com.wepay.model.data.deserialization.WepayExclusionStrategy;
+
 
 public class WePayResource {
 
@@ -21,6 +23,7 @@ public class WePayResource {
 	protected final static String PRODUCTION_UI_ENDPOINT = "https://www.wepay.com/v2";
 	
 	public static final Gson gson = new GsonBuilder()
+			.addDeserializationExclusionStrategy(new WepayExclusionStrategy())
 			.setPrettyPrinting()
 			.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
 			.create();
@@ -45,7 +48,7 @@ public class WePayResource {
 		connection.setRequestMethod("POST");
 		connection.setRequestProperty("Content-Type", "application/json");
 		connection.setRequestProperty("Api-Version", "2015-08-15");
-		connection.setRequestProperty("User-Agent", "WePay Java SDK v2.0.0");
+		connection.setRequestProperty("User-Agent", "WePay Java SDK v2.0.1");
 		if (accessToken != null) {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);  
         }		

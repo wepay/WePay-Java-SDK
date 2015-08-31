@@ -1,6 +1,7 @@
 package com.wepay.model.data;
 
 import com.wepay.model.data.RbitData;
+import com.wepay.model.data.deserialization.JsonDeserializeIgnore;
 
 import java.math.BigDecimal;
 
@@ -17,7 +18,11 @@ public class CheckoutData {
     public String deliveryType;
     public String cancelReason;
     public String refundReason;
+    
+    @JsonDeserializeIgnore
 	public RbitData[] payerRbits;
+    
+    @JsonDeserializeIgnore
 	public RbitData[] transactionRbits;
 	public String longDescription;
 	public String referenceId;

@@ -1,6 +1,8 @@
 package com.wepay.model.data;
 
 import com.wepay.model.data.RbitData;
+import com.wepay.model.data.deserialization.JsonDeserializeIgnore;
+
 
 public class UserData {
 	
@@ -13,5 +15,7 @@ public class UserData {
 	public Long tosAcceptanceTime;
 	public String redirectUri; 
 	public String callbackUri;
+	
+	@JsonDeserializeIgnore
     public RbitData[] rbits;
 }

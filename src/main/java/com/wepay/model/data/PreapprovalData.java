@@ -1,6 +1,7 @@
 package com.wepay.model.data;
 
 import com.wepay.model.data.RbitData;
+import com.wepay.model.data.deserialization.JsonDeserializeIgnore;
 
 import java.math.BigDecimal;
 
@@ -31,6 +32,10 @@ public class PreapprovalData {
 	public Long paymentMethodId;
 	public String paymentMethodType;
 	public String currency;
+	
+	@JsonDeserializeIgnore
 	public RbitData[] payerRbits;
+	
+	@JsonDeserializeIgnore
 	public RbitData[] transactionRbits;
 }
