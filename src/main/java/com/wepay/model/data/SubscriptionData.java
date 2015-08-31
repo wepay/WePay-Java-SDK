@@ -1,6 +1,7 @@
 package com.wepay.model.data;
 
 import com.wepay.model.data.RbitData;
+import com.wepay.model.data.deserialization.JsonDeserializeIgnore;
 
 public class SubscriptionData {
 
@@ -13,7 +14,11 @@ public class SubscriptionData {
 	public Integer quantity;
 	public String referenceId;
 	public PrefillInfoData prefillInfo;
+	
+	@JsonDeserializeIgnore
 	public RbitData[] payerRbits;
+	
+	@JsonDeserializeIgnore
 	public RbitData[] transactionRbits;
 	
 	//Only used by Subscription.cancel()
