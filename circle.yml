@@ -15,4 +15,4 @@ deployment:
   production:
     branch: master
     commands:
-      - ./gradlew clean release -DisRelease=true pushTags
+      - ./gradlew clean build publish
