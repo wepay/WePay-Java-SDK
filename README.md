@@ -3,7 +3,25 @@ WePay-Java-SDK
 
 Note
 ================================
-This WePay-Java-SDK is for <a href = "https://www.wepay.com/developer/version/2015-08-15">WePay Api Version 2015-08-15</a>. The jar for the previous API versions can be found in the lib folder.
+Because WePay does not provide maven artifacts, we have added a build.gradle file and a circle.yml file to build and upload the artifact to artifactory.
+There are versions of the sdk for java7 and java8. You'll need to check artifactory to see the latest version.
+https://artifacts.sbsp.io/artifactory/simple/releasable-builds/com/wepay/
+
+```xml
+<dependency>
+    <groupId>com.wepay</groupId>
+    <artifactId>java7-sdk</artifactId>
+    <version>2.0.2</version>
+</dependency>
+
+OR
+
+<dependency>
+    <groupId>com.wepay</groupId>
+    <artifactId>java8-sdk</artifactId>
+    <version>2.0.2</version>
+</dependency>
+```
 
 Overview
 ================================
