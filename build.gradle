@@ -1,13 +1,72 @@
-buildscript {
-    apply from: "gradle/buildscript.gradle", to: buildscript
-}
 
 group = "com.wepay"
 description = "wepay-java-sdk - An Infusionsoft Library"
+version = "2.0.2.0"
 
-apply from: "gradle/convention.gradle"
-apply from: "gradle/codequality.gradle"
-apply from: "gradle/release.gradle"
+apply plugin: 'maven-publish'
+apply plugin: 'java'
+
+
+configurations {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+jar {
+    manifest {
+        attributes("Implementation-Version": project.version)
+        attributes("Pancake-Implementation": pancakesVersion)
+        attributes("Build-Timestamp": new Date().toGMTString())
+    }
+}
+
+
+repositories {
+    def internalProxyRepositoryUrl = System.properties['internalProxyRepositoryUrl'] ?: 'https://scm.infusiontest.com/nexus/content/groups/infusionsoft/';
+
+    def externalProxyRepositoryUsername = System.properties['externalProxyRepositoryUsername'] ?: ''
+    def externalProxyRepositoryPassword = System.properties['externalProxyRepositoryPassword'] ?: ''
+    def externalProxyRepositoryUrl = System.properties['externalProxyRepositoryUrl'] ?: 'https://artifacts.sbsp.io/artifactory/repo/';
+
+    maven { url internalProxyRepositoryUrl }
+    maven {
+        url externalProxyRepositoryUrl
+        credentials {
+            username externalProxyRepositoryUsername
+            password externalProxyRepositoryPassword
+        }
+    }
+    jcenter()
+    mavenCentral()
+    mavenLocal()
+}
+
+configurations {
+    def repositoryUsername = System.properties['externalProxyRepositoryUsername'] ?: ''
+    def repositoryPassword = System.properties['externalProxyRepositoryPassword'] ?: ''
+    def repositoryUrl = System.properties['repositoryUrl'] ?: 'https://artifacts.sbsp.io/artifactory/releasable-builds/'
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+        repositories {
+            maven {
+                url repositoryUrl
+                credentials {
+                    username repositoryUsername
+                    password repositoryPassword
+                }
+            }
+        }
+    }
+}
+
+task release(dependsOn: ['build', 'publish']) {}
+
+task install(dependsOn: ['build', 'publishToMavenLocal'])
 
 dependencies {
     compile "org.json:json:20141113"
@@ -15,5 +74,6 @@ dependencies {
 
 }
 
-// This is to prevent Spring Boot from making an executable jar.  Because this is a library.
-bootRepackage.enabled = false
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
