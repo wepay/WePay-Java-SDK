@@ -11,7 +11,7 @@ configurations {
 
 buildVersion {
     releaseTagPattern = "^([\\d]+)\\.([\\d]+)\\.([\\d]+).([\\d]+)"
-    releaseTagIfNone = "2.0.2.0"
+    releaseTagIfNone = ""
     matchGroup = "\$1"
     versionSplitter = "."
     snapshotSuffix = "-SNAPSHOT"
