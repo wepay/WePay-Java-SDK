@@ -5,7 +5,7 @@ Note
 ================================
 Because WePay does not provide maven artifacts, we have added a build.gradle file and a circle.yml file to build and upload the artifact to artifactory.
 There are versions of the sdk for java7 and java8. You'll need to check artifactory to see the latest version.
-https://artifacts.sbsp.io/artifactory/simple/releasable-builds/com/wepay/
+https://artifacts.sbsp.io/artifactory/simple/releasable-builds/com/wepay/. The java8-sdk also contains the card-reader-order-api to allow for ordering of credit card readers via an API call.
 
 ```xml
 <dependency>
