@@ -10,7 +10,7 @@ public class PrefillInfoData {
 	public String address;
 	public String city;
 	public String state;
-	public Integer zip;
+	public String zip;
 	public String country;
 	public String region;
 	public String postcode;
