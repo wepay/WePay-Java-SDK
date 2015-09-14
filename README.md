@@ -23,6 +23,12 @@ OR
 </dependency>
 ```
 
+Building
+================================
+```
+mvn clean install
+```
+
 Overview
 ================================
 To use this SDK, first add the WePay jar (com.wepay.jar) to your project. You'll need to add GSON and JSON jars as well (gson-2.2.4.jar and java-json.jar are also included in the lib folder). 

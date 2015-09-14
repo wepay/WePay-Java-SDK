@@ -10,4 +10,7 @@
 
 target
 build
-*.iml
+build.xml
+sources.txt
+test
+/target/
