@@ -5,6 +5,12 @@ Note
 ================================
 This WePay-Java-SDK is for <a href = "https://www.wepay.com/developer/version/2015-08-15">WePay Api Version 2015-08-15</a>. The jar for the previous API versions can be found in the lib folder.
 
+Building
+================================
+```
+mvn clean install
+```
+
 Overview
 ================================
 To use this SDK, first add the WePay jar (com.wepay.jar) to your project. You'll need to add GSON and JSON jars as well (gson-2.2.4.jar and java-json.jar are also included in the lib folder). 

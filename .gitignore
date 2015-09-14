@@ -10,3 +10,4 @@ build
 build.xml
 sources.txt
 test
+/target/

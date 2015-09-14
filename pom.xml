@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<groupId>com.wepay</groupId>
+	<artifactId>wepay-java-sdk</artifactId>
+	<version>2015-08-15-snapshot</version>
+
+	<name>wepay-java-sdk</name>
+	<description>WePay Java SDK</description>
+	<packaging>jar</packaging>
+	<url>https://github.com/wepay/WePay-Java-SDK</url>
+	
+	<organization>
+		<name>WePay Inc.</name>
+		<url>http://www.wepay.com</url>
+	</organization>
+
+	<scm>
+		<connection>scm:git:git@github.com:wepay/WePay-Java-SDK.git</connection>
+		<developerConnection>scm:git:git@github.com:wepay/WePay-Java-SDK.git</developerConnection>
+		<url>scm:git:https://github.com/wepay/WePay-Java-SDK</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>https://github.com/wepay/WePay-Java-SDK/blob/master/LICENSE</url>
+		</license>
+	</licenses>
+    
+    <dependencies>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20141113</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
