@@ -5,10 +5,6 @@ import java.math.BigDecimal;
 
 import org.json.*;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.wepay.WePay;
 import com.wepay.net.WePayResource;
 import com.wepay.exception.WePayException;
 import com.wepay.model.data.*;
@@ -69,7 +65,6 @@ public class Subscription extends WePayResource {
 	
 	public static Subscription create(SubscriptionData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("subscription_plan_id", data.subscriptionPlanId);
 		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
@@ -98,7 +93,6 @@ public class Subscription extends WePayResource {
 	
 	public void modify(SubscriptionData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("subscription_id", this.subscriptionId);
 		if (data.subscriptionPlanId != null) params.put("subscription_plan_id", data.subscriptionPlanId);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
