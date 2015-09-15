@@ -5,10 +5,6 @@ import java.math.BigDecimal;
 
 import org.json.*;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.wepay.WePay;
 import com.wepay.net.WePayResource;
 import com.wepay.exception.WePayException;
 import com.wepay.model.data.*;
@@ -64,7 +60,6 @@ public class Checkout extends WePayResource {
 	
 	public static Checkout create(CheckoutData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("account_id", data.accountId);
 		params.put("short_description", data.shortDescription);
 		params.put("type", data.type);
@@ -124,7 +119,6 @@ public class Checkout extends WePayResource {
     
 	public void modify(CheckoutData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 		params.put("checkout_id", this.checkoutId);
 		params.put("callback_uri", data.callbackUri);
 		
