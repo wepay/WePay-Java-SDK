@@ -70,7 +70,7 @@ task install(dependsOn: ['build', 'publishToMavenLocal'])
 
 dependencies {
     compile "org.json:json:20141113"
-    compile "com.google.code.gson:gson:2.2.4"
+    compile "com.google.code.gson:gson:2.3.1"
 
 }
 
