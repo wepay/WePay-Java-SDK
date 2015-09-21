@@ -24,6 +24,8 @@ public class Checkout extends WePayResource {
     protected PayerData payer;
 	protected Long createTime;
 	protected CheckoutData checkoutData;
+	protected Long[] payerRbitIds;
+	protected Long[] transactionRbitIds;
     
 	public Checkout(Long checkoutId) {
 		this.checkoutId = checkoutId;
@@ -151,6 +153,8 @@ public class Checkout extends WePayResource {
         this.refund = c.refund;
         this.payer = c.payer;
 		this.checkoutData = cd;
+		this.payerRbitIds = c.payerRbitIds;
+		this.transactionRbitIds = c.transactionRbitIds;
 	}
 	
 	public void cancel(String cancelReason, String accessToken) throws JSONException, IOException, WePayException {
