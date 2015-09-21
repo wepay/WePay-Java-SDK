@@ -21,6 +21,8 @@ public class Withdrawal extends WePayResource {
 	protected Long createTime;
 	protected Long captureTime;
 	protected WithdrawalData withdrawalData;
+	protected BankData bankData;
+	protected CheckData checkData;
 	
 	public Withdrawal(Long withdrawalId) {
 		this.withdrawalId = withdrawalId;
@@ -53,20 +55,6 @@ public class Withdrawal extends WePayResource {
 		return found;	
 	}
 	
-	public static Withdrawal create(WithdrawalData data, String accessToken) throws JSONException, IOException, WePayException {
-		JSONObject params = new JSONObject();
-		params.put("account_id", data.accountId);
-		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
-		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
-		if (data.fallbackUri != null) params.put("fallback_uri", data.fallbackUri);
-		if (data.note != null) params.put("note", data.note);
-		if (data.mode != null) params.put("mode", data.mode);
-		if (data.currency != null) params.put("currency", data.currency);
-		Withdrawal w = gson.fromJson(request("/withdrawal/create", params, accessToken), Withdrawal.class);
-		w.withdrawalData = data;
-		return w;
-	}
-	
 	public void modify(String newCallbackUri, String accessToken) throws JSONException, IOException, WePayException {
 		//overload function for single parameter modification: callbackUri
 		WithdrawalData data = new WithdrawalData();
@@ -96,18 +84,10 @@ public class Withdrawal extends WePayResource {
 		return withdrawalId;
 	}
 	
-	public Long getAccountId() {
-		return withdrawalData.accountId;
-	}
-	
 	public String getState() {
 		return state;
 	}
     
-	public String getCurrency() {
-		return withdrawalData.currency;
-	}
-	
 	public String getRedirectUri() {
 		return withdrawalData.redirectUri;
 	}
@@ -120,16 +100,8 @@ public class Withdrawal extends WePayResource {
 		return withdrawalData.callbackUri;
 	}
 	
-	public String getFallbackUri() {
-		return withdrawalData.fallbackUri;
-	}
-
 	public BigDecimal getAmount() {
 		return amount;
-	}
-	
-	public String getNote() {
-		return withdrawalData.note;
 	}
 	
 	public Boolean isRecipientConfirmed() {
@@ -146,6 +118,14 @@ public class Withdrawal extends WePayResource {
 	
 	public long getCaptureTime() {
 		return captureTime;
+	}
+
+	public BankData getBankData() {
+		return bankData;
+	}
+
+	public CheckData getCheckData() {
+		return checkData;
 	}
 	
 }
