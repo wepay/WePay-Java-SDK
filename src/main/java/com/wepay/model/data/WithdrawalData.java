@@ -22,4 +22,19 @@ public class WithdrawalData {
 	public String getWithdrawalUri() {
 		return withdrawalUri;
 	}
+	public void setCreateTime(Long createTime) {
+		this.createTime = createTime;
+	}
+	public void setCaptureTime(Long captureTime) {
+		this.captureTime = captureTime;
+	}
+	public void setCallbackUri(String callbackUri) {
+		this.callbackUri = callbackUri;
+	}
+	public void setRedirectUri(String redirectUri) {
+		this.redirectUri = redirectUri;
+	}
+	public void setWithdrawalUri(String withdrawalUri) {
+		this.withdrawalUri = withdrawalUri;
+	}
 }
