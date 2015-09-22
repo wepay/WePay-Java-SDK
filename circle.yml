@@ -13,6 +13,6 @@ test:
 
 deployment:
   production:
-    branch: master
+    branch: java8-sdk 
     commands:
       - ./gradlew clean build publish
