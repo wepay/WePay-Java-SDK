@@ -43,32 +43,23 @@ public class Order extends WePayResource {
         this.shippingAddressData = orderCreateData.shippingAddressData;
     }
 
-    public Order(long orderId) {
-        this.orderId = orderId;
-    }
-
-    public Order create(String accessToken) throws IOException, WePayException {
+    public static Order create(OrderCreateData orderCreateData, String accessToken) throws IOException, WePayException {
         JSONObject params = new JSONObject();
-        params.put("account_id", this.accountId);
-        params.put("quantity", this.quantity);
-        params.put("callback_uri", this.callbackURI);
-        params.put("model", this.model);
-        params.put("shipping_method", this.shippingMethod);
-        params.put("shipping_contact", this.shippingContactData);
-        params.put("shipping_address", this.shippingAddressData);
+        params.put("account_id", orderCreateData.accountId);
+        params.put("quantity", orderCreateData.quantity);
+        params.put("callback_uri", orderCreateData.callbackURI);
+        params.put("model", orderCreateData.model);
+        params.put("shipping_method", orderCreateData.shippingMethod);
+        params.put("shipping_contact", orderCreateData.shippingContactData);
+        params.put("shipping_address", orderCreateData.shippingAddressData);
 
         String response = request("/order/card_reader/create", params, accessToken);
         Order createdOrder = gson.fromJson(response, Order.class);
 
-        //Populate this order with fields from response
-        this.orderId = createdOrder.orderId;
-        this.order = createdOrder.order;
-        this.status = createdOrder.status;
-
         return createdOrder;
     }
 
-    public Order find(String accessToken) throws IOException, WePayException {
+    public static Order find(long orderId, String accessToken) throws IOException, WePayException {
         JSONObject params = new JSONObject();
         params.put("order_id", orderId);
         String response = request("/order/card_reader", params, accessToken);
