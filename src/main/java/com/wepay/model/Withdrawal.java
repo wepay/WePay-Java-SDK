@@ -18,6 +18,8 @@ public class Withdrawal extends WePayResource {
 	protected WithdrawalData withdrawalData;
 	protected BankData bankData;
 	protected CheckData checkData;
+	protected long accountId;
+	protected String currency;
 	
 	public Withdrawal(Long withdrawalId) {
 		this.withdrawalId = withdrawalId;
@@ -98,6 +100,14 @@ public class Withdrawal extends WePayResource {
 
 	public CheckData getCheckData() {
 		return checkData;
+	}
+
+	public long getAccountId() {
+		return accountId;
+	}
+
+	public String getCurrency() {
+		return currency;
 	}
 	
 }

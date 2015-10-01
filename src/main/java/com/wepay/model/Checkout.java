@@ -244,11 +244,7 @@ public class Checkout extends WePayResource {
 	public BigDecimal getGross() {
 		return gross;
 	}
-	
-	public HostedCheckoutData getHostedCheckoutData() {
-		return this.checkoutData.hostedCheckout;
-	}
-    
+ 
 	public BigDecimal getAppFee() {
 		return checkoutData.fee.appFee;
 	}
