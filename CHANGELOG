@@ -1,4 +1,8 @@
 2015-10-01
+* Released v4.0.2 for SDK
+* Added supportedCardTypes property to Account
+
+2015-10-01
 * Released v4.0.0 and v4.0.1 for SDK (Please use jars from v4.0.1)
 * Changes to the /withdrawal API based on https://www.wepay.com/developer/version/2015-09-09
 * Rbits array has been renamed to rbit_ids since it contain id's of the rbits.
