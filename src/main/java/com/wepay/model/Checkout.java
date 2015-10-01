@@ -3,11 +3,22 @@ package com.wepay.model;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import com.wepay.net.WePayResource;
 import com.wepay.exception.WePayException;
-import com.wepay.model.data.*;
+import com.wepay.model.data.AddressData;
+import com.wepay.model.data.ChargebackData;
+import com.wepay.model.data.CheckoutData;
+import com.wepay.model.data.CheckoutFindData;
+import com.wepay.model.data.CheckoutRefundData;
+import com.wepay.model.data.EmailMessageData;
+import com.wepay.model.data.FeeData;
+import com.wepay.model.data.HostedCheckoutData;
+import com.wepay.model.data.PayerData;
+import com.wepay.model.data.PaymentMethodData;
+import com.wepay.net.WePayResource;
 
 public class Checkout extends WePayResource {
         
@@ -233,6 +244,10 @@ public class Checkout extends WePayResource {
 	public BigDecimal getGross() {
 		return gross;
 	}
+	
+	public HostedCheckoutData getHostedCheckoutData() {
+		return this.checkoutData.hostedCheckout;
+	}
     
 	public BigDecimal getAppFee() {
 		return checkoutData.fee.appFee;
@@ -317,4 +332,12 @@ public class Checkout extends WePayResource {
 	public String[] getFundingSources() {
 		return checkoutData.hostedCheckout.fundingSources;
     }
+
+	public Long[] getPayerRbitIds() {
+		return payerRbitIds;
+	}
+
+	public Long[] getTransactionRbitIds() {
+		return transactionRbitIds;
+	}
 }
