@@ -23,6 +23,7 @@ public class CreditCard extends WePayResource {
 	protected Integer expirationMonth;
 	protected Integer expirationYear;
 	protected String lastFour;
+	protected Long[] rbitIds;
 
 	public CreditCard(Long creditCardId) {
 		this.creditCardId = creditCardId;
@@ -119,6 +120,10 @@ public class CreditCard extends WePayResource {
 
 	public String getLastFour() {
 		return lastFour;
+	}
+	
+	public Long[] getRbitIds() {
+		return rbitIds;
 	}
 	
 }

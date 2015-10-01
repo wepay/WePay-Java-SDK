@@ -1,2 +1,8 @@
+2015-10-01
+* Released v4.0.0 for SDK
+* Changes to the /withdrawal API based on https://www.wepay.com/developer/version/2015-09-09
+* Rbits array has been renamed to rbit_ids since it contain id's of the rbits.
+* Fix the /withdrawal response to match API spec
+
 2015-08-21 
 * Released v1.0.0 with support for new checkout create

@@ -1,14 +1,19 @@
 package com.wepay.net;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import org.json.*;
+import org.json.JSONObject;
 
-import com.google.gson.*;
-import com.wepay.WePay;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.wepay.exception.WePayException;
 import com.wepay.model.data.deserialization.WepayExclusionStrategy;
 
@@ -47,8 +52,8 @@ public class WePayResource {
 		connection.setDoInput(true);
 		connection.setRequestMethod("POST");
 		connection.setRequestProperty("Content-Type", "application/json");
-		connection.setRequestProperty("Api-Version", "2015-08-15");
-		connection.setRequestProperty("User-Agent", "WePay Java SDK v3.0.1");
+		connection.setRequestProperty("Api-Version", "2015-09-09");
+		connection.setRequestProperty("User-Agent", "WePay Java SDK v4.0.0");
 		if (accessToken != null) {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);  
         }		

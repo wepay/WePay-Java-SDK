@@ -24,6 +24,8 @@ public class Preapproval extends WePayResource {
 	protected Long lastCheckoutId;
 	protected Long lastCheckoutTime;
 	protected PreapprovalData preapprovalData;
+	protected Long[] payerRbitIds;
+	protected Long[] transactionRbitIds;
 
 	public Preapproval(Long preapprovalId) {
 		this.preapprovalId = preapprovalId;
@@ -141,6 +143,8 @@ public class Preapproval extends WePayResource {
 		this.lastCheckoutId = p.lastCheckoutId;
 		this.lastCheckoutTime = p.lastCheckoutTime;
 		this.preapprovalData = pd;
+		this.payerRbitIds = p.payerRbitIds;
+		this.transactionRbitIds = p.transactionRbitIds;
 	}
 	
 	public void cancel(String accessToken) throws JSONException, IOException, WePayException {
@@ -279,6 +283,14 @@ public class Preapproval extends WePayResource {
 	
 	public String getPaymentMethodType() {
 		return preapprovalData.paymentMethodType;
+	}
+	
+	public Long[] getPayerRbitids() {
+		return payerRbitIds;
+	}
+	
+	public Long[] getTransactionRbitIds() {
+		return transactionRbitIds;
 	}
 
 }
