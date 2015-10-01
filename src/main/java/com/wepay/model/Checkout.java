@@ -8,7 +8,6 @@ import org.json.*;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.wepay.WePay;
 import com.wepay.net.WePayResource;
 import com.wepay.exception.WePayException;
 import com.wepay.model.data.*;
@@ -238,6 +237,10 @@ public class Checkout extends WePayResource {
 	
 	public BigDecimal getGross() {
 		return gross;
+	}
+	
+	public HostedCheckoutData getHostedCheckoutData() {
+		return this.checkoutData.hostedCheckout;
 	}
     
 	public BigDecimal getAppFee() {
