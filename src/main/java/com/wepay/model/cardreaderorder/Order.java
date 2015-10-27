@@ -65,12 +65,24 @@ public class Order extends WePayResource {
         return createdOrder;
     }
 
-    public static List<Order> find(long accountId, String accessToken) throws IOException, WePayException {
+    public static Order findOrder(long accountId, String accessToken) throws IOException, WePayException {
         JSONObject params = new JSONObject();
         params.put("order_id", accountId);
-        String response = request("/order/find", params, accessToken);
-        List<Order> order = gson.fromJson(response, List.class);
+        String response = request("/order", params, accessToken);
+        Order order = gson.fromJson(response, Order.class);
         return order;
+    }
+
+    public static List<Order> findOrders(long accountId, long start, long limit, String accessToken) throws IOException, WePayException {
+        JSONObject params = new JSONObject();
+        params.put("account_id", accountId);
+        if ( limit > 0) {
+            params.put("start", start);
+            params.put("limit", limit);
+        }
+        String response = request("/order/find", params, accessToken);
+        List<Order> orders = gson.fromJson(response, List.class);
+        return orders;
     }
 
     public class TrackingInformation {

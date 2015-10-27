@@ -10,12 +10,7 @@ public class CardReaderData {
 
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
-
-        JSONObject inner = new JSONObject();
-        inner.put("name", model);
-
-        json.put("card_reader", inner);
-
+        json.put("model", model);
         return json;
     }
 }
