@@ -9,14 +9,13 @@ public class ShippingAddressData {
     public String state;
     public String zip;
 
-    @Override
-    public String toString() {
+    public JSONObject toJSON() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("address1", address1);
         jsonObject.put("address2", address2);
         jsonObject.put("city", city);
         jsonObject.put("state", state);
         jsonObject.put("zip", zip);
-        return jsonObject.toString();
+        return jsonObject;
     }
 }

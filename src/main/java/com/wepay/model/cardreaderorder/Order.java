@@ -53,10 +53,10 @@ public class Order extends WePayResource {
         params.put("account_id", orderCreateData.accountId);
         params.put("quantity", orderCreateData.quantity);
         params.put("type", "card_reader");
-        params.put("card_reader", orderCreateData.cardReaderData);
+        params.put("card_reader", orderCreateData.cardReaderData.toJSON());
+        params.put("shipping_contact", orderCreateData.shippingContactData.toJSON());
+        params.put("shipping_address", orderCreateData.shippingAddressData.toJSON());
         params.put("shipping_method", orderCreateData.shippingMethod);
-        params.put("shipping_contact", orderCreateData.shippingContactData);
-        params.put("shipping_address", orderCreateData.shippingAddressData);
         params.put("callback_uri", orderCreateData.callbackURI);
 
 

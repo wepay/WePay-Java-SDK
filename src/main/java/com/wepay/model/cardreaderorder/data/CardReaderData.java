@@ -8,7 +8,7 @@ import org.json.JSONObject;
 public class CardReaderData {
     public String model;
 
-    public String toString() {
+    public JSONObject toJSON() {
         JSONObject json = new JSONObject();
 
         JSONObject inner = new JSONObject();
@@ -16,6 +16,6 @@ public class CardReaderData {
 
         json.put("card_reader", inner);
 
-        return json.toString();
+        return json;
     }
 }

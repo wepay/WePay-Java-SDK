@@ -8,12 +8,12 @@ public class ShippingContactData {
     public String phone;
     public String email;
 
-    public String toString() {
+    public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("company", company);
         json.put("email", email);
         json.put("phone", phone);
-        return json.toString();
+        return json;
     }
 }
