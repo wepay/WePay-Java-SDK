@@ -20,6 +20,8 @@ public class Account extends WePayResource {
 	protected String[] disabledReasons;
 	protected FeeScheduleData[] feeSchedule;
 	protected AccountData accountData;
+	protected Long [] rbitIds;
+	protected String[] supportedCardTypes;
 	 
 	public Account(Long accountId) {
 		this.accountId = accountId;
@@ -217,6 +219,14 @@ public class Account extends WePayResource {
 	
 	public String getCallbackUri() {
 		return accountData.callbackUri;
+	}
+	
+	public Long[] getRbitIds() {		
+		return rbitIds;		
+	}
+
+	public String[] getSupportedCardTypes() {		
+		return supportedCardTypes;		
 	}
 	
 }

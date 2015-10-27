@@ -1,6 +1,7 @@
 package com.wepay.model.cardreaderorder;
 
 import com.wepay.exception.WePayException;
+import com.wepay.model.cardreaderorder.data.CardReaderData;
 import com.wepay.model.cardreaderorder.data.OrderCreateData;
 import com.wepay.model.cardreaderorder.data.ShippingAddressData;
 import com.wepay.model.cardreaderorder.data.ShippingContactData;
@@ -8,6 +9,9 @@ import com.wepay.net.WePayResource;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This is an order for a card reader. The operations that are allowed are: create, find
@@ -24,20 +28,21 @@ public class Order extends WePayResource {
     protected String callbackURI;
     protected String model;
     protected String shippingMethod;
+    protected CardReaderData cardReaderData;
+
     protected ShippingContactData shippingContactData;
     protected ShippingAddressData shippingAddressData;
 
     protected long orderId;
     protected String status;
-    protected String trackingCode;
-    protected String trackingService;
-    protected OrderTracker order;
+
+    protected TrackingInformation order;
 
     public Order(OrderCreateData orderCreateData) {
         this.accountId = orderCreateData.accountId;
         this.quantity = orderCreateData.quantity;
         this.callbackURI = orderCreateData.callbackURI;
-        this.model = orderCreateData.model;
+        this.cardReaderData = orderCreateData.cardReaderData;
         this.shippingMethod = orderCreateData.shippingMethod;
         this.shippingContactData = orderCreateData.shippingContactData;
         this.shippingAddressData = orderCreateData.shippingAddressData;
@@ -47,37 +52,40 @@ public class Order extends WePayResource {
         JSONObject params = new JSONObject();
         params.put("account_id", orderCreateData.accountId);
         params.put("quantity", orderCreateData.quantity);
-        params.put("callback_uri", orderCreateData.callbackURI);
-        params.put("model", orderCreateData.model);
+        params.put("type", "card_reader");
+        params.put("card_reader", orderCreateData.cardReaderData);
         params.put("shipping_method", orderCreateData.shippingMethod);
         params.put("shipping_contact", orderCreateData.shippingContactData);
         params.put("shipping_address", orderCreateData.shippingAddressData);
+        params.put("callback_uri", orderCreateData.callbackURI);
 
-        String response = request("/order/card_reader/create", params, accessToken);
+
+        String response = request("/order/create", params, accessToken);
         Order createdOrder = gson.fromJson(response, Order.class);
 
         return createdOrder;
     }
 
-    public static Order find(long orderId, String accessToken) throws IOException, WePayException {
+    public static List<Order> find(long accountId, String accessToken) throws IOException, WePayException {
         JSONObject params = new JSONObject();
-        params.put("order_id", orderId);
-        String response = request("/order/card_reader", params, accessToken);
-        Order order = gson.fromJson(response, Order.class);
+        params.put("order_id", accountId);
+        String response = request("/order/find", params, accessToken);
+        List<Order> order = gson.fromJson(response, List.class);
         return order;
     }
 
-    public class OrderTracker {
+    public class TrackingInformation {
+
         private String trackingService;
-        private String trackingCode;
+        private List<String> trackingCode;
     }
 
     public String getTrackingService() {
         return order != null ? order.trackingService : "";
     }
 
-    public String getTrackingCode() {
-        return order != null ? order.trackingCode : "";
+    public List<String> getTrackingCode() {
+        return order != null ? order.trackingCode : new ArrayList<String>();
     }
 
     public long getAccountId() {
@@ -129,11 +137,11 @@ public class Order extends WePayResource {
     }
 
     public String getStreetAddress1() {
-        return shippingAddressData.street1;
+        return shippingAddressData.address1;
     }
 
     public String getStreetAddress2() {
-        return shippingAddressData.street2;
+        return shippingAddressData.address2;
     }
 
     public String getCity() {
@@ -144,9 +152,19 @@ public class Order extends WePayResource {
         return shippingAddressData.state;
     }
 
-    public int getZip() {
+    public String getZip() {
         return shippingAddressData.zip;
     }
+
+    public CardReaderData getCardReaderData() {
+        return cardReaderData;
+    }
+
+    public void setCardReaderData(CardReaderData cardReaderData) {
+        this.cardReaderData = cardReaderData;
+    }
+
+
 
 
 

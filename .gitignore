@@ -14,3 +14,4 @@ build.xml
 sources.txt
 test
 /target/
+lib

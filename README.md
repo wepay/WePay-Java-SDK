@@ -23,6 +23,8 @@ OR
 </dependency>
 ```
 
+This WePay-Java-SDK is for <a href = "https://www.wepay.com/developer/version/2015-09-09">WePay Api Version 2015-09-09</a>. The jar for the previous API versions can be found in the lib folder.
+
 Building
 ================================
 ```

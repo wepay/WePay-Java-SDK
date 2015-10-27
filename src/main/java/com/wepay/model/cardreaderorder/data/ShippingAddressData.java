@@ -3,17 +3,17 @@ package com.wepay.model.cardreaderorder.data;
 import org.json.JSONObject;
 
 public class ShippingAddressData {
-    public String street1;
-    public String street2;
+    public String address1;
+    public String address2;
     public String city;
     public String state;
-    public int zip;
+    public String zip;
 
     @Override
     public String toString() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("street1", street1);
-        jsonObject.put("street2", street2);
+        jsonObject.put("address1", address1);
+        jsonObject.put("address2", address2);
         jsonObject.put("city", city);
         jsonObject.put("state", state);
         jsonObject.put("zip", zip);

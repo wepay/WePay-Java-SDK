@@ -4,7 +4,7 @@ public class OrderCreateData {
     public long accountId;
     public int quantity;
     public String shippingMethod;
-    public String model;
+    public CardReaderData cardReaderData;
     public ShippingContactData shippingContactData;
     public ShippingAddressData shippingAddressData;
     public String callbackURI;

@@ -28,6 +28,8 @@ public class Subscription extends WePayResource {
 	protected Integer transitionQuantity;
 	protected Long transitionSubscriptionPlanId;
 	protected SubscriptionData subscriptionData;
+	protected Long[] payerRbitIds;
+	protected Long[] transactionRbitIds;
 	
 	public Subscription(Long subscriptionId) {
 		this.subscriptionId = subscriptionId;
@@ -132,8 +134,9 @@ public class Subscription extends WePayResource {
 		this.transitionProrate = s.transitionProrate;
 		this.transitionQuantity = s.transitionQuantity;
 		this.transitionSubscriptionPlanId = s.transitionSubscriptionPlanId;
-		
 		this.subscriptionData = sd;
+		this.payerRbitIds = s.payerRbitIds;
+		this.transactionRbitIds = s.transactionRbitIds;
 	}
 		
 	public void cancel(String reason, String accessToken) throws JSONException, IOException, WePayException {
@@ -238,6 +241,14 @@ public class Subscription extends WePayResource {
 	
 	public String getReferenceId() {
 		return subscriptionData.referenceId;
+	}
+	
+	public Long[] getPayerRbitids() {
+		return payerRbitIds;
+	}
+	
+	public Long[] getTransactionRbitIds() {
+		return transactionRbitIds;
 	}
 	
 }
