@@ -26,7 +26,6 @@ public class Order extends WePayResource {
     protected int quantity;
 
     protected String callbackURI;
-    protected String model;
     protected String shippingMethod;
     protected CardReaderData cardReaderData;
 
@@ -97,7 +96,7 @@ public class Order extends WePayResource {
     }
 
     public String getModel() {
-        return model;
+        return cardReaderData.model;
     }
 
     public String getShippingMethod() {
