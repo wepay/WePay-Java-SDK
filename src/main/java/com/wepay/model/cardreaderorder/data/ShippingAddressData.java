@@ -16,6 +16,7 @@ public class ShippingAddressData {
         jsonObject.put("city", city);
         jsonObject.put("state", state);
         jsonObject.put("zip", zip);
+        jsonObject.put("country", "US");
         return jsonObject;
     }
 }
