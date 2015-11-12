@@ -65,9 +65,9 @@ public class Order extends WePayResource {
         return createdOrder;
     }
 
-    public static Order findOrder(long accountId, String accessToken) throws IOException, WePayException {
+    public static Order findOrder(long orderId, String accessToken) throws IOException, WePayException {
         JSONObject params = new JSONObject();
-        params.put("order_id", accountId);
+        params.put("order_id", orderId);
         String response = request("/order", params, accessToken);
         Order order = gson.fromJson(response, Order.class);
         return order;

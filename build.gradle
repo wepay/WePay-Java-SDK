@@ -1,7 +1,7 @@
 
 group = "com.wepay"
 description = "wepay-java-sdk - An Infusionsoft Library"
-version = "4.0.3.5"
+version = "4.0.3.6"
 
 apply plugin: 'maven-publish'
 apply plugin: 'java'
