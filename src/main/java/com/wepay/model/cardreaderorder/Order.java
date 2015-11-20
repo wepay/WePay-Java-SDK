@@ -10,11 +10,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
- * This is an order for a card reader. The operations that are allowed are: create, find
+ * This is an trackingInformation for a card reader. The operations that are allowed are: create, find
  */
 public class Order extends WePayResource {
 
@@ -35,7 +34,7 @@ public class Order extends WePayResource {
     protected long orderId;
     protected String status;
 
-    protected TrackingInformation order;
+    protected TrackingInformation trackingInformation;
 
     public Order(OrderCreateData orderCreateData) {
         this.accountId = orderCreateData.accountId;
@@ -59,7 +58,7 @@ public class Order extends WePayResource {
         params.put("callback_uri", orderCreateData.callbackURI);
 
 
-        String response = request("/order/create", params, accessToken);
+        String response = request("/trackingInformation/create", params, accessToken);
         Order createdOrder = gson.fromJson(response, Order.class);
 
         return createdOrder;
@@ -68,7 +67,7 @@ public class Order extends WePayResource {
     public static Order findOrder(long orderId, String accessToken) throws IOException, WePayException {
         JSONObject params = new JSONObject();
         params.put("order_id", orderId);
-        String response = request("/order", params, accessToken);
+        String response = request("/trackingInformation", params, accessToken);
         Order order = gson.fromJson(response, Order.class);
         return order;
     }
@@ -80,23 +79,28 @@ public class Order extends WePayResource {
             params.put("start", start);
             params.put("limit", limit);
         }
-        String response = request("/order/find", params, accessToken);
+        String response = request("/trackingInformation/find", params, accessToken);
         List<Order> orders = gson.fromJson(response, List.class);
         return orders;
     }
 
     public class TrackingInformation {
+        String trackingService;
+        List<String> trackingCode;
+        String trackingStatus;
 
-        private String trackingService;
-        private List<String> trackingCode;
     }
 
     public String getTrackingService() {
-        return order != null ? order.trackingService : "";
+        return trackingInformation != null ? trackingInformation.trackingService : "";
     }
 
     public List<String> getTrackingCode() {
-        return order != null ? order.trackingCode : new ArrayList<String>();
+        return trackingInformation != null ? trackingInformation.trackingCode : new ArrayList<String>();
+    }
+
+    public String getTrackingStatus() {
+        return trackingInformation != null ? trackingInformation.trackingStatus : "";
     }
 
     public long getAccountId() {
