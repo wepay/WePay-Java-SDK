@@ -58,7 +58,7 @@ public class Order extends WePayResource {
         params.put("callback_uri", orderCreateData.callbackURI);
 
 
-        String response = request("/trackingInformation/create", params, accessToken);
+        String response = request("/order/create", params, accessToken);
         Order createdOrder = gson.fromJson(response, Order.class);
 
         return createdOrder;
@@ -67,7 +67,7 @@ public class Order extends WePayResource {
     public static Order findOrder(long orderId, String accessToken) throws IOException, WePayException {
         JSONObject params = new JSONObject();
         params.put("order_id", orderId);
-        String response = request("/trackingInformation", params, accessToken);
+        String response = request("/order", params, accessToken);
         Order order = gson.fromJson(response, Order.class);
         return order;
     }
@@ -79,7 +79,7 @@ public class Order extends WePayResource {
             params.put("start", start);
             params.put("limit", limit);
         }
-        String response = request("/trackingInformation/find", params, accessToken);
+        String response = request("/order/find", params, accessToken);
         List<Order> orders = gson.fromJson(response, List.class);
         return orders;
     }
