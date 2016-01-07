@@ -13,6 +13,7 @@ import com.wepay.model.data.ChargebackData;
 import com.wepay.model.data.CheckoutData;
 import com.wepay.model.data.CheckoutFindData;
 import com.wepay.model.data.CheckoutRefundData;
+import com.wepay.model.data.CreditCardAdditionalData;
 import com.wepay.model.data.EmailMessageData;
 import com.wepay.model.data.FeeData;
 import com.wepay.model.data.HostedCheckoutData;
@@ -207,6 +208,15 @@ public class Checkout extends WePayResource {
 	
 	public Long getCreditCardId() {
 		return checkoutData.paymentMethod.creditCard.id;
+	}
+	
+	public CreditCardAdditionalData getCreditCardAdditionalData() {
+		CreditCardAdditionalData additionalData = null;
+		if (this.checkoutData != null && this.checkoutData.paymentMethod != null && 
+				this.checkoutData.paymentMethod.creditCard != null) {
+			additionalData = this.checkoutData.paymentMethod.creditCard.data;
+		}
+		return additionalData;
 	}
     
 	public String getState() {
