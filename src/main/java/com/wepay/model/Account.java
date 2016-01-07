@@ -78,7 +78,16 @@ public class Account extends WePayResource {
 		a.accountData = data;
 		return a;
 	}
-	
+
+	public static Account requestReview(Long accountId, String accessToken) throws IOException, WePayException {
+		JSONObject params = new JSONObject();
+		params.put("account_id", accountId);
+
+		String response = request("/account/request_review", params, accessToken);
+		Account a = gson.fromJson(response, Account.class);
+		return a;
+	}
+
 	public void modify(AccountData data, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", this.accountId);
