@@ -11,7 +11,7 @@ public class CreditCardAdditionalData {
 	public String transactionToken;
 	
 	public String signatureUrl;
-	public EmvReceiptData emvReceiptData;
+	public EmvReceiptData emvReceipt;
 	
 	public static JSONObject buildCreditCardAdditionalData(CreditCardAdditionalData info) throws JSONException {
 		JSONObject o = new JSONObject();
