@@ -8,7 +8,6 @@
 
 	<groupId>com.wepay</groupId>
 	<artifactId>wepay-java-sdk</artifactId>
-
 	<version>4.0.3</version>
 
 	<name>wepay-java-sdk</name>

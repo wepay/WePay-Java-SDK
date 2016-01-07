@@ -6,12 +6,9 @@
 ######################
 .DS_Store
 .DS_Store?
-
-
 target
 build
 build.xml
 sources.txt
 test
 /target/
-lib
