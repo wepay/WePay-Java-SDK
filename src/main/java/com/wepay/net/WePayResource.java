@@ -63,7 +63,7 @@ public class WePayResource {
 	public static String request(String call, JSONObject params, String accessToken) throws WePayException, IOException {
 		HttpsURLConnection connection = httpsConnect(call, accessToken);
 		DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-		wr.writeBytes(params.toString());
+		wr.write(params.toString().getBytes("UTF-8"));
 		wr.flush();
 		wr.close();
 		boolean error = false;
