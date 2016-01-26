@@ -1,5 +1,9 @@
+2016-01-25
+* Released v5.0.0 (includes changed from v4.0.4 that was never released)
+* Removed transactionAmount and transactionCurrency from EmvReceiptData
+
 2016-01-06
-* Released v4.0.4
+* Released v4.0.4 (Not Found)
 * Added support for optional request parameter transaction_token in /checkout/create 
 
 2015-10-05
