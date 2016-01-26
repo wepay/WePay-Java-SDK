@@ -1,5 +1,5 @@
 2016-01-25
-* Released v5.0.0 (includes changed from v4.0.4 that was never released)
+* Released v5.0.0 (includes changes from v4.0.4 that was never released)
 * Removed transactionAmount and transactionCurrency from EmvReceiptData
 
 2016-01-06
