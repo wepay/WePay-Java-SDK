@@ -6,8 +6,6 @@ public class EmvReceiptData {
 	public String applicationLabel;
 	public String applicationIdentifier;
 	public String terminalIdentification;
-	public BigDecimal transactionAmount;
-	public String transactionCurrency;
 	public String transactionType;
 	public String transactionCertificate;
 	public String authorizationCode;
