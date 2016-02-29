@@ -5,7 +5,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -62,8 +65,8 @@ public class WePayResource {
 	
 	public static String request(String call, JSONObject params, String accessToken) throws WePayException, IOException {
 		HttpsURLConnection connection = httpsConnect(call, accessToken);
-		DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-		wr.writeBytes(params.toString());
+		Writer wr=new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8);
+		wr.write(params.toString());
 		wr.flush();
 		wr.close();
 		boolean error = false;
