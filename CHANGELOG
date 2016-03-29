@@ -1,3 +1,7 @@
+2016-03-28
+* Released v5.1.0
+* Added support for the KYC and bank_account endpoints
+
 2016-01-25
 * Released v5.0.0 (includes changes from v4.0.4 that was never released)
 * Removed transactionAmount and transactionCurrency from EmvReceiptData

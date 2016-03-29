@@ -13,16 +13,16 @@ public class AddressData {
 	public String region;
 	public String postcode;
 	
-	public static JSONObject buildAddress(AddressData info) throws JSONException {
+	public JSONObject build() {
 		JSONObject o = new JSONObject();
-		o.put("address1", info.address1);
-		o.put("address2", info.address2);
-		o.put("city", info.city);
-		o.put("state", info.state);
-		o.put("zip", info.zip);
-		o.put("country", info.country);
-		o.put("region", info.region);
-		o.put("postcode", info.postcode);
+		o.put("address1", address1);
+		o.put("address2", address2);
+		o.put("city", city);
+		o.put("state", state);
+		o.put("zip", zip);
+		o.put("country", country);
+		o.put("region", region);
+		o.put("postcode", postcode);
 		return o;
 	}
 
