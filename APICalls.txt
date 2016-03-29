@@ -17,6 +17,8 @@ WePay API Call              Return Type          Call Parameters
 /app                        App                  fetch(String accessToken);
 /app/modify                 void                 modify(AppData data, String accessToken);
 
+/bank_account/create		String				 create(BankAccountData data, String accessToken);
+
 /batch/create               Batch[]              create(BatchData[] calls, String accessToken);
 
 /checkout                   Checkout             fetch(Long checkoutId, String accessToken);

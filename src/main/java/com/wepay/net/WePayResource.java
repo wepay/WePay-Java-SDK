@@ -54,8 +54,8 @@ public class WePayResource {
 		connection.setDoInput(true);
 		connection.setRequestMethod("POST");
 		connection.setRequestProperty("Content-Type", "application/json");
-		connection.setRequestProperty("Api-Version", "2015-11-18");
-		connection.setRequestProperty("User-Agent", "WePay Java SDK v5.0.0");
+		connection.setRequestProperty("Api-Version", "2016-02-24");
+		connection.setRequestProperty("User-Agent", "WePay Java SDK v5.1.0");
 		if (accessToken != null) {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);  
         }		

@@ -79,6 +79,15 @@ public class AccountCalls {
 		Account myAccount = new Account(2111137965);
 		myAccount.delete(myAccessToken);
 		//account is deleted, nothing is returned
+
+		/**
+		 * KYC call
+		 */
+		KYCData myData = new KYCData();
+		myData.clientId = "9876";
+		myData.accountId = "1234";
+		myData.individual = new IndividualKYCData(); // With all of the fields filled out, of course
+		KYC knowMyCustomer = KYC.create(myData, myAccessToken);
 		
 		
 		
