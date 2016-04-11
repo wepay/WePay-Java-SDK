@@ -5,11 +5,11 @@ public class PMCreditCardData {
 	public Long id;
 	public CreditCardAdditionalData data;
 	
-	public static JSONObject buildCreditCard(PMCreditCardData info) throws JSONException {
+	public JSONObject toJSON() throws JSONException {
 		JSONObject o = new JSONObject();
-		o.put("id", info.id);
-		if (info.data != null) {
-			o.put("data", CreditCardAdditionalData.buildCreditCardAdditionalData(info.data));
+		o.put("id", id);
+		if (data != null) {
+			o.put("data", data.toJSON());
 		}
 		return o;
 	}

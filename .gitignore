@@ -11,3 +11,8 @@ build.xml
 sources.txt
 test
 /target/
+
+# IDE files #
+#############
+.idea/
+*.iml

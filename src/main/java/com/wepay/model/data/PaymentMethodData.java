@@ -6,12 +6,15 @@ public class PaymentMethodData {
 	public String type;
 	public PMCreditCardData creditCard;
 	public PMPreapprovalData preapproval;
+	public PMBankAccountData bankAccount;
 
-	public static JSONObject build_payment_method(PaymentMethodData info) throws JSONException {
+
+	public JSONObject toJSON() throws JSONException {
 		JSONObject o = new JSONObject();
-		o.put("type", info.type);
-		if (info.creditCard != null) o.put("credit_card", PMCreditCardData.buildCreditCard(info.creditCard));
-		if (info.preapproval != null) o.put("preapproval",  PMPreapprovalData.buildPreapproval(info.preapproval));
+		o.put("type", type);
+		if (creditCard != null) o.put("credit_card", creditCard.toJSON()); // Only one of credit card, preapproval, or bank account can be present
+		else if (preapproval != null) o.put("preapproval",  preapproval.toJSON());
+		else if (bankAccount != null) o.put("bank_account", bankAccount.toJSON());
 		return o;
 	}
 }
