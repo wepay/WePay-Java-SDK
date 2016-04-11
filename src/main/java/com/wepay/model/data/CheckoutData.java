@@ -29,4 +29,6 @@ public class CheckoutData {
 	public String callbackUri;
     public EmailMessageData emailMessage;
     public PaymentMethodData paymentMethod;
+    public PaymentErrorData paymentErrorStructure;
+
 }

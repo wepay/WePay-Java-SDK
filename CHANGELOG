@@ -1,3 +1,7 @@
+2016-04-15
+* Released v5.1.0, updating API support to 2016-03-30
+* Added support for several new data fields in /checkout: payment_error, non-profit org data, and bank information for ACH payments
+
 2016-01-25
 * Released v5.0.0 (includes changes from v4.0.4 that was never released)
 * Removed transactionAmount and transactionCurrency from EmvReceiptData
