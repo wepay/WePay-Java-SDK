@@ -30,5 +30,6 @@ public class CheckoutData {
     public EmailMessageData emailMessage;
     public PaymentMethodData paymentMethod;
     public PaymentErrorData paymentErrorStructure;
+    public NPOInformationData npoInformation;
 
 }
