@@ -3,6 +3,9 @@ package com.wepay.model;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+import com.wepay.model.data.BankAccountPaymentErrorData;
+import com.wepay.model.data.NPOInformationData;
+import com.wepay.model.data.PaymentErrorData;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,7 +95,7 @@ public class Checkout extends WePayResource {
         
         if (data.hostedCheckout != null) params.put("hosted_checkout", HostedCheckoutData.build_hosted_checkout(data.hostedCheckout));
         
-		if (data.paymentMethod != null) params.put("payment_method", PaymentMethodData.build_payment_method(data.paymentMethod));
+		if (data.paymentMethod != null) params.put("payment_method", data.paymentMethod.toJSON());
 		
         if (data.deliveryType != null) params.put("delivery_type", data.deliveryType);
 		
@@ -346,4 +349,22 @@ public class Checkout extends WePayResource {
 	public Long[] getTransactionRbitIds() {
 		return transactionRbitIds;
 	}
+
+	public PaymentErrorData getPaymentErrorData() {
+		return checkoutData.paymentError;
+	}
+
+	public PaymentMethodData getPaymentMethodData() {
+		return checkoutData.paymentMethod;
+	}
+
+	public NPOInformationData getNPOInformation() {
+		return checkoutData.npoInformation;
+	}
+
+	public CheckoutData getAllCheckoutData() {
+		return checkoutData;
+	}
+
+
 }

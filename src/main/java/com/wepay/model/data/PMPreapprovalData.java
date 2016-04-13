@@ -4,9 +4,9 @@ import org.json.*;
 public class PMPreapprovalData {
 	public Long id;
 
-	public static JSONObject buildPreapproval(PMPreapprovalData info) throws JSONException {
+	public JSONObject toJSON() throws JSONException {
 		JSONObject o = new JSONObject();
-		o.put("id", info.id);
+		o.put("id", id);
 		return o;
 	}
 }

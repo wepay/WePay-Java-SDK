@@ -13,9 +13,9 @@ public class CreditCardAdditionalData {
 	public String signatureUrl;
 	public EmvReceiptData emvReceipt;
 	
-	public static JSONObject buildCreditCardAdditionalData(CreditCardAdditionalData info) throws JSONException {
+	public JSONObject toJSON() throws JSONException {
 		JSONObject o = new JSONObject();
-		o.put("transaction_token", info.transactionToken);
+		o.put("transaction_token", transactionToken);
 		return o;
 	}
 }
