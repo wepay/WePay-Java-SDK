@@ -351,7 +351,7 @@ public class Checkout extends WePayResource {
 	}
 
 	public PaymentErrorData getPaymentErrorData() {
-		return checkoutData.paymentErrorStructure;
+		return checkoutData.paymentError;
 	}
 
 	public PaymentMethodData getPaymentMethodData() {
