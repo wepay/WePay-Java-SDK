@@ -5,4 +5,6 @@ public class AccountStatusesObjectData {
 	public String currency;
 	public String incomingPaymentsStatus;
 	public String outgoingPaymentsStatus;
+	public String accountReviewStatus;
+
 }
