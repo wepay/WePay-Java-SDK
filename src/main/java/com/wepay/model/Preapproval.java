@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import org.json.*;
 
+import com.wepay.WePay;
 import com.wepay.net.WePayResource;
 import com.wepay.exception.WePayException;
 import com.wepay.model.data.*;
@@ -99,6 +100,12 @@ public class Preapproval extends WePayResource {
 		if (data.transactionRbits != null) {
 			String transactionRbitsJson = gson.toJson(data.transactionRbits);
 			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
+		}
+
+		if (accessToken == null) {
+			// app-level pre-approvals
+			params.put("client_id", WePay.clientId);
+			params.put("client_secret", WePay.clientSecret);
 		}
 
 		Preapproval p = gson.fromJson(request("/preapproval/create", params, accessToken), Preapproval.class);

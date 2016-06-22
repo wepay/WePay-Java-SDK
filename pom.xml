@@ -8,7 +8,7 @@
 
 	<groupId>com.wepay</groupId>
 	<artifactId>wepay-java-sdk</artifactId>
-	<version>5.1.0</version>
+	<version>5.1.1</version>
 
 	<name>wepay-java-sdk</name>
 	<description>WePay Java SDK</description>
