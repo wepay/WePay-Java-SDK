@@ -23,6 +23,7 @@ public class CreditCard extends WePayResource {
 	protected Integer expirationMonth;
 	protected Integer expirationYear;
 	protected String lastFour;
+	protected Boolean autoUpdate;
 	protected Long[] rbitIds;
 
 	public CreditCard(Long creditCardId) {
@@ -35,6 +36,23 @@ public class CreditCard extends WePayResource {
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
 		String response = request("/credit_card", params, accessToken);
+		CreditCard cc = gson.fromJson(response, CreditCard.class);
+		return cc;
+	}
+
+	public static CreditCard modify(Long creditCardId, String accessToken, Boolean autoUpdate, String callbackUri) throws JSONException, IOException, WePayException {
+		JSONObject params = new JSONObject();
+		params.put("client_id", WePay.clientId);
+		params.put("client_secret", WePay.clientSecret);
+		params.put("credit_card_id", creditCardId);
+		if (autoUpdate != null) {
+			params.put("auto_update", autoUpdate);
+		}
+		if (callbackUri != null) {
+			params.put("callback_uri", callbackUri);
+		}
+
+		String response = request("/credit_card/modify", params, accessToken);
 		CreditCard cc = gson.fromJson(response, CreditCard.class);
 		return cc;
 	}
@@ -120,6 +138,10 @@ public class CreditCard extends WePayResource {
 
 	public String getLastFour() {
 		return lastFour;
+	}
+
+	public Boolean getAutoUpdate() {
+		return autoUpdate;
 	}
 	
 	public Long[] getRbitIds() {
