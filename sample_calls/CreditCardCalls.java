@@ -24,7 +24,8 @@ public class CreditCardCalls {
 			  "state": "authorized",
 			  "user_name": "John Smith",
 			  "email": "john.smith@gmail.com",
-			  "create_time": 1373414206
+			  "create_time": 1373414206,
+		      "auto_update": false
 			}
 		 */
 		/****************************************************************************/
@@ -40,8 +41,26 @@ public class CreditCardCalls {
 			  "state": "authorized",
 			  "user_name": "John Smith",
 			  "email": "john.smith@gmail.com",
-			  "create_time": 1373414206
+			  "create_time": 1373414206,
+		      "auto_update": false
 			}
+		 */
+		/****************************************************************************/
+		/**
+		 * FETCH call
+		 */
+		CreditCard updatedCreditCard = CreditCard.modify(2476834062, myAccessToken, true, null);
+		/**
+		 updatedCreditCard:
+		 {
+		 "credit_card_id": 2476834062,
+		 "credit_card_name": "MasterCard xxxxxx0633",
+		 "state": "authorized",
+		 "user_name": "John Smith",
+		 "email": "john.smith@gmail.com",
+		 "create_time": 1373414206,
+		 "auto_update": true
+		 }
 		 */
 		/****************************************************************************/
 		/**
@@ -57,7 +76,8 @@ public class CreditCardCalls {
 			    "state": "authorized",
 			    "user_name": "John Smith",
 			    "email": "john.smith@gmail.com",
-			    "create_time": 1373414206
+			    "create_time": 1373414206,
+		 		"auto_update": false
 			  },
 			  {
 			    "credit_card_id": 6384023873,
@@ -65,7 +85,8 @@ public class CreditCardCalls {
 			    "state": "authorized",
 			    "user_name": "John Smith",
 			    "email": "john.smith@gmail.com",
-			    "create_time": 1372493226
+			    "create_time": 1372493226,
+		 		"auto_update": false
 			  }
 			]
 		*/
