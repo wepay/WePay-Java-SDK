@@ -6,7 +6,7 @@ public class PaymentMethodData {
 	public String type;
 	public PMCreditCardData creditCard;
 	public PMPreapprovalData preapproval;
-	public PMBankAccountData bankAccount;
+	public PMPaymentBankData paymentBank;
 
 
 	public JSONObject toJSON() throws JSONException {
@@ -14,7 +14,7 @@ public class PaymentMethodData {
 		o.put("type", type);
 		if (creditCard != null) o.put("credit_card", creditCard.toJSON()); // Only one of credit card, preapproval, or bank account can be present
 		else if (preapproval != null) o.put("preapproval",  preapproval.toJSON());
-		else if (bankAccount != null) o.put("bank_account", bankAccount.toJSON());
+		else if (paymentBank != null) o.put("payment_bank", paymentBank.toJSON());
 		return o;
 	}
 }

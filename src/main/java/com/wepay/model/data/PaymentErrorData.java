@@ -6,7 +6,7 @@ import org.json.JSONObject;
 public class PaymentErrorData {
 
     public String type;
-    public BankAccountPaymentErrorData bankAccount;
+    public PaymentBankPaymentErrorData paymentBank;
 
     // This object may be present in the response, but should never be passed in as part of the request
 }

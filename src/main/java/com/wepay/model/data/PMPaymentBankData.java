@@ -3,7 +3,7 @@ package com.wepay.model.data;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PMBankAccountData {
+public class PMPaymentBankData {
     public Long id;
     public String bankName;
     public String type;

@@ -3,7 +3,7 @@ package com.wepay.model;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-import com.wepay.model.data.BankAccountPaymentErrorData;
+import com.wepay.model.data.PaymentBankPaymentErrorData;
 import com.wepay.model.data.NPOInformationData;
 import com.wepay.model.data.PaymentErrorData;
 import org.json.JSONArray;
