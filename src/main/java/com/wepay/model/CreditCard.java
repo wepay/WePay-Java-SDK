@@ -91,6 +91,18 @@ public class CreditCard extends WePayResource {
 		params.put("client_secret", WePay.clientSecret);
 		request("/credit_card/delete", params, accessToken);
 	}
+
+	public void enableRecurring(AddressData address, String accessToken) throws JSONException, IOException, WePayException {
+		JSONObject params = new JSONObject();
+		params.put("credit_card_id", this.creditCardId);
+		params.put("client_id", WePay.clientId);
+		params.put("client_secret", WePay.clientSecret);
+		if (address != null) {
+			params.put("address", AddressData.buildUnifiedAddress(address));
+		}
+
+		request("/credit_card/enable_recurring", params, accessToken);
+	}
 	
 	public Long getCreditCardId() {
 		return creditCardId;
