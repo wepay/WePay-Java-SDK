@@ -1,6 +1,12 @@
+2016-08-15
+* Released v6.0.0, updating API support to 2016-06-22
+* Replaced "bank account" with "payment bank"
+* Added support for /credit_card/enable_recurring/ 
+* Added Checkout.isInReview()
+
 2016-07-22
 * Released v5.1.2
-* Added support for credit_card/modify
+* Added support for /credit_card/modify/
 * Added support for auto_update field in CreditCard object
 
 2016-06-21
