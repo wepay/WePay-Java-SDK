@@ -3,7 +3,7 @@ package com.wepay.model;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-import com.wepay.model.data.BankAccountPaymentErrorData;
+import com.wepay.model.data.PaymentBankPaymentErrorData;
 import com.wepay.model.data.NPOInformationData;
 import com.wepay.model.data.PaymentErrorData;
 import org.json.JSONArray;
@@ -37,6 +37,7 @@ public class Checkout extends WePayResource {
 	protected CheckoutData checkoutData;
 	protected Long[] payerRbitIds;
 	protected Long[] transactionRbitIds;
+	protected Boolean inReview;
     
 	public Checkout(Long checkoutId) {
 		this.checkoutId = checkoutId;
@@ -348,6 +349,10 @@ public class Checkout extends WePayResource {
 
 	public Long[] getTransactionRbitIds() {
 		return transactionRbitIds;
+	}
+
+	public Boolean isInReview() {
+		return inReview;
 	}
 
 	public PaymentErrorData getPaymentErrorData() {

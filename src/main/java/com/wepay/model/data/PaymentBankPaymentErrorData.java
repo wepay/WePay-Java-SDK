@@ -1,6 +1,6 @@
 package com.wepay.model.data;
 
-public class BankAccountPaymentErrorData {
+public class PaymentBankPaymentErrorData {
 
     public String code;
     public String description;
