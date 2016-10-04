@@ -76,3 +76,8 @@ Checkout newCheckout = Checkout.create(cData, userNewAccessToken);
 A demo of the WePay API Java SDK can be found at WeFarm, an online demo marketplace built on the WePay API using this SDK. WeFarm is live online at http://wefarm.herokuapp.com/. You can also find the Java source code for WeFarm at https://github.com/wepay/WeFarm-Java to see how WeFarm uses this SDK to execute WePay API calls. 
 
 For further information, visit https://www.wepay.com/developer. 
+
+Alternatives
+================================
+
+* [WePay-Java-SDK](https://github.com/lookfirst/WePay-Java-SDK) - Third-Party implementation by [@lookfirst](https://github.com/lookfirst)
