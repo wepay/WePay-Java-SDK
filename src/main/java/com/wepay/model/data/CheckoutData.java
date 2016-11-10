@@ -13,7 +13,7 @@ public class CheckoutData {
 	public String type;
 	public BigDecimal amount;
 	public FeeData fee;
-    public Boolean autoCapture;
+    public Boolean autoRelease;
     public HostedCheckoutData hostedCheckout;
     public String deliveryType;
     public String cancelReason;

@@ -1,3 +1,8 @@
+2016-11-14
+* Released v6.1.0, updating API support to 2016-07-13
+* Several changes to the auto_capture and auto_release params, read the API changelog at https://developer.wepay.com/general/change-log
+* Since this is 2016-07-13 or later, this falls under the new api-version restrictions. This will not affect SDK users, but you may wish to be aware of them
+
 2016-08-15
 * Released v6.0.0, updating API support to 2016-06-22
 * Replaced "bank account" with "payment bank"
