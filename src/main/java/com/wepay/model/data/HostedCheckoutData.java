@@ -13,6 +13,7 @@ public class HostedCheckoutData {
 	public ThemeObjectData themeObject;
     public String checkoutUri;
     public AddressData shippingAddress;
+	public Boolean autoCapture;
     
 	public static JSONObject build_hosted_checkout(HostedCheckoutData info) throws JSONException {
 		JSONObject o = new JSONObject();
@@ -24,6 +25,7 @@ public class HostedCheckoutData {
 		if (info.prefillInfo != null) o.put("prefill_info", PrefillInfoData.buildPrefillInfo(info.prefillInfo));
 		if (info.fundingSources != null) o.put("funding_sources", info.fundingSources);
 		if (info.themeObject != null) o.put("theme_object", ThemeObjectData.buildThemeObject(info.themeObject));
+		if (info.autoCapture != null) {o.put("auto_capture", info.autoCapture);}
 		return o;
 	}
 }

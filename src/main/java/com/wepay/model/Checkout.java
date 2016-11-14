@@ -90,7 +90,7 @@ public class Checkout extends WePayResource {
         if (data.fee != null) params.put("fee", FeeData.build_fee(data.fee));
         
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
-		if (data.autoCapture != null) params.put("auto_capture", data.autoCapture);
+		if (data.autoRelease != null) params.put("auto_release", data.autoRelease);
 		if (data.referenceId != null) params.put("reference_id", data.referenceId);
 		if (data.uniqueId != null) params.put("unique_id", data.uniqueId);
         
@@ -186,11 +186,23 @@ public class Checkout extends WePayResource {
 		request("/checkout/refund", params, accessToken);
 		if (this.checkoutData != null) this.checkoutData.refundReason = refundData.refundReason;
 	}
-	
-	public void capture(String accessToken) throws JSONException, IOException, WePayException {
+
+
+	public void manualCapture(String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("checkout_id", this.checkoutId);
 		Checkout c = gson.fromJson((request("/checkout/capture", params, accessToken)), Checkout.class);
+		this.state = c.state;
+	}
+
+	/*
+	 * checkout/capture was renamed to checkout/release in the 2016-07-13 release
+	 */
+
+	public void release(String accessToken) throws JSONException, IOException, WePayException {
+		JSONObject params = new JSONObject();
+		params.put("checkout_id", this.checkoutId);
+		Checkout c = gson.fromJson((request("/checkout/release", params, accessToken)), Checkout.class);
 		this.state = c.state;
 	}
 
@@ -303,8 +315,8 @@ public class Checkout extends WePayResource {
         return checkoutData.deliveryType;
     }
 
-	public Boolean isAutoCapture() {
-		return checkoutData.autoCapture;
+	public Boolean isAutoRelease() {
+		return checkoutData.autoRelease;
 	}
     
 	public Boolean isRequireShipping() {
