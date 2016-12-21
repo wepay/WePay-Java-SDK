@@ -1,3 +1,7 @@
+2016-12-21
+* Released v7.0.0, updating API support to 2016-08-10
+* No other changes
+
 2016-11-14
 * Released v6.1.0, updating API support to 2016-07-13
 * Several changes to the auto_capture and auto_release params, read the API changelog at https://developer.wepay.com/general/change-log
