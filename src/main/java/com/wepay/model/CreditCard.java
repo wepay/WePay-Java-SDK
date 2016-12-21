@@ -23,6 +23,7 @@ public class CreditCard extends WePayResource {
 	protected Integer expirationMonth;
 	protected Integer expirationYear;
 	protected String lastFour;
+	protected String backingInstrumentName;
 	protected Boolean autoUpdate;
 	protected Long[] rbitIds;
 
@@ -150,6 +151,10 @@ public class CreditCard extends WePayResource {
 
 	public String getLastFour() {
 		return lastFour;
+	}
+
+	public String getBackingInstrumentName() {
+		return backingInstrumentName;
 	}
 
 	public Boolean getAutoUpdate() {
