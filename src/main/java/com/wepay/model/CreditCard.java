@@ -23,6 +23,7 @@ public class CreditCard extends WePayResource {
 	protected Integer expirationMonth;
 	protected Integer expirationYear;
 	protected String lastFour;
+	protected String backingInstrumentName;
 	protected Boolean autoUpdate;
 	protected Long[] rbitIds;
 
@@ -58,10 +59,19 @@ public class CreditCard extends WePayResource {
 	}
 	
 	public void authorize(String accessToken) throws JSONException, IOException, WePayException {
+		this.authorize(0L, accessToken);
+	}
+
+	public void authorize(Long account_id, String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("credit_card_id", this.creditCardId);
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
+
+		if (account_id > 0) {
+			params.put("account_id", account_id);
+		}
+
 		request("/credit_card/authorize", params, accessToken);
 	}
 	
@@ -150,6 +160,10 @@ public class CreditCard extends WePayResource {
 
 	public String getLastFour() {
 		return lastFour;
+	}
+
+	public String getBackingInstrumentName() {
+		return backingInstrumentName;
 	}
 
 	public Boolean getAutoUpdate() {
