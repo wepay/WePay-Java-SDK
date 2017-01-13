@@ -36,9 +36,15 @@ public class Subscription extends WePayResource {
 	}
 	
 	public static Subscription fetch(Long subscriptionId, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Subscription.fetch(subscriptionId, headerData);
+	}
+
+	public static Subscription fetch(Long subscriptionId, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("subscription_id", subscriptionId);
-		String response = request("/subscription", params, accessToken);
+		String response = request("/subscription", params, headerData);
 		Subscription s = gson.fromJson(response, Subscription.class);
 		SubscriptionData sd = gson.fromJson(response, SubscriptionData.class);
 		s.subscriptionData = sd;
@@ -46,6 +52,12 @@ public class Subscription extends WePayResource {
 	}
 	
 	public static Subscription[] find(SubscriptionFindData findData, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Subscription.find(findData, headerData);
+	}
+
+	public static Subscription[] find(SubscriptionFindData findData, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		if (findData.subscriptionPlanId != null) params.put("subscription_plan_id", findData.subscriptionPlanId);
 		if (findData.start != null) params.put("start", findData.start);
@@ -54,7 +66,7 @@ public class Subscription extends WePayResource {
 		if (findData.endTime != null) params.put("end_time", findData.endTime);
 		if (findData.state != null) params.put("state", findData.state);
 		if (findData.referenceId != null) params.put("reference_id", findData.referenceId);
-		JSONArray results = new JSONArray(request("/subscription/find", params, accessToken));
+		JSONArray results = new JSONArray(request("/subscription/find", params, headerData));
 		Subscription[] found = new Subscription[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			Subscription s = gson.fromJson(results.get(i).toString(), Subscription.class);
@@ -66,6 +78,12 @@ public class Subscription extends WePayResource {
 	}
 	
 	public static Subscription create(SubscriptionData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Subscription.create(data, headerData);
+	}
+
+	public static Subscription create(SubscriptionData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("subscription_plan_id", data.subscriptionPlanId);
 		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
@@ -76,7 +94,7 @@ public class Subscription extends WePayResource {
 		if (data.quantity != null) params.put("quantity", data.quantity);
 		if (data.referenceId != null) params.put("reference_id", data.referenceId);
 		if (data.prefillInfo != null) params.put("prefill_info", PrefillInfoData.buildPrefillInfo(data.prefillInfo));
-		
+
 		if (data.payerRbits != null) {
 			String payerRbitsJson = gson.toJson(data.payerRbits);
 			params.put("payer_rbits", new JSONArray(payerRbitsJson));
@@ -86,7 +104,7 @@ public class Subscription extends WePayResource {
 			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
 		}
 
-		String response = request("/subscription/create", params, accessToken);
+		String response = request("/subscription/create", params, headerData);
 		Subscription s = gson.fromJson(response, Subscription.class);
 		SubscriptionData sd = gson.fromJson(response, SubscriptionData.class);
 		s.subscriptionData = sd;
@@ -94,6 +112,12 @@ public class Subscription extends WePayResource {
 	}
 	
 	public void modify(SubscriptionData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.modify(data, headerData);
+	}
+
+	public void modify(SubscriptionData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("subscription_id", this.subscriptionId);
 		if (data.subscriptionPlanId != null) params.put("subscription_plan_id", data.subscriptionPlanId);
@@ -106,7 +130,7 @@ public class Subscription extends WePayResource {
 		if (data.transitionExpireDays != null) params.put("transition_expire_days", data.transitionExpireDays);
 		if (data.referenceId != null) params.put("reference_id", data.referenceId);
 		if (data.extendTrialDays != null) params.put("extend_trial_days", data.extendTrialDays);
-		
+
 		if (data.payerRbits != null) {
 			String payerRbitsJson = gson.toJson(data.payerRbits);
 			params.put("payer_rbits", new JSONArray(payerRbitsJson));
@@ -116,7 +140,7 @@ public class Subscription extends WePayResource {
 			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
 		}
 
-		String response = request("/subscription/modify", params, accessToken);
+		String response = request("/subscription/modify", params, headerData);
 		Subscription s = gson.fromJson(response, Subscription.class);
 		SubscriptionData sd = gson.fromJson(response, SubscriptionData.class);
 		this.subscriptionUri = s.subscriptionUri;
@@ -138,12 +162,18 @@ public class Subscription extends WePayResource {
 		this.payerRbitIds = s.payerRbitIds;
 		this.transactionRbitIds = s.transactionRbitIds;
 	}
-		
+
 	public void cancel(String reason, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.cancel(reason, headerData);
+	}
+
+	public void cancel(String reason, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("subscription_id", this.subscriptionId);
 		if (reason != null) params.put("reason", reason);
-		request("/subscription/cancel", params, accessToken);
+		request("/subscription/cancel", params, headerData);
 		if (this.subscriptionData != null && reason != null) this.subscriptionData.cancelReason = reason;
 	}
 	
