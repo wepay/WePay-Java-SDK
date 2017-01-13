@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import com.wepay.model.data.HeaderData;
 import org.json.JSONObject;
 
 import com.google.gson.FieldNamingPolicy;
@@ -44,8 +45,8 @@ public class WePayResource {
 			uiEndpoint = PRODUCTION_UI_ENDPOINT;
 		}
 	}
-	
-	protected static javax.net.ssl.HttpsURLConnection httpsConnect(String call, String accessToken) throws IOException {
+
+	protected static javax.net.ssl.HttpsURLConnection httpsConnect(String call, HeaderData headerData) throws IOException {
 		URL url = new URL(apiEndpoint + call);
 		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 		connection.setConnectTimeout(30000); // 30 seconds
@@ -56,14 +57,32 @@ public class WePayResource {
 		connection.setRequestProperty("Content-Type", "application/json");
 		connection.setRequestProperty("Api-Version", "2016-12-07");
 		connection.setRequestProperty("User-Agent", "WePay Java SDK v8.0.0");
-		if (accessToken != null) {
-            connection.setRequestProperty("Authorization", "Bearer " + accessToken);  
-        }		
+
+		if (headerData != null) {
+			if (headerData.accessToken != null) {
+				connection.setRequestProperty("Authorization", "Bearer " + headerData.accessToken);
+			}
+			if (headerData.riskToken != null) {
+				connection.setRequestProperty("WePay-Risk-Token", headerData.riskToken);
+			}
+			if (headerData.clientIP != null) {
+				connection.setRequestProperty("Client-IP", headerData.clientIP);
+			}
+		}
+
 		return connection;
 	}
 	
-	public static String request(String call, JSONObject params, String accessToken) throws WePayException, IOException {
-		HttpsURLConnection connection = httpsConnect(call, accessToken);
+	protected static javax.net.ssl.HttpsURLConnection httpsConnect(String call, String accessToken) throws IOException {
+		HeaderData headerData = new HeaderData();
+		if (accessToken != null) {
+			headerData.accessToken = accessToken;
+		}
+		return httpsConnect(call, headerData);
+	}
+
+	public static String request(String call, JSONObject params, HeaderData headerData) throws WePayException, IOException {
+		HttpsURLConnection connection = httpsConnect(call, headerData);
 		Writer wr=new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8);
 		wr.write(params.toString());
 		wr.flush();
@@ -91,6 +110,13 @@ public class WePayResource {
 			throw ex;
 		}
 		return responseString;
-	} 
+	}
 
+	public static String request(String call, JSONObject params, String accessToken) throws WePayException, IOException {
+		HeaderData headerData = new HeaderData();
+		if (accessToken != null) {
+			headerData.accessToken = accessToken;
+		}
+		return request(call, params, headerData);
+	}
 }
