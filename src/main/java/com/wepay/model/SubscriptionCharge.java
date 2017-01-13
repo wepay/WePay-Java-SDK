@@ -79,7 +79,7 @@ public class SubscriptionCharge extends WePayResource {
 		JSONObject params = new JSONObject();
 		params.put("subscription_charge_id", this.subscriptionChargeId);
 		params.put("refund_reason", refundReason);
-		String response = request("/subscription_charge/refund", params, accessToken);
+		String response = request("/subscription_charge/refund", params, headerData);
 		SubscriptionCharge sc = gson.fromJson(response, SubscriptionCharge.class);
 		this.state = sc.state;
 		this.subscriptionId = sc.subscriptionId;

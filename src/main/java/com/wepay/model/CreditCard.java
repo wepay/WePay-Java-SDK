@@ -90,7 +90,7 @@ public class CreditCard extends WePayResource {
 			params.put("account_id", account_id);
 		}
 
-		request("/credit_card/authorize", params, accessToken);
+		request("/credit_card/authorize", params, headerData);
 	}
 	
 	public static CreditCard[] find(CreditCardFindData findData, String accessToken) throws JSONException, IOException, WePayException {

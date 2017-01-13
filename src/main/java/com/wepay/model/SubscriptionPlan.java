@@ -127,7 +127,7 @@ public class SubscriptionPlan extends WePayResource {
 		JSONObject params = new JSONObject();
 		params.put("subscription_plan_id", this.subscriptionPlanId);
 		if (reason != null) params.put("reason", reason);
-		request("/subscription_plan/delete", params, accessToken);
+		request("/subscription_plan/delete", params, headerData);
 	}
 		
 	public static String getButton(SubscriptionPlanButtonData buttonData, String accessToken) throws JSONException, IOException, WePayException {
