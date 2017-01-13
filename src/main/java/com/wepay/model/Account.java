@@ -27,6 +27,12 @@ public class Account extends WePayResource {
 		this.accountId = accountId;
 	}
 
+	public static Account fetch(Long accountId, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Account.fetch(accountId, headerData);
+	}
+
 	public static Account fetch(Long accountId, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", accountId);
@@ -37,10 +43,10 @@ public class Account extends WePayResource {
 		return a;
 	}
 
-	public static Account fetch(Long accountId, String accessToken) throws JSONException, IOException, WePayException {
+	public static Account[] find(AccountFindData findData, String accessToken) throws JSONException, IOException, WePayException {
 		HeaderData headerData = new HeaderData();
 		headerData.accessToken = accessToken;
-		return fetch(accountId, headerData);
+		return Account.find(findData, headerData);
 	}
 
 	public static Account[] find(AccountFindData findData, HeaderData headerData) throws JSONException, IOException, WePayException {
@@ -59,10 +65,10 @@ public class Account extends WePayResource {
 		return found;
 	}
 
-	public static Account[] find(AccountFindData findData, String accessToken) throws JSONException, IOException, WePayException {
+	public static Account create(AccountData data, String accessToken) throws JSONException, IOException, WePayException {
 		HeaderData headerData = new HeaderData();
 		headerData.accessToken = accessToken;
-		return find(findData, headerData);
+		return Account.create(data, headerData);
 	}
 
 	public static Account create(AccountData data, HeaderData headerData) throws JSONException, IOException, WePayException {
@@ -91,10 +97,10 @@ public class Account extends WePayResource {
 		return a;
 	}
 
-	public static Account create(AccountData data, String accessToken) throws JSONException, IOException, WePayException {
+	public void modify(AccountData data, String accessToken) throws JSONException, IOException, WePayException {
 		HeaderData headerData = new HeaderData();
 		headerData.accessToken = accessToken;
-		return create(data, headerData);
+		this.modify(data, headerData);
 	}
 
 	public void modify(AccountData data, HeaderData headerData) throws JSONException, IOException, WePayException {
@@ -128,10 +134,10 @@ public class Account extends WePayResource {
 		this.accountData = ad;
 	}
 
-	public void modify(AccountData data, String accessToken) throws JSONException, IOException, WePayException {
+	public void delete(String reason, String accessToken) throws JSONException, IOException, WePayException {
 		HeaderData headerData = new HeaderData();
 		headerData.accessToken = accessToken;
-		modify(data, headerData);
+		this.delete(reason, headerData);
 	}
 
 	public void delete(String reason, HeaderData headerData) throws JSONException, IOException, WePayException {
@@ -141,10 +147,10 @@ public class Account extends WePayResource {
 		request("/account/delete", params, headerData);
 	}
 
-	public void delete(String reason, String accessToken) throws JSONException, IOException, WePayException {
+	public String getUpdateUri(AccountUpdateUriData data, String accessToken) throws JSONException, IOException, WePayException {
 		HeaderData headerData = new HeaderData();
 		headerData.accessToken = accessToken;
-		delete(reason, headerData);
+		return this.getUpdateUri(data, headerData);
 	}
 
 	public String getUpdateUri(AccountUpdateUriData data, HeaderData headerData) throws JSONException, IOException, WePayException {
@@ -166,10 +172,10 @@ public class Account extends WePayResource {
 		return object.getString("uri");
 	}
 
-	public String getUpdateUri(AccountUpdateUriData data, String accessToken) throws JSONException, IOException, WePayException {
+	public AccountReserveData getReserveDetails(String currency, String accessToken) throws JSONException, IOException, WePayException {
 		HeaderData headerData = new HeaderData();
 		headerData.accessToken = accessToken;
-		return getUpdateUri(data, headerData);
+		return this.getReserveDetails(currency, headerData);
 	}
 
 	public AccountReserveData getReserveDetails(String currency, HeaderData headerData) throws JSONException, IOException, WePayException {
@@ -179,12 +185,6 @@ public class Account extends WePayResource {
 		String response = request("/account/get_reserve_details", params, headerData);
 		AccountReserveData ar = gson.fromJson(response, AccountReserveData.class);
 		return ar;
-	}
-
-	public AccountReserveData getReserveDetails(String currency, String accessToken) throws JSONException, IOException, WePayException {
-		HeaderData headerData = new HeaderData();
-		headerData.accessToken = accessToken;
-		return getReserveDetails(currency, headerData);
 	}
 	
 	public Long getAccountId() {

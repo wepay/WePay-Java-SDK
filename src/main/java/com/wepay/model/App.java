@@ -16,6 +16,12 @@ public class App extends WePayResource {
 	protected String status;
 	protected AppData appData;
 
+	public static App fetch(String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return App.fetch(headerData);
+	}
+
 	public static App fetch(HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("client_id", WePay.clientId);
@@ -29,10 +35,10 @@ public class App extends WePayResource {
 		return a;
 	}
 
-	public static App fetch(String accessToken) throws JSONException, IOException, WePayException {
+	public void modify(AppData data, String accessToken) throws JSONException, IOException, WePayException {
 		HeaderData headerData = new HeaderData();
 		headerData.accessToken = accessToken;
-		return fetch(headerData);
+		this.modify(data, headerData);
 	}
 
 	public void modify(AppData data, HeaderData headerData) throws JSONException, IOException, WePayException {
@@ -49,12 +55,6 @@ public class App extends WePayResource {
 			if (data.gaqDomains != null) this.appData.gaqDomains = data.gaqDomains; 
 			if (data.themeObject != null) this.appData.themeObject = data.themeObject;
 		}
-	}
-
-	public void modify(AppData data, String accessToken) throws JSONException, IOException, WePayException {
-		HeaderData headerData = new HeaderData();
-		headerData.accessToken = accessToken;
-		modify(data, headerData);
 	}
 
 	public Long getClientId() {
