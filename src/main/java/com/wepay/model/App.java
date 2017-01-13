@@ -16,11 +16,11 @@ public class App extends WePayResource {
 	protected String status;
 	protected AppData appData;
 
-	public static App fetch(String accessToken) throws JSONException, IOException, WePayException {
+	public static App fetch(HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
-		String response = request("/app", params, accessToken);
+		String response = request("/app", params, headerData);
 		App a = gson.fromJson(response, App.class);
 		AppData ad = gson.fromJson(response, AppData.class);
 		ThemeObjectData atod = gson.fromJson(response, ThemeObjectData.class);
@@ -28,14 +28,20 @@ public class App extends WePayResource {
 		a.appData = ad;
 		return a;
 	}
-	
-	public void modify(AppData data, String accessToken) throws JSONException, IOException, WePayException {
+
+	public static App fetch(String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return fetch(headerData);
+	}
+
+	public void modify(AppData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
 		if (data.gaqDomains != null) params.put("gaq_domains", data.gaqDomains);
 		if (data.themeObject != null) params.put("theme_object", ThemeObjectData.buildThemeObject(data.themeObject));
-		JSONObject object = new JSONObject(request("/app/modify", params, accessToken));
+		JSONObject object = new JSONObject(request("/app/modify", params, headerData));
 		this.clientId = WePay.clientId;
 		this.status = object.getString("status");
 		if (this.appData == null) this.appData = data;
@@ -43,6 +49,12 @@ public class App extends WePayResource {
 			if (data.gaqDomains != null) this.appData.gaqDomains = data.gaqDomains; 
 			if (data.themeObject != null) this.appData.themeObject = data.themeObject;
 		}
+	}
+
+	public void modify(AppData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		modify(data, headerData);
 	}
 
 	public Long getClientId() {
