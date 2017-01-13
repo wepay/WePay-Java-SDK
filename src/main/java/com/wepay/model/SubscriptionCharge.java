@@ -31,24 +31,36 @@ public class SubscriptionCharge extends WePayResource {
 	protected String refundReason;
 	
 	public static SubscriptionCharge fetch(Long subscriptionChargeId, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return SubscriptionCharge.fetch(subscriptionChargeId, headerData);
+	}
+
+	public static SubscriptionCharge fetch(Long subscriptionChargeId, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("subscription_charge_id", subscriptionChargeId);
-		String response = request("/subscription_charge", params, accessToken);
+		String response = request("/subscription_charge", params, headerData);
 		SubscriptionCharge sc = gson.fromJson(response, SubscriptionCharge.class);
 		return sc;
 	}
-	
+
 	public static SubscriptionCharge[] find(SubscriptionChargeFindData findData, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return SubscriptionCharge.find(findData, headerData);
+	}
+
+	public static SubscriptionCharge[] find(SubscriptionChargeFindData findData, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("subscription_id", findData.subscriptionId);
 		if (findData.start != null) params.put("start", findData.start);
 		if (findData.limit != null) params.put("limit", findData.limit);
 		if (findData.startTime != null) params.put("start_time", findData.startTime);
 		if (findData.endTime != null) params.put("end_time", findData.endTime);
-		if (findData.type != null) params.put("type", findData.type);	
+		if (findData.type != null) params.put("type", findData.type);
 		if (findData.amount != null) params.put("amount", findData.amount);
 		if (findData.state != null) params.put("state", findData.state);
-		JSONArray results = new JSONArray(request("/subscription_charge/find", params, accessToken));
+		JSONArray results = new JSONArray(request("/subscription_charge/find", params, headerData));
 		SubscriptionCharge[] found = new SubscriptionCharge[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			SubscriptionCharge sc = gson.fromJson(results.get(i).toString(), SubscriptionCharge.class);
@@ -56,8 +68,14 @@ public class SubscriptionCharge extends WePayResource {
 		}
 		return found;
 	}
-	
+
 	public void refund(String refundReason, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.refund(refundReason, headerData);
+	}
+
+	public void refund(String refundReason, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("subscription_charge_id", this.subscriptionChargeId);
 		params.put("refund_reason", refundReason);
