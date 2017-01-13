@@ -19,7 +19,7 @@ public class OAuth2 extends WePayResource {
 	public static String authorize(OAuth2Data data, String accessToken) {
 		HeaderData headerData = new HeaderData();
 		headerData.accessToken = accessToken;
-		OAuth2.authorize(data, headerData);
+		return OAuth2.authorize(data, headerData);
 	}
 
 	public static String authorize(OAuth2Data data, HeaderData headerData) {
@@ -32,7 +32,7 @@ public class OAuth2 extends WePayResource {
 	public static String token(OAuth2Data data, String accessToken) throws JSONException, IOException, WePayException {
 		HeaderData headerData = new HeaderData();
 		headerData.accessToken = accessToken;
-		OAuth2.token(data, headerData);
+		return OAuth2.token(data, headerData);
 	}
 
 	public static String token(OAuth2Data data, HeaderData headerData) throws JSONException, IOException, WePayException {
