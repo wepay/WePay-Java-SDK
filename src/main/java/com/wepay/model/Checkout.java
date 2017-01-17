@@ -88,8 +88,14 @@ public class Checkout extends WePayResource {
 		}
 		return found;
     }
-	
+
 	public static Checkout create(CheckoutData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Checkout.create(data, headerData);
+	}
+	
+	public static Checkout create(CheckoutData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", data.accountId);
 		params.put("short_description", data.shortDescription);
@@ -123,7 +129,7 @@ public class Checkout extends WePayResource {
 			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
 		}
 
-		String response = request("/checkout/create", params, accessToken);
+		String response = request("/checkout/create", params, headerData);
 		Checkout c = gson.fromJson(response, Checkout.class);
 		CheckoutData cd = gson.fromJson(response, CheckoutData.class);
         
