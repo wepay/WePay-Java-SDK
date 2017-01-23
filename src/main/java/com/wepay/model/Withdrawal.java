@@ -26,26 +26,38 @@ public class Withdrawal extends WePayResource {
 	}
 	
 	public static Withdrawal fetch(Long withdrawalId, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Withdrawal.fetch(withdrawalId, headerData);
+	}
+
+	public static Withdrawal fetch(Long withdrawalId, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("withdrawal_id", withdrawalId);
-		String response = request("/withdrawal", params, accessToken);
+		String response = request("/withdrawal", params, headerData);
 		Withdrawal w = gson.fromJson(response, Withdrawal.class);
 		return w;
 	}
 	
 	public static Withdrawal[] find(WithdrawalFindData findData, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Withdrawal.find(findData, headerData);
+	}
+
+	public static Withdrawal[] find(WithdrawalFindData findData, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		if (findData.accountId != null) params.put("account_id", findData.accountId);
 		if (findData.limit != null) params.put("limit", findData.limit);
 		if (findData.start != null) params.put("start", findData.start);
 		if (findData.sortOrder != null) params.put("sort_order", findData.sortOrder);
-		JSONArray results = new JSONArray(request("/withdrawal/find", params, accessToken));
+		JSONArray results = new JSONArray(request("/withdrawal/find", params, headerData));
 		Withdrawal[] found = new Withdrawal[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			Withdrawal w = gson.fromJson(results.get(i).toString(), Withdrawal.class);
 			found[i] = w;
 		}
-		return found;	
+		return found;
 	}
 	
 	public void modify(String newCallbackUri, String accessToken) throws JSONException, IOException, WePayException {
@@ -55,10 +67,15 @@ public class Withdrawal extends WePayResource {
 		this.modify(data, accessToken);
 	}
 	public void modify(WithdrawalData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.modify(data, headerData);
+	}
+	public void modify(WithdrawalData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("withdrawal_id", this.withdrawalId);
 		params.put("callback_uri", data.callbackUri);
-		String response = request("/withdrawal/modify", params, accessToken);
+		String response = request("/withdrawal/modify", params, headerData);
 		Withdrawal w = gson.fromJson(response, Withdrawal.class);
 		this.withdrawalId = w.withdrawalId;
 		this.state = w.state;

@@ -28,9 +28,15 @@ public class Rbit extends WePayResource {
 	}
 
 	public static Rbit fetch(Long rbitId, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Rbit.fetch(rbitId, headerData);
+	}
+
+	public static Rbit fetch(Long rbitId, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("rbit_id", rbitId);
-		String response = request("/rbit", params, accessToken);
+		String response = request("/rbit", params, headerData);
 		Rbit r = gson.fromJson(response, Rbit.class);
 		RbitData rd = gson.fromJson(response, RbitData.class);
 		r.rbitData = rd;
@@ -38,8 +44,14 @@ public class Rbit extends WePayResource {
 	}
 
 	public static Rbit[] find(RbitFindData findData, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Rbit.find(findData, headerData);
+	}
+
+	public static Rbit[] find(RbitFindData findData, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		
+
 		if (findData.associatedObjectType != null) {
 			params.put("associated_object_type", findData.associatedObjectType);
 		}
@@ -56,7 +68,7 @@ public class Rbit extends WePayResource {
 			params.put("source", findData.source);
 		}
 
-		JSONArray results = new JSONArray(request("/rbit/find", params, accessToken));
+		JSONArray results = new JSONArray(request("/rbit/find", params, headerData));
 		Rbit[] found = new Rbit[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			Rbit r = gson.fromJson(results.get(i).toString(), Rbit.class);
@@ -68,6 +80,12 @@ public class Rbit extends WePayResource {
 	}
 
 	public static Rbit create(RbitData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Rbit.create(data, headerData);
+	}
+
+	public static Rbit create(RbitData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("associated_object_type", data.associatedObjectType);
 		params.put("associated_object_id", data.associatedObjectId);
@@ -75,7 +93,7 @@ public class Rbit extends WePayResource {
 		params.put("properties", data.properties);
 		params.put("receive_time", data.receiveTime);
 		params.put("source", data.source);
-		
+
 		if (data.note != null) {
 			params.put("note", data.note);
 		}
@@ -83,17 +101,23 @@ public class Rbit extends WePayResource {
 		if (data.relatedRbits != null) {
 			params.put("related_rbits", data.relatedRbits);
 		}
-		
-		String response = request("/rbit/create", params, accessToken);
+
+		String response = request("/rbit/create", params, headerData);
 		Rbit r = gson.fromJson(response, Rbit.class);
 		r.rbitData = data;
 		return r;
 	}
 
 	public void delete(String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.delete(headerData);
+	}
+
+	public void delete(HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("rbit_id", this.rbitId);
-		request("/rbit/delete", params, accessToken);
+		request("/rbit/delete", params, headerData);
 	}
 
 	public Long getRbitId() {

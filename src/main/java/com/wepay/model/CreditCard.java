@@ -32,16 +32,28 @@ public class CreditCard extends WePayResource {
 	}
 	
 	public static CreditCard fetch(Long creditCardId, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return CreditCard.fetch(creditCardId, headerData);
+	}
+
+	public static CreditCard fetch(Long creditCardId, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("credit_card_id", creditCardId);
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
-		String response = request("/credit_card", params, accessToken);
+		String response = request("/credit_card", params, headerData);
 		CreditCard cc = gson.fromJson(response, CreditCard.class);
 		return cc;
 	}
 
 	public static CreditCard modify(Long creditCardId, String accessToken, Boolean autoUpdate, String callbackUri) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return CreditCard.modify(creditCardId, headerData, autoUpdate, callbackUri);
+	}
+
+	public static CreditCard modify(Long creditCardId, HeaderData headerData, Boolean autoUpdate, String callbackUri) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
@@ -53,7 +65,7 @@ public class CreditCard extends WePayResource {
 			params.put("callback_uri", callbackUri);
 		}
 
-		String response = request("/credit_card/modify", params, accessToken);
+		String response = request("/credit_card/modify", params, headerData);
 		CreditCard cc = gson.fromJson(response, CreditCard.class);
 		return cc;
 	}
@@ -63,6 +75,12 @@ public class CreditCard extends WePayResource {
 	}
 
 	public void authorize(Long account_id, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.authorize(account_id, headerData);
+	}
+
+	public void authorize(Long account_id, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("credit_card_id", this.creditCardId);
 		params.put("client_id", WePay.clientId);
@@ -72,10 +90,16 @@ public class CreditCard extends WePayResource {
 			params.put("account_id", account_id);
 		}
 
-		request("/credit_card/authorize", params, accessToken);
+		request("/credit_card/authorize", params, headerData);
 	}
 	
 	public static CreditCard[] find(CreditCardFindData findData, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return CreditCard.find(findData, headerData);
+	}
+
+	public static CreditCard[] find(CreditCardFindData findData, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
@@ -85,24 +109,36 @@ public class CreditCard extends WePayResource {
 			if (findData.start != null) params.put("start", findData.start);
 			if (findData.sortOrder != null) params.put("sort_order", findData.sortOrder);
 		}
-		JSONArray results = new JSONArray(request("/credit_card/find", params, accessToken));
+		JSONArray results = new JSONArray(request("/credit_card/find", params, headerData));
 		CreditCard[] found = new CreditCard[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			CreditCard cc = gson.fromJson(results.get(i).toString(), CreditCard.class);
 			found[i] = cc;
 		}
-		return found;		
+		return found;
 	}
-	
+
 	public void delete(String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.delete(headerData);
+	}
+
+	public void delete(HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("credit_card_id", this.creditCardId);
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
-		request("/credit_card/delete", params, accessToken);
+		request("/credit_card/delete", params, headerData);
 	}
 
 	public void enableRecurring(AddressData address, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.enableRecurring(address, headerData);
+	}
+
+	public void enableRecurring(AddressData address, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("credit_card_id", this.creditCardId);
 		params.put("client_id", WePay.clientId);
@@ -111,7 +147,7 @@ public class CreditCard extends WePayResource {
 			params.put("address", AddressData.buildUnifiedAddress(address));
 		}
 
-		request("/credit_card/enable_recurring", params, accessToken);
+		request("/credit_card/enable_recurring", params, headerData);
 	}
 	
 	public Long getCreditCardId() {

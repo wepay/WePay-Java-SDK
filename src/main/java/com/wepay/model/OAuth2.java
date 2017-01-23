@@ -17,6 +17,12 @@ public class OAuth2 extends WePayResource {
 	protected Long expiresIn;
 
 	public static String authorize(OAuth2Data data, String accessToken) {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return OAuth2.authorize(data, headerData);
+	}
+
+	public static String authorize(OAuth2Data data, HeaderData headerData) {
 		String uri = WePayResource.uiEndpoint + "/oauth2/authorize?client_id=" + Long.toString(WePay.clientId) + "&redirect_uri=" + data.redirectUri + "&scope=" + data.scope;
 		uri += (data.userName != null) ? "&user_name=" + data.userName : "";
 		uri += (data.userEmail != null) ? "&user_email=" + data.userEmail : "";
@@ -24,13 +30,19 @@ public class OAuth2 extends WePayResource {
 	}
 	
 	public static String token(OAuth2Data data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return OAuth2.token(data, headerData);
+	}
+
+	public static String token(OAuth2Data data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
 		params.put("redirect_uri", data.redirectUri);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
 		params.put("code", data.code);
-		OAuth2 response = gson.fromJson(request("/oauth2/token", params, accessToken), OAuth2.class);
+		OAuth2 response = gson.fromJson(request("/oauth2/token", params, headerData), OAuth2.class);
 		return response.accessToken;
 	}
 	

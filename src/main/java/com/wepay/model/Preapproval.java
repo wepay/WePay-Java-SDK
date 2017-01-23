@@ -31,11 +31,17 @@ public class Preapproval extends WePayResource {
 	public Preapproval(Long preapprovalId) {
 		this.preapprovalId = preapprovalId;
 	}
-	
+
 	public static Preapproval fetch(Long preapprovalId, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Preapproval.fetch(preapprovalId, headerData);
+	}
+
+	public static Preapproval fetch(Long preapprovalId, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("preapproval_id", preapprovalId);
-		String response = request("/preapproval", params, accessToken);
+		String response = request("/preapproval", params, headerData);
 		Preapproval p = gson.fromJson(response, Preapproval.class);
 		PreapprovalData pd = gson.fromJson(response, PreapprovalData.class);
 		p.preapprovalData = pd;
@@ -43,6 +49,12 @@ public class Preapproval extends WePayResource {
 	}
 	
 	public static Preapproval[] find(PreapprovalFindData findData, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Preapproval.find(findData, headerData);
+	}
+
+	public static Preapproval[] find(PreapprovalFindData findData, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		if (findData != null) {
 			if (findData.accountId != null) params.put("account_id", findData.accountId);
@@ -54,7 +66,7 @@ public class Preapproval extends WePayResource {
 			if (findData.lastCheckoutId != null) params.put("last_checkout_id", findData.lastCheckoutId);
 			if (findData.shippingFee != null) params.put("shipping_fee", findData.shippingFee);
 		}
-		JSONArray results = new JSONArray(request("/preapproval/find", params, accessToken));
+		JSONArray results = new JSONArray(request("/preapproval/find", params, headerData));
 		Preapproval[] found = new Preapproval[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			Preapproval p = gson.fromJson(results.get(i).toString(), Preapproval.class);
@@ -66,6 +78,12 @@ public class Preapproval extends WePayResource {
 	}
 	
 	public static Preapproval create(PreapprovalData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Preapproval.create(data, headerData);
+	}
+
+	public static Preapproval create(PreapprovalData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		if (data.accountId != null) params.put("account_id", data.accountId);
 		if (data.amount != null) params.put("amount", data.amount);
@@ -91,8 +109,8 @@ public class Preapproval extends WePayResource {
 		if (data.prefillInfo != null) params.put("prefill_info", PrefillInfoData.buildPrefillInfo(data.prefillInfo));
 		if (data.fundingSources != null) params.put("funding_sources", data.fundingSources);
 		if (data.paymentMethodId != null) params.put("payment_method_id", data.paymentMethodId);
-		if (data.paymentMethodType != null) params.put("payment_method_type", data.paymentMethodType);		
-		
+		if (data.paymentMethodType != null) params.put("payment_method_type", data.paymentMethodType);
+
 		if (data.payerRbits != null) {
 			String payerRbitsJson = gson.toJson(data.payerRbits);
 			params.put("payer_rbits", new JSONArray(payerRbitsJson));
@@ -102,15 +120,15 @@ public class Preapproval extends WePayResource {
 			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
 		}
 
-		if (accessToken == null) {
+		if (headerData.accessToken == null) {
 			// app-level pre-approvals
 			params.put("client_id", WePay.clientId);
 			params.put("client_secret", WePay.clientSecret);
 		}
 
-		Preapproval p = gson.fromJson(request("/preapproval/create", params, accessToken), Preapproval.class);
+		Preapproval p = gson.fromJson(request("/preapproval/create", params, headerData), Preapproval.class);
 		p.preapprovalData = data;
-		return p;		
+		return p;
 	}
 	
 	public void modify(String newCallbackUri, String accessToken) throws JSONException, IOException, WePayException {
@@ -119,11 +137,18 @@ public class Preapproval extends WePayResource {
 		data.callbackUri = newCallbackUri;
 		this.modify(data, accessToken);
 	}
+
 	public void modify(PreapprovalData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.modify(data, headerData);
+	}
+
+	public void modify(PreapprovalData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("preapproval_id", this.preapprovalId);
 		params.put("callback_uri", data.callbackUri);
-		
+
 		if (data.payerRbits != null) {
 			String payerRbitsJson = gson.toJson(data.payerRbits);
 			params.put("payer_rbits", new JSONArray(payerRbitsJson));
@@ -133,7 +158,7 @@ public class Preapproval extends WePayResource {
 			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
 		}
 
-		String response = request("/preapproval/modify", params, accessToken);
+		String response = request("/preapproval/modify", params, headerData);
 		Preapproval p = gson.fromJson(response, Preapproval.class);
 		PreapprovalData pd = gson.fromJson(response, PreapprovalData.class);
 		pd.callbackUri = data.callbackUri;
@@ -155,9 +180,15 @@ public class Preapproval extends WePayResource {
 	}
 	
 	public void cancel(String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.cancel(headerData);
+	}
+
+	public void cancel(HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("preapproval_id", this.preapprovalId);
-		request("/preapproval/cancel", params, accessToken);
+		request("/preapproval/cancel", params, headerData);
 	}
 
 	public Long getPreapprovalId() {

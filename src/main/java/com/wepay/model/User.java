@@ -21,8 +21,14 @@ public class User extends WePayResource {
 	protected Long[] rbitIds;
 	
 	public static User fetch(String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return User.fetch(headerData);
+	}
+
+	public static User fetch(HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
-		String response = request("/user", params, accessToken);
+		String response = request("/user", params, headerData);
 		User u = gson.fromJson(response, User.class);
 		UserData ud = gson.fromJson(response, UserData.class);
 		u.userData = ud;
@@ -36,6 +42,12 @@ public class User extends WePayResource {
 		this.modify(data, accessToken);
 	}
 	public void modify(UserData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.modify(data, headerData);
+	}
+
+	public void modify(UserData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("callback_uri", data.callbackUri);
 
@@ -44,7 +56,7 @@ public class User extends WePayResource {
 			params.put("rbits", new JSONArray(rbitsJson));
 		}
 
-		String response = request("/user/modify", params, accessToken);
+		String response = request("/user/modify", params, headerData);
 		User u = gson.fromJson(response, User.class);
 		UserData ud = gson.fromJson(response, UserData.class);
 		ud.callbackUri = data.callbackUri;
@@ -59,6 +71,12 @@ public class User extends WePayResource {
 	}
 	
 	public static User register(UserData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return User.register(data, headerData);
+	}
+
+	public static User register(UserData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
@@ -69,16 +87,16 @@ public class User extends WePayResource {
 		params.put("original_ip", data.originalIp);
 		params.put("original_device", data.originalDevice);
 		params.put("tos_acceptance_time", data.tosAcceptanceTime);
-		
+
 		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
-		
+
 		if (data.rbits != null) {
 			String rbitsJson = gson.toJson(data.rbits);
 			params.put("rbits", new JSONArray(rbitsJson));
 		}
 
-		User u = gson.fromJson(request("/user/register", params, accessToken), User.class);
+		User u = gson.fromJson(request("/user/register", params, headerData), User.class);
 		u.userData = data;
 		return u;
 	}
@@ -93,12 +111,18 @@ public class User extends WePayResource {
 	}
 
 	public static void sendConfirmation(String emailMessage, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		User.sendConfirmation(emailMessage, headerData);
+	}
+
+	public static void sendConfirmation(String emailMessage, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		if (emailMessage != null) {
 			params.put("email_message", emailMessage);
 		}
 
-		request("/user/send_confirmation", params, accessToken);
+		request("/user/send_confirmation", params, headerData);
 	}
 
 	public Long getUserId() {

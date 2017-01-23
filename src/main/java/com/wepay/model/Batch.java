@@ -15,8 +15,14 @@ public class Batch extends WePayResource {
 	protected String call;
 	protected String referenceId;
 	protected Map response;
-	
+
 	public static Batch[] create(BatchData[] calls, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Batch.create(calls, headerData);
+	}
+
+	public static Batch[] create(BatchData[] calls, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject batch = new JSONObject();
 		batch.put("client_id", WePay.clientId);
 		batch.put("client_secret", WePay.clientSecret);
@@ -33,7 +39,7 @@ public class Batch extends WePayResource {
 			callsArray.put(call);
 		}
 		batch.put("calls", callsArray);
-		JSONObject object = new JSONObject(request("/batch/create", batch, accessToken));
+		JSONObject object = new JSONObject(request("/batch/create", batch, headerData));
 		JSONArray responses = object.getJSONArray("calls");
 		Batch[] response = new Batch[responses.length()];
 		for (int i = 0; i < response.length; i++) {

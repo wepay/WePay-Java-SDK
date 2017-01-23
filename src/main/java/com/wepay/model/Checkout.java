@@ -6,11 +6,6 @@ import java.math.BigDecimal;
 import com.wepay.model.data.PaymentBankPaymentErrorData;
 import com.wepay.model.data.NPOInformationData;
 import com.wepay.model.data.PaymentErrorData;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.wepay.exception.WePayException;
 import com.wepay.model.data.AddressData;
 import com.wepay.model.data.ChargebackData;
 import com.wepay.model.data.CheckoutData;
@@ -22,6 +17,12 @@ import com.wepay.model.data.FeeData;
 import com.wepay.model.data.HostedCheckoutData;
 import com.wepay.model.data.PayerData;
 import com.wepay.model.data.PaymentMethodData;
+import com.wepay.model.data.HeaderData;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.wepay.exception.WePayException;
 import com.wepay.net.WePayResource;
 
 public class Checkout extends WePayResource {
@@ -44,9 +45,15 @@ public class Checkout extends WePayResource {
 	}
 	
 	public static Checkout fetch(Long checkoutId, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Checkout.fetch(checkoutId, headerData);
+	}
+
+	public static Checkout fetch(Long checkoutId, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("checkout_id", checkoutId);
-		String response = request("/checkout", params, accessToken);
+		String response = request("/checkout", params, headerData);
 		Checkout c = gson.fromJson(response, Checkout.class);
 		CheckoutData cd = gson.fromJson(response, CheckoutData.class);
 		c.checkoutData = cd;
@@ -54,6 +61,12 @@ public class Checkout extends WePayResource {
 	}
 	
     public static Checkout[] find(CheckoutFindData findData, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Checkout.find(findData, headerData);
+	}
+
+	public static Checkout[] find(CheckoutFindData findData, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		if (findData.accountId != null) params.put("account_id", findData.accountId);
 		if (findData.start != null) params.put("start", findData.start);
@@ -65,7 +78,7 @@ public class Checkout extends WePayResource {
 		if (findData.endTime != null) params.put("end_time", findData.endTime);
 		if (findData.sortOrder != null) params.put("sort_order", findData.sortOrder);
 		if (findData.shippingFee != null) params.put("shipping_fee", findData.shippingFee);
-		JSONArray results = new JSONArray(request("/checkout/find", params, accessToken));
+		JSONArray results = new JSONArray(request("/checkout/find", params, headerData));
 		Checkout[] found = new Checkout[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			Checkout c = gson.fromJson(results.get(i).toString(), Checkout.class);
@@ -75,8 +88,14 @@ public class Checkout extends WePayResource {
 		}
 		return found;
     }
-	
+
 	public static Checkout create(CheckoutData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Checkout.create(data, headerData);
+	}
+	
+	public static Checkout create(CheckoutData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", data.accountId);
 		params.put("short_description", data.shortDescription);
@@ -110,7 +129,7 @@ public class Checkout extends WePayResource {
 			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
 		}
 
-		String response = request("/checkout/create", params, accessToken);
+		String response = request("/checkout/create", params, headerData);
 		Checkout c = gson.fromJson(response, Checkout.class);
 		CheckoutData cd = gson.fromJson(response, CheckoutData.class);
         
@@ -134,48 +153,66 @@ public class Checkout extends WePayResource {
 		data.callbackUri = newCallbackUri;
 		this.modify(data, accessToken);
 	}
-    
+
 	public void modify(CheckoutData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.modify(data, headerData);
+	}
+
+	public void modify(CheckoutData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("checkout_id", this.checkoutId);
 		params.put("callback_uri", data.callbackUri);
-		
-    	if (data.payerRbits != null) {
-    		String payerRbitsJson = gson.toJson(data.payerRbits);
-    		params.put("payer_rbits", new JSONArray(payerRbitsJson));
-    	}
-    	if (data.transactionRbits != null) {
-    		String transactionRbitsJson = gson.toJson(data.transactionRbits);
-    		params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
-    	}
-    
-        String response = request("/checkout/modify", params, accessToken);
-		
-        Checkout c = gson.fromJson(response, Checkout.class);
+
+		if (data.payerRbits != null) {
+			String payerRbitsJson = gson.toJson(data.payerRbits);
+			params.put("payer_rbits", new JSONArray(payerRbitsJson));
+		}
+		if (data.transactionRbits != null) {
+			String transactionRbitsJson = gson.toJson(data.transactionRbits);
+			params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
+		}
+
+		String response = request("/checkout/modify", params, headerData);
+
+		Checkout c = gson.fromJson(response, Checkout.class);
 		CheckoutData cd = gson.fromJson(response, CheckoutData.class);
 		cd.callbackUri = data.callbackUri;
-		
-        this.checkoutId = c.checkoutId;
+
+		this.checkoutId = c.checkoutId;
 		this.state = c.state;
-        this.softDescriptor = c.softDescriptor;
-        this.gross = c.gross;
-        this.chargeback = c.chargeback;
-        this.refund = c.refund;
-        this.payer = c.payer;
+		this.softDescriptor = c.softDescriptor;
+		this.gross = c.gross;
+		this.chargeback = c.chargeback;
+		this.refund = c.refund;
+		this.payer = c.payer;
 		this.checkoutData = cd;
 		this.payerRbitIds = c.payerRbitIds;
 		this.transactionRbitIds = c.transactionRbitIds;
 	}
-	
+
 	public void cancel(String cancelReason, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.cancel(cancelReason, headerData);
+	}
+
+	public void cancel(String cancelReason, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("checkout_id", this.checkoutId);
 		params.put("cancel_reason", cancelReason);
-		request("/checkout/cancel", params, accessToken);
+		request("/checkout/cancel", params, headerData);
 		if (this.checkoutData != null) this.checkoutData.cancelReason = cancelReason;
 	}
-	
+
 	public void refund(CheckoutRefundData refundData, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.refund(refundData, headerData);
+	}
+
+	public void refund(CheckoutRefundData refundData, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("checkout_id", this.checkoutId);
 		params.put("refund_reason", refundData.refundReason);
@@ -183,15 +220,21 @@ public class Checkout extends WePayResource {
 		if (refundData.appFee != null) params.put("app_fee", refundData.appFee);
 		if (refundData.payerEmailMessage != null) params.put("payer_email_message", refundData.payerEmailMessage);
 		if (refundData.payeeEmailMessage != null) params.put("payee_email_message", refundData.payeeEmailMessage);
-		request("/checkout/refund", params, accessToken);
+		request("/checkout/refund", params, headerData);
 		if (this.checkoutData != null) this.checkoutData.refundReason = refundData.refundReason;
 	}
 
 
 	public void manualCapture(String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.manualCapture(headerData);
+	}
+
+	public void manualCapture(HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("checkout_id", this.checkoutId);
-		Checkout c = gson.fromJson((request("/checkout/capture", params, accessToken)), Checkout.class);
+		Checkout c = gson.fromJson((request("/checkout/capture", params, headerData)), Checkout.class);
 		this.state = c.state;
 	}
 
@@ -200,9 +243,15 @@ public class Checkout extends WePayResource {
 	 */
 
 	public void release(String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.release(headerData);
+	}
+
+	public void release(HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("checkout_id", this.checkoutId);
-		Checkout c = gson.fromJson((request("/checkout/release", params, accessToken)), Checkout.class);
+		Checkout c = gson.fromJson((request("/checkout/release", params, headerData)), Checkout.class);
 		this.state = c.state;
 	}
 

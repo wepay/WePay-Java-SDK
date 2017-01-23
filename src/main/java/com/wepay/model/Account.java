@@ -26,23 +26,35 @@ public class Account extends WePayResource {
 	public Account(Long accountId) {
 		this.accountId = accountId;
 	}
-	
+
 	public static Account fetch(Long accountId, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Account.fetch(accountId, headerData);
+	}
+
+	public static Account fetch(Long accountId, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", accountId);
-		String response = request("/account", params, accessToken);
+		String response = request("/account", params, headerData);
 		Account a = gson.fromJson(response, Account.class);
 		AccountData ad = gson.fromJson(response, AccountData.class);
 		a.accountData = ad;
 		return a;
 	}
-	
+
 	public static Account[] find(AccountFindData findData, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Account.find(findData, headerData);
+	}
+
+	public static Account[] find(AccountFindData findData, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		if (findData.name != null) params.put("name", findData.name);
 		if (findData.referenceId != null) params.put("reference_id", findData.referenceId);
 		if (findData.sortOrder != null) params.put("sort_order", findData.sortOrder);
-		JSONArray results = new JSONArray(request("/account/find", params, accessToken));
+		JSONArray results = new JSONArray(request("/account/find", params, headerData));
 		Account[] found = new Account[results.length()];
 		for (int i = 0; i < found.length; i++) {
 			Account a = gson.fromJson(results.get(i).toString(), Account.class);
@@ -52,8 +64,14 @@ public class Account extends WePayResource {
 		}
 		return found;
 	}
-	
+
 	public static Account create(AccountData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return Account.create(data, headerData);
+	}
+
+	public static Account create(AccountData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("name", data.name);
 		params.put("description", data.description);
@@ -73,13 +91,19 @@ public class Account extends WePayResource {
 			String rbitsJson = gson.toJson(data.rbits);
 			params.put("rbits", new JSONArray(rbitsJson));
 		}
-		String response = request("/account/create", params, accessToken);
+		String response = request("/account/create", params, headerData);
 		Account a = gson.fromJson(response, Account.class);
 		a.accountData = data;
 		return a;
 	}
-	
+
 	public void modify(AccountData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.modify(data, headerData);
+	}
+
+	public void modify(AccountData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", this.accountId);
 		if (data.name != null) params.put("name", data.name);
@@ -97,7 +121,7 @@ public class Account extends WePayResource {
 			params.put("rbits", new JSONArray(rbitsJson));
 		}
 
-		String response = request("/account/modify", params, accessToken);
+		String response = request("/account/modify", params, headerData);
 		Account a = gson.fromJson(response, Account.class);
 		AccountData ad = gson.fromJson(response, AccountData.class);
 		ad.callbackUri = data.callbackUri;
@@ -109,15 +133,27 @@ public class Account extends WePayResource {
 		this.actionReasons = a.actionReasons;
 		this.accountData = ad;
 	}
-	
+
 	public void delete(String reason, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		this.delete(reason, headerData);
+	}
+
+	public void delete(String reason, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", this.accountId);
 		if (reason != null) params.put("reason", reason);
-		request("/account/delete", params, accessToken);
+		request("/account/delete", params, headerData);
 	}
-	
+
 	public String getUpdateUri(AccountUpdateUriData data, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return this.getUpdateUri(data, headerData);
+	}
+
+	public String getUpdateUri(AccountUpdateUriData data, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", this.accountId);
 		if (data.mode != null) {
@@ -132,15 +168,21 @@ public class Account extends WePayResource {
 			params.put("prefill_info", KYCPrefillInfoData.buildPrefillInfo(data.prefillInfo));
 		}
 
-   		JSONObject object = new JSONObject(request("/account/get_update_uri", params, accessToken));
+		JSONObject object = new JSONObject(request("/account/get_update_uri", params, headerData));
 		return object.getString("uri");
 	}
 
 	public AccountReserveData getReserveDetails(String currency, String accessToken) throws JSONException, IOException, WePayException {
+		HeaderData headerData = new HeaderData();
+		headerData.accessToken = accessToken;
+		return this.getReserveDetails(currency, headerData);
+	}
+
+	public AccountReserveData getReserveDetails(String currency, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("account_id", this.accountId);
 		if (currency != null) params.put("currency", currency);
-		String response = request("/account/get_reserve_details", params, accessToken);
+		String response = request("/account/get_reserve_details", params, headerData);
 		AccountReserveData ar = gson.fromJson(response, AccountReserveData.class);
 		return ar;
 	}

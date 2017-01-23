@@ -1,3 +1,6 @@
+2017-01-19
+* Released v8.1.0, adding support for Risk Headers on API calls.
+
 2016-12-21
 * Released v8.0.0, updating API support to 2016-12-07
 * Added support for optional account_id in CreditCard.authorize()
