@@ -1,0 +1,20 @@
+package com.wepay;
+
+import com.wepay.WePay;                     // WePay object needed for API initialization
+import com.wepay.model.*;                   // contains call classes and all API call functions
+import com.wepay.model.data.*;              // contains all data objects needed for making calls
+import com.wepay.net.WePayResource;         // network resource used to execute calls
+import com.wepay.exception.WePayException;  // handles WePay exceptions
+import org.json.*;                          // SDK uses JSON when handling API call parameters
+import com.google.gson.*;                   // SDK uses GSON for building objects from API responses
+
+public class BaseWePayTest {
+	public static WePay wepay;
+	
+	public static void verifyInitialize() {
+		wepay = new WePay();
+		wepay.initialize((long)46858, "3e56ccf2a8", false);
+	}
+	
+
+}
