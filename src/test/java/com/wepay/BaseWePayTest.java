@@ -7,13 +7,19 @@ import com.wepay.net.WePayResource;         // network resource used to execute 
 import com.wepay.exception.WePayException;  // handles WePay exceptions
 import org.json.*;                          // SDK uses JSON when handling API call parameters
 import com.google.gson.*;                   // SDK uses GSON for building objects from API responses
+import org.junit.Assert;
+import org.junit.Test;
 
 public class BaseWePayTest {
 	public static WePay wepay;
 	
-	public static void verifyInitialize() {
-		wepay = new WePay();
-		wepay.initialize((long)46858, "3e56ccf2a8", false);
+	@Test
+	public void testInitialize() {
+		//wepay = new WePay();
+		Long appClientId = (long)46858;
+		String appClientSecret = "3e56ccf2a8";
+		WePay.initialize(appClientId, appClientSecret, false);
+		Assert.assertEquals(appClientId, WePay.clientId);
 	}
 	
 
