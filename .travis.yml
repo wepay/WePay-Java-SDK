@@ -1,0 +1,9 @@
+language: java
+install: mvn clean install
+notifications:
+  email:
+    on_success: never
+sudo: false
+env:
+  global:
+    - secure: bAoGPNyNvXkW720G/rAN9nwlVAkxnjRJ+WMMmge5flWimlTyN6tB2AI8dFW4Ad7g0iMOtljU0RoN2gwCkfoR4Z2Z7AN+j6zWpFjQLp/nU/UGobrKe9kFOzMp5lowPZohdzGin5k8Voa1B0aUYggI05c1sJtc+YyrVBQUSBFFM7H2f1NkZWYXRx7H3b/wSTyVxFN3oOe0uL+zFcqPPtp/ySM+1vnLZLLmmYuJcynNV3HcnWqv6Fos5UCffJG/tw/NdNwAE9snO/tDmr1tJsM4VOzRUTWavv2j4tDZ2PMOGSccxIneU0H4hJRbeQJ9V225EcHJxNFVGmJGAvOSbpjEHmhNbgocBSPwO5pfRYc/c9hjPF6Oyfn+W4B6KdUJCe/YE/X1Cplaeun8aK8iHklQ2pdHC3fQIsF0ET9Wao8k8gXjVMjvpx6syaiYytG7YQPS86c+q5bFlKBc9QRxzh2FFseIMbt+0liq4X/MmcGKnnCXaPb7/8nQNiQMnhVrtJgr0fN/hlQI4GsyDjS0Y3yfpzkazR7AqiXgYNHEA/fsvUhqqE0Ss2db7Sg2Ia4sSjRNJ32hm4gK4DQUQ6xJ0IpibImUycc9HmfFZlE1S7aOurBARUTh99tnFNN/ACGU0HzOp0gZuqOymbSN8Dit3kPDm5QoX9FXWVuf+trLCYSQlvI=
