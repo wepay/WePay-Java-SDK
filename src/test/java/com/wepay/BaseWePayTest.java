@@ -18,6 +18,9 @@ public class BaseWePayTest {
 		//wepay = new WePay();
 		Long appClientId = (long)27801;
 		String appClientSecret = System.getenv("appClientSecret");
+		System.out.println("Secret:" + appClientSecret);
+		String foo = System.getenv("Foo");
+		System.out.print("Foo: " + foo);
 		WePay.initialize(appClientId, appClientSecret, false);
 		Assert.assertEquals(appClientId, WePay.clientId);
 	}
