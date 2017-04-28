@@ -1,0 +1,10 @@
+language: java
+install: mvn clean install
+notifications:
+  email:
+    on_success: never
+sudo: false
+env:
+  global:
+  - appClientId=171482
+  - secure: ldQy23GREhK7UT2nhnUBVJs6xTgVfW7gWmZBP3fWk5GECSQBKSXzAmGNUQsMJ6N1CA7mFJ0yHS3npcbAmeInrbSsKiFAf4OeNjIkpaarFSK8LjI10XdBWEW+8Bx+U2/iPja8Il9pb1vNXmzrUYZ++nxUB0HuUs5YGeIl7cS1mF0=
