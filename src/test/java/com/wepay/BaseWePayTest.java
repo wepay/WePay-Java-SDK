@@ -15,13 +15,10 @@ public class BaseWePayTest {
 	
 	@Test
 	public void testInitialize() {
-		//wepay = new WePay();
 		String appClient = System.getenv("appClientId");
-		System.out.println("appClient: " + appClient);
-		Long appClientId = (appClient == null) ? (long)27801 : Long.parseLong(appClient);
+		Long appClientId = (appClient == null) ? (long)171482 : Long.parseLong(appClient);
 		String appClientSecret = System.getenv("appClientSecret");
-		System.out.println("Secret:" + appClientSecret);
-		WePay.initialize(appClientId, appClientSecret, false);
+		WePay.initialize(appClientId, appClientSecret, true);
 		Assert.assertEquals(appClientId, WePay.clientId);
 	}
 	
