@@ -1,0 +1,10 @@
+language: java
+install: mvn clean install
+notifications:
+  email:
+    on_success: never
+sudo: false
+env:
+  global:
+  - appClientId=27801
+  - secure: NQEhvEfeO/CAjGfUh12lCx7eTpsQwgfspF2MyOMqlnmILLxPSLs9sLUypCJw07wlhPuPn0x9vy++2c0by/+D4EWGLdTLAh5yrDJFlmF2ELEK4sti8AMwD/+Za8d76DugfZOwD3RJemXfaf0Z8Qs2y/xWcTSVPYGzKxiBw1pmAO7ADsZfrhmLrr3HAEiA8l5Ht1kV3ZdL35FsiTPEX0027ti9r4FliWmAAoc4IpqdgXti3zGf2hEpunKLYgsFhMIUB3uES+/mh+xwe7mMs1l2km3ML/5QQfshy1vRu6NxemaKoLsYrVRVWaSvCAltSyyu50MMMO0Blh/f0l6d73Wn5GFkOuP6OM2B0JaWAuXPECjzdomOGAfAin5OpKm92rWeCjlmcNyYQSb+ylDd/l1Fk3FN+e87YtWE4aBpLnVraDn6DWRIO8Uxg7R2xAOcoBKHKDhujxkq8Oy7o9+AdOVSS70zR/8uJQ7gGyEtdCWtvRZtqY1wskGPqZRBEvnD/t45Oe6804oDlLVXDy3U5M1vHKgGd4MbBIPqwNavEy5l8e9UzukWLYHgLa9G/81WvRlJScs+LEb8NjHKOGZHSGs1t4GiN4bYkRWfYdMLhunTiFYLtXcOKuo8SUHciCIzLzdg5O+v6+UQg2jVzXbiVWntk86Qgt3OM0kUiUodLttLtpc=
