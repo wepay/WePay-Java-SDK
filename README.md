@@ -3,7 +3,7 @@ WePay-Java-SDK
 
 Note
 ================================
-This WePay-Java-SDK is for <a href = "https://www.wepay.com/developer/version/2016-12-07">WePay Api Version 2017-02-01</a>. The jar for the previous API versions can be found in the lib folder.
+This WePay-Java-SDK is for <a href = "https://www.wepay.com/developer/version/2016-12-07">WePay Api Version 2017-05-31</a>. The jar for the previous API versions can be found in the lib folder.
 
 Building
 ================================
