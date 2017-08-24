@@ -86,6 +86,7 @@ public class Account extends WePayResource {
 		if (data.currencies != null) params.put("currencies", data.currencies);
 		if (data.countryOptions != null) params.put("country_options", CountryOptionsData.buildCountryOptions(data.countryOptions));
 		if (data.feeScheduleSlot != null) params.put("fee_schedule_slot", data.feeScheduleSlot);
+		if (data.supportContactNumber != null) params.put("support_contact_number", InternationalPhoneNumberData.buildInternationalPhoneNumber(data.supportContactNumber));
 
 		if (data.rbits != null) {
 			String rbitsJson = gson.toJson(data.rbits);
@@ -115,6 +116,7 @@ public class Account extends WePayResource {
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
 		if (data.countryOptions != null) params.put("country_options", CountryOptionsData.buildCountryOptions(data.countryOptions));
 		if (data.feeScheduleSlot != null) params.put("fee_schedule_slot", data.feeScheduleSlot);
+		if (data.supportContactNumber != null) params.put("support_contact_number", InternationalPhoneNumberData.buildInternationalPhoneNumber(data.supportContactNumber));
 
 		if (data.rbits != null) {
 			String rbitsJson = gson.toJson(data.rbits);
@@ -255,7 +257,7 @@ public class Account extends WePayResource {
 		return disabledReasons;
 	}
 	
-	public Integer getMcc() {
+	public String getMcc() {
 		return accountData.mcc;
 	}
 	
@@ -270,5 +272,8 @@ public class Account extends WePayResource {
 	public String[] getSupportedCardTypes() {		
 		return supportedCardTypes;		
 	}
-	
+
+	public InternationalPhoneNumberData getSupportContactNumber() {
+		return accountData.supportContactNumber;
+	}
 }
