@@ -1,4 +1,8 @@
 2017-08-24
+* Released v9.1.0, updating API support to 2017-05-31
+* Added support for CreditCard.bin
+
+2017-08-24
 * Released v9.0.0, updating API support to 2017-02-01
 * Added support for Account.supportContactNumber
 * Changed Account.mcc from Integer to String
