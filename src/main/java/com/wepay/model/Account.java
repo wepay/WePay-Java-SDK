@@ -257,7 +257,7 @@ public class Account extends WePayResource {
 		return disabledReasons;
 	}
 	
-	public Integer getMcc() {
+	public String getMcc() {
 		return accountData.mcc;
 	}
 	

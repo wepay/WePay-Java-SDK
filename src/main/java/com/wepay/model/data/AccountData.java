@@ -13,7 +13,7 @@ public class AccountData {
 	public String imageUri;
 	public String[] gaqDomains;
 	public ThemeObjectData themeObject;
-	public Integer mcc;
+	public String mcc;
 	public String callbackUri;
     public String country;
     public String[] currencies;
