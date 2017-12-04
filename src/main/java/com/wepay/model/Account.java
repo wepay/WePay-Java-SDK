@@ -1,7 +1,6 @@
 package com.wepay.model;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 
 import org.json.*;
 
@@ -22,6 +21,8 @@ public class Account extends WePayResource {
 	protected AccountData accountData;
 	protected Long [] rbitIds;
 	protected String[] supportedCardTypes;
+	protected Long disablementTime;
+	protected Long ownerUserId;
 	 
 	public Account(Long accountId) {
 		this.accountId = accountId;
@@ -275,5 +276,13 @@ public class Account extends WePayResource {
 
 	public InternationalPhoneNumberData getSupportContactNumber() {
 		return accountData.supportContactNumber;
+	}
+
+	public Long getDisablementTime() {
+		return disablementTime;
+	}
+
+	public Long getOwnerUserId() {
+		return ownerUserId;
 	}
 }
