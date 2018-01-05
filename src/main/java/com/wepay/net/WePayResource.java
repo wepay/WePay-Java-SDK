@@ -23,6 +23,9 @@ import com.wepay.model.data.deserialization.WepayExclusionStrategy;
 
 public class WePayResource {
 
+	public static final int defaultConnectionTimeoutSecs = 30;
+	public static final int defaultReadTimeoutSecs = 120;
+
 	public static String apiEndpoint;
 	public static String uiEndpoint;
 	protected final static String STAGE_API_ENDPOINT = "https://stage.wepayapi.com/v2";
@@ -49,8 +52,8 @@ public class WePayResource {
 	protected static javax.net.ssl.HttpsURLConnection httpsConnect(String call, HeaderData headerData) throws IOException {
 		URL url = new URL(apiEndpoint + call);
 		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-		connection.setConnectTimeout(30000); // 30 seconds
-		connection.setReadTimeout(100000); // 100 seconds
+		connection.setConnectTimeout(defaultConnectionTimeoutSecs * 1000);
+		connection.setReadTimeout(defaultReadTimeoutSecs * 1000);
 		connection.setDoOutput(true);
 		connection.setDoInput(true);
 		connection.setRequestMethod("POST");
@@ -70,7 +73,14 @@ public class WePayResource {
 			}
 		}
 
-		return connection;
+    if (headerData.connectionTimeoutSecs > 0) {
+      connection.setConnectTimeout(headerData.connectionTimeoutSecs * 1000);
+    }
+    if (headerData.readTimeoutSecs > 0) {
+      connection.setReadTimeout(headerData.readTimeoutSecs * 1000);
+    }
+
+    return connection;
 	}
 	
 	protected static javax.net.ssl.HttpsURLConnection httpsConnect(String call, String accessToken) throws IOException {

@@ -15,7 +15,8 @@ public class UserData {
 	public Long tosAcceptanceTime;
 	public String redirectUri; 
 	public String callbackUri;
-	
+	public String type;
+
 	@JsonDeserializeIgnore
     public RbitData[] rbits;
 }

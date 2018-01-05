@@ -87,8 +87,11 @@ public class User extends WePayResource {
 		params.put("original_ip", data.originalIp);
 		params.put("original_device", data.originalDevice);
 		params.put("tos_acceptance_time", data.tosAcceptanceTime);
+    if (data.type != null) {
+      params.put("type", data.type);
+    }
 
-		if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
+    if (data.redirectUri != null) params.put("redirect_uri", data.redirectUri);
 		if (data.callbackUri != null) params.put("callback_uri", data.callbackUri);
 
 		if (data.rbits != null) {
@@ -124,6 +127,39 @@ public class User extends WePayResource {
 
 		request("/user/send_confirmation", params, headerData);
 	}
+
+  public static void markEmailVerified(String accessToken) throws JSONException, IOException, WePayException {
+    JSONObject params = new JSONObject();
+    HeaderData headerData = new HeaderData();
+    headerData.accessToken = accessToken;
+
+    request("/user/mark_email_verified", params, headerData);
+  }
+
+  public static void changeEmail(String email, String accessToken) throws JSONException, IOException, WePayException {
+    JSONObject params = new JSONObject();
+    params.put("email", email);
+    HeaderData headerData = new HeaderData();
+    headerData.accessToken = accessToken;
+
+    request("/user/change_email", params, headerData);
+  }
+
+  public static SsoTokenData requestSsotoken(String accessToken) throws JSONException, IOException, WePayException {
+    JSONObject params = new JSONObject();
+    HeaderData headerData = new HeaderData();
+    headerData.accessToken = accessToken;
+
+    return gson.fromJson(request("/user/request_sso_token", params, headerData), SsoTokenData.class);
+  }
+
+  public static void logout(String accessToken) throws JSONException, IOException, WePayException {
+    JSONObject params = new JSONObject();
+    HeaderData headerData = new HeaderData();
+    headerData.accessToken = accessToken;
+
+    request("/user/logout", params, headerData);
+  }
 
 	public Long getUserId() {
 		return userId;

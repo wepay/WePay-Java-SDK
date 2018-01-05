@@ -12,4 +12,5 @@ public class AccountBalancesObjectData {
 	public String withdrawalPeriod;
 	public Long withdrawalNextTime;
 	public String withdrawalBankName;	
+	public String withdrawalType;
 }
