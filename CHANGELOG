@@ -1,3 +1,7 @@
+2018-01-10
+* Released v9.2.0
+* Added support for Account.disablementTime and Account.ownerUserId
+
 2017-08-24
 * Released v9.1.0, updating API support to 2017-05-31
 * Added support for CreditCard.bin
