@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import com.google.gson.JsonSyntaxException;
 import com.wepay.model.data.HeaderData;
 import org.json.JSONObject;
 
@@ -116,8 +117,12 @@ public class WePayResource {
 		rd.close();
 		String responseString = response.toString();
 		if (error) {
-			WePayException ex = WePayResource.gson.fromJson(responseString, WePayException.class);
-			throw ex;
+      try {
+        WePayException ex = WePayResource.gson.fromJson(responseString, WePayException.class);
+        throw ex;
+      } catch (JsonSyntaxException e) {
+        throw new WePayException("Can't parse wepay error response " + responseCode + " body " + responseString);
+      }
 		}
 		return responseString;
 	}
