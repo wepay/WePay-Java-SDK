@@ -11,5 +11,6 @@ public class AccountBalancesObjectData {
 	public BigDecimal disputedAmount;
 	public String withdrawalPeriod;
 	public Long withdrawalNextTime;
-	public String withdrawalBankName;	
+	public String withdrawalBankName;
+	public String withdrawalType;
 }
