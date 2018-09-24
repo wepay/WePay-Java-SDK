@@ -1,3 +1,9 @@
+2018-09-25
+* Released v10.1.0, updating API support to 2018-08-29
+* Added PaymentMethodData.inlineCreditCard
+* Added PMInlineCreditCardData type
+* Added WePayException.details, WePayException.documentationUrl and ErrorDetail class to support new fields in error responses
+
 2018-09-24
 * Released v10.0.0
 * Added support for AccountBalancesObjectData.withdrawalType, UserData.type
