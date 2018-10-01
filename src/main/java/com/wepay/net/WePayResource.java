@@ -72,12 +72,6 @@ public class WePayResource {
 			if (headerData.clientIP != null) {
 				connection.setRequestProperty("Client-IP", headerData.clientIP);
 			}
-      if (headerData.connectionTimeoutSecs > 0) {
-        connection.setConnectTimeout(headerData.connectionTimeoutSecs * 1000);
-      }
-      if (headerData.readTimeoutSecs > 0) {
-        connection.setReadTimeout(headerData.readTimeoutSecs * 1000);
-      }
 		}
 
     return connection;

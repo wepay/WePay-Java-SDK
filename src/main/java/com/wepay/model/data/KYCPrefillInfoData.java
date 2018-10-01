@@ -18,24 +18,24 @@ public class KYCPrefillInfoData {
     public static JSONObject buildPrefillInfo(KYCPrefillInfoData info) throws JSONException {
         JSONObject o = new JSONObject();
         if (info.name != null) {
-          o.put("name", NameData.buildName(info.name));
+            o.put("name", NameData.buildName(info.name));
         }
         o.put("email", info.email);
         if (info.phone != null) {
-          o.put("phone_number", InternationalPhoneNumberData.buildInternationalPhoneNumber(info.phone));
+            o.put("phone_number", InternationalPhoneNumberData.buildInternationalPhoneNumber(info.phone));
         }
         if (info.address != null) {
-          o.put("address", AddressData.buildUnifiedAddress(info.address));
+            o.put("address", AddressData.buildUnifiedAddress(info.address));
         }
         if (info.dob != null) {
-          o.put("dob", DateOfBirthData.buildDateOfBirth(info.dob));
+            o.put("dob", DateOfBirthData.buildDateOfBirth(info.dob));
         }
         o.put("entity_name", info.entityName);
         if (info.entityPhone != null) {
-          o.put("entity_phone", InternationalPhoneNumberData.buildInternationalPhoneNumber(info.entityPhone));
+            o.put("entity_phone", InternationalPhoneNumberData.buildInternationalPhoneNumber(info.entityPhone));
         }
         if (info.entityAddress != null) {
-          o.put("entity_address", AddressData.buildUnifiedAddress(info.entityAddress));
+            o.put("entity_address", AddressData.buildUnifiedAddress(info.entityAddress));
         }
         o.put("url", info.url);
         o.put("description", info.description);
