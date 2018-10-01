@@ -145,7 +145,7 @@ public class CreditCard extends WePayResource {
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
 		if (address != null) {
-			params.put("address", AddressData.buildAddress(address));
+			params.put("address", AddressData.buildUnifiedAddress(address));
 		}
 
 		request("/credit_card/enable_recurring", params, headerData);
