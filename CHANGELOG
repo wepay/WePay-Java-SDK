@@ -1,3 +1,21 @@
+2018-09-25
+* Released v10.1.0, updating API support to 2018-08-29
+* Added PaymentMethodData.inlineCreditCard
+* Added PMInlineCreditCardData type
+* Added WePayException.details, WePayException.documentationUrl and ErrorDetail class to support new fields in error responses
+
+2018-09-24
+* Released v10.0.0
+* Added support for AccountBalancesObjectData.withdrawalType, UserData.type
+* Added DateOfBirthData, NameData, SsoTokenData
+* Added User.markEmailVerified(), User.changeEmail(), User.requestSsotoken(), User.logout()
+* Changed KYCPrefillInfoData.name to NameData type, phone and entityPhone to InternationalPhoneNumberData type, dob to DateOfBirthData type, address and entityAddress to AddressData type
+* Removed AddressData.buildAddress()
+
+2018-01-10
+* Released v9.2.0
+* Added support for Account.disablementTime and Account.ownerUserId
+
 2017-08-24
 * Released v9.1.0, updating API support to 2017-05-31
 * Added support for CreditCard.bin

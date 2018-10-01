@@ -16,7 +16,7 @@ public class UserData {
 	public String redirectUri; 
 	public String callbackUri;
 	public String type;
-
+	
 	@JsonDeserializeIgnore
     public RbitData[] rbits;
 }

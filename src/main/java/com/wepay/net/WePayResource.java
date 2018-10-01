@@ -59,8 +59,8 @@ public class WePayResource {
 		connection.setDoInput(true);
 		connection.setRequestMethod("POST");
 		connection.setRequestProperty("Content-Type", "application/json");
-		connection.setRequestProperty("Api-Version", "2018-03-21");
-		connection.setRequestProperty("User-Agent", "WePay Java SDK v9.1.3");
+		connection.setRequestProperty("Api-Version", "2018-08-29");
+		connection.setRequestProperty("User-Agent", "WePay Java SDK v10.1.0");
 
 		if (headerData != null) {
 			if (headerData.accessToken != null) {
@@ -72,14 +72,13 @@ public class WePayResource {
 			if (headerData.clientIP != null) {
 				connection.setRequestProperty("Client-IP", headerData.clientIP);
 			}
+      if (headerData.connectionTimeoutSecs > 0) {
+        connection.setConnectTimeout(headerData.connectionTimeoutSecs * 1000);
+      }
+      if (headerData.readTimeoutSecs > 0) {
+        connection.setReadTimeout(headerData.readTimeoutSecs * 1000);
+      }
 		}
-
-    if (headerData.connectionTimeoutSecs > 0) {
-      connection.setConnectTimeout(headerData.connectionTimeoutSecs * 1000);
-    }
-    if (headerData.readTimeoutSecs > 0) {
-      connection.setReadTimeout(headerData.readTimeoutSecs * 1000);
-    }
 
     return connection;
 	}
