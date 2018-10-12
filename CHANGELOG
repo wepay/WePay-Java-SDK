@@ -1,3 +1,7 @@
+2018-10-08
+* Released v11.0.0, updating API support to 2018-10-03
+* Added AccountFindData.start and AccountFindData.limit
+
 2018-09-25
 * Released v10.1.0, updating API support to 2018-08-29
 * Added PaymentMethodData.inlineCreditCard
