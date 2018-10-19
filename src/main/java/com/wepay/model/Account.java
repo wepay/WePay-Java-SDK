@@ -55,6 +55,8 @@ public class Account extends WePayResource {
 		if (findData.name != null) params.put("name", findData.name);
 		if (findData.referenceId != null) params.put("reference_id", findData.referenceId);
 		if (findData.sortOrder != null) params.put("sort_order", findData.sortOrder);
+		if (findData.start != null) params.put("start", findData.start);
+		if (findData.limit != null) params.put("limit", findData.limit);
 		JSONArray results = new JSONArray(request("/account/find", params, headerData));
 		Account[] found = new Account[results.length()];
 		for (int i = 0; i < found.length; i++) {

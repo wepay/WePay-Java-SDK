@@ -3,7 +3,7 @@ WePay-Java-SDK
 
 Note
 ================================
-This WePay-Java-SDK is for WePay API Version 2018-08-29. The jars for the previous API versions can be found in the lib folder.
+This WePay-Java-SDK is for WePay API Version 2018-10-03. The jars for the previous API versions can be found in the lib folder.
 
 Building
 ================================
