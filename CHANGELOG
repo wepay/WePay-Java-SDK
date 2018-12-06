@@ -1,3 +1,9 @@
+2018-12-06
+* Released v11.0.1
+* Handled some potential NPE
+* Change the default name of Maven build jar
+* Handle potential error response serialization problem
+
 2018-10-08
 * Released v11.0.0, updating API support to 2018-10-03
 * Added AccountFindData.start and AccountFindData.limit
