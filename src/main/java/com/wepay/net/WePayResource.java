@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import com.google.gson.JsonSyntaxException;
 import com.wepay.model.data.HeaderData;
 import org.json.JSONObject;
 
@@ -22,6 +23,9 @@ import com.wepay.model.data.deserialization.WepayExclusionStrategy;
 
 
 public class WePayResource {
+
+	public static final int defaultConnectionTimeoutSecs = 30;
+	public static final int defaultReadTimeoutSecs = 120;
 
 	public static String apiEndpoint;
 	public static String uiEndpoint;
@@ -49,8 +53,8 @@ public class WePayResource {
 	protected static javax.net.ssl.HttpsURLConnection httpsConnect(String call, HeaderData headerData) throws IOException {
 		URL url = new URL(apiEndpoint + call);
 		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-		connection.setConnectTimeout(30000); // 30 seconds
-		connection.setReadTimeout(100000); // 100 seconds
+		connection.setConnectTimeout(defaultConnectionTimeoutSecs * 1000);
+		connection.setReadTimeout(defaultReadTimeoutSecs * 1000);
 		connection.setDoOutput(true);
 		connection.setDoInput(true);
 		connection.setRequestMethod("POST");
@@ -70,7 +74,7 @@ public class WePayResource {
 			}
 		}
 
-		return connection;
+    return connection;
 	}
 	
 	protected static javax.net.ssl.HttpsURLConnection httpsConnect(String call, String accessToken) throws IOException {
@@ -106,8 +110,12 @@ public class WePayResource {
 		rd.close();
 		String responseString = response.toString();
 		if (error) {
-			WePayException ex = WePayResource.gson.fromJson(responseString, WePayException.class);
-			throw ex;
+      try {
+        WePayException ex = WePayResource.gson.fromJson(responseString, WePayException.class);
+        throw ex;
+      } catch (JsonSyntaxException e) {
+        throw new WePayException("Can't parse wepay error response " + responseCode + " body " + responseString);
+      }
 		}
 		return responseString;
 	}
