@@ -1,8 +1,8 @@
-2018-12-06
+2018-12-13
 * Released v11.0.1
-* Handled some potential NPE
-* Change the default name of Maven build jar
-* Handle potential error response serialization problem
+* Handled potential NullPointerExceptions
+* Changed the default name of the Maven build artifact to include version info
+* Handled potential error response serialization problem
 
 2018-10-08
 * Released v11.0.0, updating API support to 2018-10-03
