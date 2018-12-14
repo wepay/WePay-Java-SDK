@@ -1,3 +1,9 @@
+2018-12-13
+* Released v11.0.1
+* Handled potential NullPointerExceptions
+* Changed the default name of the Maven build artifact to include version info
+* Handled potential error response serialization problem
+
 2018-10-08
 * Released v11.0.0, updating API support to 2018-10-03
 * Added AccountFindData.start and AccountFindData.limit
