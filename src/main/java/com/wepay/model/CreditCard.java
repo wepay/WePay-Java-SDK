@@ -27,6 +27,8 @@ public class CreditCard extends WePayResource {
 	protected String backingInstrumentName;
 	protected Boolean autoUpdate;
 	protected Long[] rbitIds;
+	protected Boolean cardOnFile;
+	protected Boolean recurring;
 
 	public CreditCard(Long creditCardId) {
 		this.creditCardId = creditCardId;
@@ -48,22 +50,28 @@ public class CreditCard extends WePayResource {
 		return cc;
 	}
 
-	public static CreditCard modify(Long creditCardId, String accessToken, Boolean autoUpdate, String callbackUri) throws JSONException, IOException, WePayException {
+	public static CreditCard modify(CreditCardModifyData creditCardModifyData, String accessToken) throws JSONException, IOException, WePayException {
 		HeaderData headerData = new HeaderData();
 		headerData.accessToken = accessToken;
-		return CreditCard.modify(creditCardId, headerData, autoUpdate, callbackUri);
+		return CreditCard.modify(creditCardModifyData, headerData);
 	}
 
-	public static CreditCard modify(Long creditCardId, HeaderData headerData, Boolean autoUpdate, String callbackUri) throws JSONException, IOException, WePayException {
+	public static CreditCard modify(CreditCardModifyData creditCardModifyData, HeaderData headerData) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
-		params.put("credit_card_id", creditCardId);
-		if (autoUpdate != null) {
-			params.put("auto_update", autoUpdate);
+		params.put("credit_card_id", creditCardModifyData.creditCardId);
+		if (creditCardModifyData.autoUpdate != null) {
+			params.put("auto_update", creditCardModifyData.autoUpdate);
 		}
-		if (callbackUri != null) {
-			params.put("callback_uri", callbackUri);
+		if (creditCardModifyData.callbackUri != null) {
+			params.put("callback_uri", creditCardModifyData.callbackUri);
+		}
+		if (creditCardModifyData.cardOnFile != null) {
+			params.put("card_on_file", creditCardModifyData.cardOnFile);
+		}
+		if (creditCardModifyData.recurring != null) {
+			params.put("recurring", creditCardModifyData.recurring);
 		}
 
 		String response = request("/credit_card/modify", params, headerData);
@@ -214,5 +222,12 @@ public class CreditCard extends WePayResource {
 	public Long[] getRbitIds() {
 		return rbitIds;
 	}
-	
+
+	public Boolean getCardOnFile() {
+		return cardOnFile;
+	}
+
+	public Boolean getRecurring() {
+		return recurring;
+	}
 }
