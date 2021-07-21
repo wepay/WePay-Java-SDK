@@ -31,5 +31,8 @@ public class CheckoutData {
     public PaymentMethodData paymentMethod;
     public PaymentErrorData paymentError;
     public NPOInformationData npoInformation;
+    public String initiatedBy;
+    public String transactionType;
+    public StrongCustomerAuthentication strongCustomerAuthentication;
 
 }

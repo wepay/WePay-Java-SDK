@@ -1,3 +1,9 @@
+2021-07-21
+* Released v12.1.0, updating 3DS authentication support to 2019-04-03
+* Added CheckoutData.initiatedBy, CheckoutData.transactionType, CheckoutData.strongCustomerAuthentication
+* Added Browser, DeviceInfo, StrongCustomerAuthentication
+* Allowed StrongCustomerAuthentication in CreditCard.authorize()
+
 2019-04-30
 * Released v12.0.0, updating API support to 2019-04-03
 * Added CreditCardModifyData

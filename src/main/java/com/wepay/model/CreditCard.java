@@ -90,11 +90,18 @@ public class CreditCard extends WePayResource {
 	}
 
 	public void authorize(Long account_id, HeaderData headerData) throws JSONException, IOException, WePayException {
+		this.authorize(account_id, headerData, null);
+	}
+
+	public void authorize(Long account_id, HeaderData headerData, StrongCustomerAuthentication sca) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("credit_card_id", this.creditCardId);
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
 
+		if (sca != null) {
+			params.put("strong_customer_authentication", sca.toJSON());
+		}
 		if (account_id > 0) {
 			params.put("account_id", account_id);
 		}
