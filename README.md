@@ -4,6 +4,7 @@ WePay-Java-SDK
 Note
 ================================
 This WePay-Java-SDK is for WePay API Version 2019-04-03. The jars for the previous API versions can be found in the lib folder. From Dec 13, 2018, the default jar name will include the SDK version.
+WePay API Version 2019-04-03 is now supporting 3DS authentication for GBP checkouts and credit card authorize.
 
 Building
 ================================

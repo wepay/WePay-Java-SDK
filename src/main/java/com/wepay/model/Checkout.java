@@ -155,6 +155,18 @@ public class Checkout extends WePayResource {
       params.put("transaction_rbits", new JSONArray(transactionRbitsJson));
     }
 
+    if (data.initiatedBy != null) {
+      params.put("initiated_by", data.initiatedBy);
+    }
+
+    if (data.transactionType != null) {
+      params.put("transaction_type", data.transactionType);
+    }
+
+    if (data.strongCustomerAuthentication != null) {
+      params.put("strong_customer_authentication", data.strongCustomerAuthentication.toJSON());
+    }
+
     String response = request("/checkout/create", params, headerData);
     Checkout c = gson.fromJson(response, Checkout.class);
     CheckoutData cd = gson.fromJson(response, CheckoutData.class);
